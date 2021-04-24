@@ -7740,6 +7740,11 @@ seq-queue@^0.0.5:
   resolved "https://registry.yarnpkg.com/seq-queue/-/seq-queue-0.0.5.tgz#d56812e1c017a6e4e7c3e3a37a1da6d78dd3c93e"
   integrity sha1-1WgS4cAXpuTnw+Ojeh2m143TyT4=
 
+sequelize-paginate@1.1.6:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/sequelize-paginate/-/sequelize-paginate-1.1.6.tgz#eb55eae762ed425b3efdc32dbfad378fe7ef6bdb"
+  integrity sha512-PQngK3AFn0WZW09VveD0nf2cfHSKZMbdgfQTDUVRVA8qgidDc9iAwUYb64SVSBlMjXoAhCpewqNdyiSOOF7PvQ==
+
 sequelize-pool@^6.0.0:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/sequelize-pool/-/sequelize-pool-6.1.0.tgz#caaa0c1e324d3c2c3a399fed2c7998970925d668"

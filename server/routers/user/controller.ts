@@ -78,7 +78,7 @@ export const login = async ( req : Request, res : Response ) =>{
     res.set('token', token);
     res.status(200).json({ data: serialized })
   } catch (e){
-    res.status(500).json({ error: e.toString() })
+    res.status(500).json({ error: e.toString().replace("Error: ", "") })
   }
 }
 
@@ -94,11 +94,11 @@ export const check = async ( req : Request, res : Response, next: NextFunction )
     if (!profile) throw new Error('프로필이 존재하지 않습니다.')
     res.status(200).json({ data: profile })
   } catch (e){
-    res.status(500).json({ error: e.toString() })
+    res.status(500).json({ error: e.toString().replace("Error: ", "") })
   }
 }
 
 // 로그아웃
 export const logout = async ( res : Response ) =>{
-    await res.status(200).json({message: '로그아웃 되었습니다.'})
+    await res.status(200).json({ data: '로그아웃 되었습니다.'} )
 }

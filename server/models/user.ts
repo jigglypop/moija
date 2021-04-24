@@ -1,4 +1,4 @@
-import { DataTypes, Model, ModelAttributes, Sequelize } from "sequelize";
+import { DataTypes, Model, Sequelize } from "sequelize";
 
 export interface IUser extends Document{
   id: string;

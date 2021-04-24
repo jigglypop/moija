@@ -1,27 +1,20 @@
 import { DataTypes, Sequelize } from "sequelize";
-import { IUser } from "./user";
 
-export interface IPost extends Document{
+export interface IGroup extends Document{
   id: string;
-  title: string;
-  content: string;
-  user: IUser
+  name: string;
   createdAt: Date;
   updatedAt: Date;
 }
 
-export function PostFactory (sequelize: Sequelize) {
-  const post = sequelize.define("post", {
+export function GroupFactory (sequelize: Sequelize) {
+  const group = sequelize.define("group", {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    title: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    content: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -36,5 +29,5 @@ export function PostFactory (sequelize: Sequelize) {
       defaultValue: DataTypes.NOW,
     },
   });
-  return post
+  return group
 }
