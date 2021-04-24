@@ -1,4 +1,13 @@
 import { DataTypes, Sequelize } from "sequelize";
+import { IUser } from "./user";
+
+export interface IComment extends Document{
+  id: string;
+  content: string;
+  user: IUser
+  createdAt: Date;
+  updatedAt: Date;
+}
 
 export function CommentFactory (sequelize: Sequelize) {
   const comment =  sequelize.define("comment", {

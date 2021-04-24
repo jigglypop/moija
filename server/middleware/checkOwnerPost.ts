@@ -5,7 +5,7 @@ import { IPost } from "../models/post";
 import { IUser } from "../models/user";
 
 // 글 업데이트
-const checkOwner : RequestHandler = async ( req, res, next ) => {
+const checkOwnerPost : RequestHandler = async ( req, res, next ) => {
   try {
     const { postId } = await req.params
     const decoded = await req.body.decoded
@@ -25,4 +25,4 @@ const checkOwner : RequestHandler = async ( req, res, next ) => {
     res.status(500).json({ error: e.toString().replace("Error: ", "") })
   }
 }
-export default checkOwner
+export default checkOwnerPost

@@ -10,9 +10,6 @@ export interface IProfile extends Document{
   permission : number;
   createdAt: Date;
   updatedAt: Date;
-  postlike : string[];
-  follower : string[];
-  following : string[];
 }
 
 export interface ProfileModel extends Model<IProfile>{}
@@ -53,18 +50,6 @@ export function ProfileFactory (sequelize: Sequelize) {
     permission: {
       type: DataTypes.INTEGER,
       defaultValue: 1
-    },
-    postlike: {
-      type: DataTypes.JSON,
-      defaultValue: []
-    },
-    follower: {
-      type: DataTypes.JSON,
-      defaultValue: []
-    },
-    following: {
-      type: DataTypes.JSON,
-      defaultValue: []
     },
     createdAt: {
       type: DataTypes.DATE,
