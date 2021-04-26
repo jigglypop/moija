@@ -1,35 +1,24 @@
 <template>
   <div class="mainwrapper">
     <div class="main">
-      <div class="main-item">
-        <h1>hello</h1>
-      </div>
-            <div class="main-item">
-        <h1>hello</h1>
-      </div>
-            <div class="main-item">
-        <h1>hello</h1>
-      </div>
-                  <div class="main-item">
-        <h1>hello</h1>
-      </div>
-                        <div class="main-item">
-        <h1>hello</h1>
+      <div class="main-item" v-for="item in maincategory.data" :key="item.id">
+        <main-item :item="item"></main-item>
       </div>
     </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import MainItem from './main-item.vue'
+
 export default {
   name: 'MainComponent',
-  data(){
-    return {
-      images: [
-
-      ]
-    }
-  }
+  components:{
+    MainItem
+  },
+  props :{
+    maincategory : Object
+  },
 }
 </script>
 
@@ -48,10 +37,6 @@ export default {
     grid-template-rows: 1fr 1fr;
   }
   .main-item{
-    /* grid-template-columns: ; */
-    /* grid-row:1/2;
-    grid-column: 1/2; */
-    background: red;
     width: 100%;
     height: 100%;
   }

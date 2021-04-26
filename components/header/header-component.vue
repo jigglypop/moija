@@ -35,9 +35,6 @@ export default {
   mounted(){
     const nav = document.querySelector(".container");
     const fixNav = () => {
-      // scrollHeight : 스크롤바 높이를 뺀 내용 전체의 높이
-      // clientHeight : 스크롤바 높이를 뺀 가시적인 높이
-      // offsetHeight : 스크롤바 높이를 포함한 가시적인 높이
       if (window.scrollY > nav.offsetHeight + 300) {
         nav.classList.add("colors");
       } else {
@@ -66,12 +63,7 @@ export default {
     padding: 5%;
     transition: padding 0.3s ease-in-out;
   }
-  /* .container .headerdiv{
-    padding: 30px;
-  }
-  .container.colors .headerdiv{
-    padding: 0;
-  } */
+
   .container.colors {
     padding: 0;
     background-color: black;
@@ -91,7 +83,6 @@ export default {
   .nav .logotext {
     font-size: 10px;
     font-weight: 800;
-    text-shadow: 2px 2px 2px black;
   }
   .logoundertext{
     margin: 0;

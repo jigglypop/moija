@@ -1,4 +1,4 @@
-import { DataTypes, Model, Sequelize } from "sequelize";
+import { DataTypes, Sequelize } from "sequelize";
 import { paginate } from 'sequelize-paginate'
 
 export interface ICategory extends Document{

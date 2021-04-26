@@ -74,6 +74,10 @@ db.Profile.belongsToMany(db.Profile, { as: 'followings', through: 'followings_fo
 db.Post.belongsToMany(db.Profile, { as: 'profiles', through: 'post_profile', foreignKey: 'post', otherKey: 'profile' });
 db.Profile.belongsToMany(db.Post, { as: 'posts', through: 'post_profile', foreignKey: 'profile', otherKey: 'post' });
 
+// 댓글 좋아요 프로필 : 포스트 -> N : M
+db.Comment.belongsToMany(db.Profile, { as: 'profiles', through: 'comment_profile', foreignKey: 'comment', otherKey: 'profile' });
+db.Profile.belongsToMany(db.Comment, { as: 'comments', through: 'comment_profile', foreignKey: 'profile', otherKey: 'comment' });
+
 export const Post = db.Post
 export const User = db.User
 export const Profile = db.Profile

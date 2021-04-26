@@ -5,7 +5,7 @@ import { create, read } from "./controller";
 
 const groupRouter : Router = express.Router();
 
-groupRouter.post("/", jwtMiddleware, checkLoggedIn, create);
+groupRouter.post("/:maincategoryId", jwtMiddleware, checkLoggedIn, create);
 groupRouter.get("/:groupId", read);
 
 export default groupRouter;

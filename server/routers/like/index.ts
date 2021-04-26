@@ -6,6 +6,7 @@ import checkLike from "../../middleware/checkLike";
 
 const likeRouter : Router = express.Router();
 
-likeRouter.post("/:postId/:userId", jwtMiddleware, checkLoggedIn, checkLike, like);
+likeRouter.post("/post/:postId/:userId", jwtMiddleware, checkLoggedIn, checkLike, like);
+likeRouter.post("/comment/:commentId/:userId", jwtMiddleware, checkLoggedIn, checkLike, like);
 
 export default likeRouter;

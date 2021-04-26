@@ -1,6 +1,6 @@
 <template>
   <div>
-    <main-component></main-component>
+    <main-component :maincategory="maincategory"></main-component>
   </div>
 </template>
 
@@ -8,27 +8,23 @@
 
 import Vue from 'vue'
 import MainComponent from '../components/main/main-component.vue'
+import { mapActions, mapState } from 'vuex'
 
 export default Vue.extend({
   components:{
     MainComponent
   },
-  data() {
-    return {
-      result: '',
-    }
+  created(){
+    this.MAINCATEGORY()
   },
-  fetch(){
-    console.log('fetch')
+  computed: {
+    ...mapState(['maincategory'])
   },
   methods: {
-    sayHi(someone: string) {
-      this.result = 'hello ' + someone;
-    }
-  },
-  created() {
-    this.sayHi("10");
-  },
+    ...mapActions({
+      MAINCATEGORY: 'maincategory/MAINCATEGORY'
+    }),
+  }
 })
 </script>
 

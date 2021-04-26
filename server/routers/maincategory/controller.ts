@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Model } from "sequelize/types";
-import { MainCategory } from "../../models";
+import { Group, MainCategory } from "../../models";
 import { IMainCategory } from "../../models/maincategory";
 
 // 메인 카테고리 생성
@@ -25,10 +25,23 @@ export const read = async ( req : Request, res : Response ) =>{
   try {
     const { maincategoryId } = await req.params
     if (!maincategoryId) throw new Error('잘못된 경로입니다.')
-    const maincategory: Model<IMainCategory> | null = await MainCategory.findByPk(maincategoryId, { include: MainCategory })
+    const maincategory: Model<IMainCategory> | null = await MainCategory.findByPk(maincategoryId, { include: Group })
     if (!maincategoryId) throw new Error('메인 카테고리가 없습니다.')
     res.status(200).json({
       data: maincategory
+    })
+  } catch(e){
+    res.status(500).json({ error: e.toString().replace("Error: ", "") })
+  }
+}
+
+
+// 메인 카테고리 모두 읽기
+export const readall = async ( req : Request, res : Response ) =>{
+  try {
+    const maincategories: Model<IMainCategory> | null = await MainCategory.findAll()
+    res.status(200).json({
+      data: maincategories
     })
   } catch(e){
     res.status(500).json({ error: e.toString().replace("Error: ", "") })

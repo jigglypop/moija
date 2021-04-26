@@ -1,4 +1,5 @@
 import { DataTypes, Sequelize } from "sequelize";
+import { paginate } from 'sequelize-paginate'
 
 export interface IMainCategory extends Document{
   id: string;
@@ -34,5 +35,6 @@ export function MainCategoryFactory (sequelize: Sequelize) {
       defaultValue: DataTypes.NOW,
     },
   });
+  paginate(maincategory)
   return maincategory
 }
