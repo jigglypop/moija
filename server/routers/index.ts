@@ -6,6 +6,7 @@ import categoryRouter from "./category";
 import commentRouter from "./comment";
 import followRouter from "./follow";
 import likeRouter from "./like";
+import maincategoryRouter from "./maincategory";
 
 const rootRouter = express();
 
@@ -16,5 +17,6 @@ rootRouter.use('/category', categoryRouter)
 rootRouter.use('/comment', commentRouter)
 rootRouter.use('/follow', followRouter)
 rootRouter.use('/like', likeRouter)
+rootRouter.use('/maincategory', maincategoryRouter)
 
 export default rootRouter;

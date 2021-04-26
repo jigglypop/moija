@@ -1,20 +1,9 @@
-# moija
+This component (<nuxt-link>) is used to provide navigations between page components and enhance performances with smart prefetching.
 
-## Build Setup
+In fact, <nuxt-link> extends <router-link>. That means it takes the same properties and can be used in the same manner.
 
-```bash
-# install dependencies
-$ yarn install
+After that we can read about smart prefetching:
 
-# serve with hot reload at localhost:3000
-$ yarn dev
+Nuxt.js will automagically prefetch the code-splitted pages linked with when visible in the viewport by default. This hugely improves the end user performances.
 
-# build for production and launch server
-$ yarn build
-$ yarn start
-
-# generate static project
-$ yarn generate
-```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+Based on that I think you are simply looking at better performance with <nuxt-link>.

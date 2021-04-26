@@ -1,36 +1,39 @@
 <template>
   <div>
-    <h1>hello</h1>
+    <main-component></main-component>
   </div>
 </template>
 
 <script lang="ts">
 
-export default {
+import Vue from 'vue'
+import MainComponent from '../components/main/main-component.vue'
+
+export default Vue.extend({
+  components:{
+    MainComponent
+  },
   data() {
     return {
+      result: '',
     }
   },
-  computed: {
+  fetch(){
+    console.log('fetch')
   },
-  mounted() {
-
+  methods: {
+    sayHi(someone: string) {
+      this.result = 'hello ' + someone;
+    }
   },
-}
+  created() {
+    this.sayHi("10");
+  },
+})
 </script>
 
 <style scoped>
- * {
-    box-sizing: border-box;
-  }
-  .whiteboard {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border: 2px solid black;
-  }
-
+* {
+  box-sizing: border-box;
+}
 </style>

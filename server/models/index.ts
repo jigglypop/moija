@@ -6,6 +6,7 @@ import { CommentFactory } from './comment';
 import { ProfileFactory } from './profile';
 import { GroupFactory } from './group';
 import { CategoryFactory } from './category';
+import { MainCategoryFactory } from './maincategory';
 
 dotenv.config();
 export const sequelize = new Sequelize(
@@ -27,6 +28,7 @@ const db = {
   Profile: ProfileFactory(sequelize),
   Group: GroupFactory(sequelize),
   Category: CategoryFactory(sequelize),
+  MainCategory: MainCategoryFactory(sequelize)
 }
 // 그룹 : 유저 -> N : M
 db.Group.belongsToMany(db.User, { through: 'GroupUser' })
@@ -35,6 +37,10 @@ db.User.belongsToMany(db.Group, { through: 'GroupUser' })
 // 유저 : 포스트 -> 1 : N
 db.User.hasMany(db.Post)
 db.Post.belongsTo(db.User)
+
+// 메인카테고리 : 그룹 -> 1 : N
+db.MainCategory.hasMany(db.Group)
+db.Group.belongsTo(db.MainCategory)
 
 // 유저 : 코멘트 -> 1 : N
 db.User.hasMany(db.Comment)
@@ -74,5 +80,6 @@ export const Profile = db.Profile
 export const Comment = db.Comment
 export const Group = db.Group
 export const Category = db.Category
+export const MainCategory = db.MainCategory
 
 export default db
