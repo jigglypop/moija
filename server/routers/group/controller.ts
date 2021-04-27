@@ -6,12 +6,12 @@ import { IGroup } from "../../models/group";
 // 그룹생성
 export const create = async ( req : Request, res : Response ) =>{
   try {
-    const { maincategoryId } = await req.params
-    if (!maincategoryId) throw new Error('메인카테고리를 입력해 주세요')
+    const { locationId } = await req.params
+    if (!locationId) throw new Error('지역을 입력해 주세요')
     const { name } = await req.body
     if (!name) throw new Error('이름을 입력해 주세요')
     const group = await Group.create({
-      maincategoryId: maincategoryId,
+      locationId: locationId,
       name: name,
     })
     await Category.create({

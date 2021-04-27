@@ -1,17 +1,20 @@
 <template>
   <form @submit.prevent="onLogin">
+    <h5>처음 방문하였나요? <span class="move" @click="openRegister">회원가입</span></h5>
     <label><input v-model="username" placeholder="아이디"/></label>
     <label><input v-model="password" placeholder="비밀번호" type="password"/></label>
     <h5 class="error">{{ login.error }}</h5>
-    <button type="submit" class="wave-button"><h4>로그인</h4></button>
-    <h5>처음 방문하였나요? <span class="move" @click="openRegister">회원가입</span></h5>
+    <wave-button type="submit"><h4>로그인</h4></wave-button>
   </form>
 </template>
 
 <script lang="ts">
+import Vue from 'vue'
 import { mapState, mapActions, mapMutations } from 'vuex'
+import waveButton from '../common/wave-button.vue'
 
-export default {
+export default Vue.extend({
+  components: { waveButton },
   name:'login-component',
   data(){
     return {
@@ -29,14 +32,10 @@ export default {
     }),
     ...mapMutations({
       OPENREGISTER: 'modal/REGISTER',
-      OPENLOGIN: 'modal/LOGIN',
       CLOSE: 'modal/CLOSE'
     }),
     openRegister(){
       this.OPENREGISTER()
-    },
-    openLogin(){
-      this.OPENLOGIN()
     },
     async onLogin(){
       await this.LOGIN({
@@ -51,7 +50,7 @@ export default {
       }
     }
   }
-}
+})
 </script>
 
 <style scoped>
@@ -91,47 +90,6 @@ export default {
 	  -webkit-transition: background-color 9999s ease-out;
     -webkit-box-shadow: 0 0 0px 1000px #141414 inset !important;
     -webkit-text-fill-color: #fff !important;
-  }
-  .wave-button {
-    border: none;
-    padding: 12px 30px;
-    margin: 10px;
-    background-color: #ffe259;
-    color: black;
-    font-size: 12px;
-    font-weight: 800;
-    text-transform: uppercase;
-    cursor: pointer;
-    position: relative;
-  }
-  .wave-button:before {
-    content: "";
-    position: absolute;
-    width: 24px;
-    height: 24px;
-    top: -5px;
-    left: -5px;
-    border-top: 2px solid #ffe259;
-    border-left: 2px solid #ffe259;
-    transition: all 0.25s;
-  }
-
-  .wave-button:hover:before,
-  .wave-button:hover:after {
-    height: 100%;
-    width: 100%;
-  }
-
-  .wave-button:after {
-    content: "";
-    position: absolute;
-    width: 24px;
-    height: 24px;
-    bottom: -5px;
-    right: -5px;
-    border-bottom: 2px solid #ffe259;
-    border-right: 2px solid #ffe259;
-    transition: all 0.25s;
   }
   @media only screen and (max-width: 1200px) {
     form {

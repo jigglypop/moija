@@ -3,12 +3,14 @@
     <div class="mainwrapper">
       <div class="main">
         <div class="main-item" v-for="item in maincategory.data" :key="item.id">
+          <nuxt-link :to="`/maincategory/${item.id}`">
           <div class="item-name">
             <h4 >{{ item.name }}</h4>
           </div>
           <div>
             <img :src="require(`~/assets/maincategory/${item.image}`)" class="background"/>
           </div>
+          </nuxt-link>
         </div>
       </div>
       <div class="mainunder">

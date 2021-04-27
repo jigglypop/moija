@@ -20,7 +20,6 @@ export default Vue.extend({
     ...mapState(['check'])
   },
   mounted(){
-    console.log('호출')
     this.CHECK()
   },
   methods:{

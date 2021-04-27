@@ -7,6 +7,7 @@ import { ProfileFactory } from './profile';
 import { GroupFactory } from './group';
 import { CategoryFactory } from './category';
 import { MainCategoryFactory } from './maincategory';
+import { LocationFactory } from './location';
 
 dotenv.config();
 export const sequelize = new Sequelize(
@@ -22,13 +23,14 @@ export const sequelize = new Sequelize(
 const db = {
   sequelize : sequelize,
   Sequelize : Sequelize,
+  MainCategory: MainCategoryFactory(sequelize),
+  Location : LocationFactory(sequelize),
+  Group: GroupFactory(sequelize),
+  Category: CategoryFactory(sequelize),
   Post : PostFactory(sequelize),
   Comment : CommentFactory(sequelize),
   User: UserFactory(sequelize),
   Profile: ProfileFactory(sequelize),
-  Group: GroupFactory(sequelize),
-  Category: CategoryFactory(sequelize),
-  MainCategory: MainCategoryFactory(sequelize)
 }
 // 그룹 : 유저 -> N : M
 db.Group.belongsToMany(db.User, { through: 'GroupUser' })
@@ -38,9 +40,13 @@ db.User.belongsToMany(db.Group, { through: 'GroupUser' })
 db.User.hasMany(db.Post)
 db.Post.belongsTo(db.User)
 
-// 메인카테고리 : 그룹 -> 1 : N
-db.MainCategory.hasMany(db.Group)
-db.Group.belongsTo(db.MainCategory)
+// 메인카테고리 : 지역 -> 1 : N
+db.MainCategory.hasMany(db.Location)
+db.Location.belongsTo(db.MainCategory)
+
+// 지역 : 그룹 -> 1 : N
+db.Location.hasMany(db.Group)
+db.Group.belongsTo(db.Location)
 
 // 유저 : 코멘트 -> 1 : N
 db.User.hasMany(db.Comment)
@@ -78,12 +84,14 @@ db.Profile.belongsToMany(db.Post, { as: 'posts', through: 'post_profile', foreig
 db.Comment.belongsToMany(db.Profile, { as: 'profiles', through: 'comment_profile', foreignKey: 'comment', otherKey: 'profile' });
 db.Profile.belongsToMany(db.Comment, { as: 'comments', through: 'comment_profile', foreignKey: 'profile', otherKey: 'comment' });
 
-export const Post = db.Post
-export const User = db.User
-export const Profile = db.Profile
-export const Comment = db.Comment
+export const MainCategory = db.MainCategory
+export const Location =db.Location
 export const Group = db.Group
 export const Category = db.Category
-export const MainCategory = db.MainCategory
+export const Post = db.Post
+export const Comment = db.Comment
+
+export const User = db.User
+export const Profile = db.Profile
 
 export default db

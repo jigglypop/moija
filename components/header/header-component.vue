@@ -19,7 +19,10 @@
         </div>
         <div v-if="check.data">
           <div class="headerdiv">
-            <a><h1 class="righttext">{{ check.data.nickname }}</h1></a>
+            <nuxt-link :to="`/profile/${check.data.id}`"><border-avatar :permission="check ? check.data.permission : 4"></border-avatar></nuxt-link>
+          </div>
+          <div class="headerdiv">
+            <nuxt-link :to="`/profile/${check.data.id}`"><h1 class="righttext">{{ check.data.nickname }}</h1></nuxt-link>
           </div>
           <div class="headerdiv">
             <a @click="onLogout"><i class="logout fas fa-sign-out-alt fa-2x"></i></a>
@@ -49,11 +52,13 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
+import BorderAvatar from '../common/border-avatar.vue'
 import pulseBlob from '../common/pulse-blob.vue'
 
 export default {
   components: {
-    pulseBlob
+    pulseBlob,
+    BorderAvatar
   },
   name:'header-component',
   computed:{

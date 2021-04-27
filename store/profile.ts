@@ -1,8 +1,12 @@
 import createMutations from "../util/createMutations";
 import createActions from "../util/createActions";
-import { checkApi } from "~/api/auth";
+import { readProfileApi } from "~/api/profile";
 
-const type = 'CHECK'
+const type = 'PROFILE'
+
+export interface IProfileForm {
+  profileId: string | null
+}
 
 export const state = () => ({
   data: null,
@@ -14,5 +18,5 @@ export const mutations = {
   ...createMutations(type),
 };
 export const actions = {
-  ...createActions(type, checkApi),
+  ...createActions<IProfileForm>(type, readProfileApi),
 };

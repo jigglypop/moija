@@ -14,10 +14,10 @@
               <img :src="require('~/assets/logo.png')" class="logoimage">
             </div>
             <div>
-              <h2>MOIJA</h2>
+              <h1>MOIJA</h1>
             </div>
             <div>
-              <h4>로그인</h4>
+              <h1>로그인</h1>
             </div>
           </div>
           <login-component></login-component>
@@ -38,10 +38,10 @@
               <img :src="require('~/assets/logo.png')" class="logoimage">
             </div>
             <div>
-              <h2>MOIJA</h2>
+              <h1>MOIJA</h1>
             </div>
             <div>
-              <h4>회원가입</h4>
+              <h1>회원가입</h1>
             </div>
           </div>
           <register-component></register-component>
@@ -115,12 +115,6 @@ export default {
     justify-content: space-between;
     align-items: center;
     margin: 30px;
-  }
-  .modal-middle {
-
-  }
-  .modal-under {
-
   }
   .close {
     color: #ffe259;

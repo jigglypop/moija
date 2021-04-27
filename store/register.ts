@@ -11,14 +11,14 @@ export interface IResiterForm {
 }
 
 export const state = () => ({
-    register: {
-      username: '',
-      email: '',
-      password: '',
-    },
-    data: null,
-    error: '',
-    loading: false,
+  register: {
+    username: '',
+    email: '',
+    password: '',
+  },
+  data: null,
+  error: '',
+  loading: false,
 });
 
 export const mutations = {

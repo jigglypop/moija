@@ -14,9 +14,10 @@ export default Vue.extend({
   components:{
     MainComponent
   },
-  created(){
-    this.MAINCATEGORY()
+  async fetch({ store } ){
+    store.dispatch('maincategory/MAINCATEGORY')
   },
+
   computed: {
     ...mapState(['maincategory'])
   },
@@ -24,7 +25,13 @@ export default Vue.extend({
     ...mapActions({
       MAINCATEGORY: 'maincategory/MAINCATEGORY'
     }),
-  }
+  },
+  created(){
+    this.MAINCATEGORY()
+    if (this.maincategory.data === null && this.maincategory.error === ""){
+        this.MAINCATEGORY()
+    }
+  },
 })
 </script>
 

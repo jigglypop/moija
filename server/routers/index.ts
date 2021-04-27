@@ -7,6 +7,8 @@ import commentRouter from "./comment";
 import followRouter from "./follow";
 import likeRouter from "./like";
 import maincategoryRouter from "./maincategory";
+import locationRouter from "./location";
+import profileRouter from "./profile";
 
 const rootRouter = express();
 
@@ -18,5 +20,7 @@ rootRouter.use('/comment', commentRouter)
 rootRouter.use('/follow', followRouter)
 rootRouter.use('/like', likeRouter)
 rootRouter.use('/maincategory', maincategoryRouter)
+rootRouter.use('/location', locationRouter)
+rootRouter.use('/profile', profileRouter)
 
 export default rootRouter;

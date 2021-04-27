@@ -35,6 +35,11 @@ export function ProfileFactory (sequelize: Sequelize) {
       allowNull: false,
       unique: true,
     },
+    location: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: "서울"
+    },
     imageurl: {
       type: DataTypes.STRING,
       allowNull: true,
