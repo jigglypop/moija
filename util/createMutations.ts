@@ -5,7 +5,7 @@ interface IPayload {
 
 interface IState {
   data : object | null
-  error: string
+  error:  object | null
 }
 
 const createMutations = (type: string) =>{
@@ -15,9 +15,11 @@ const createMutations = (type: string) =>{
   return {
     async [SUCCESS] (state: IState, payload: IPayload) {
       state.data = payload
+      state.error = null
     },
     async [FAILURE] (state: IState, payload: IPayload) {
-      state.data = payload
+      state.data = null
+      state.error = payload
     },
   }
 }

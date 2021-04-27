@@ -16,11 +16,12 @@ export default {
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
   },
   css: ["~layouts/global.css"],
-  plugins: [],
+  plugins: ["@/plugins/fontawesome.ts"],
   components: true,
-  buildModules: ["@nuxt/typescript-build"],
+  buildModules: ["@nuxt/typescript-build", "@nuxtjs/vuetify"],
   modules: ["@nuxtjs/axios"],
   axios: {},
   build: {},
-  serverMiddleware: ["~server/index.ts"]
+  serverMiddleware: ["~server/index.ts"],
+  vuetify: {}
 };
