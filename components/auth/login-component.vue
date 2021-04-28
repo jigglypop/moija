@@ -47,6 +47,7 @@ export default Vue.extend({
       }
       if (this.check.data){
         await this.CLOSE()
+        await this.$router.push('/')
       }
     }
   }

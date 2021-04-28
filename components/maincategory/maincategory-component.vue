@@ -4,7 +4,7 @@
       <maincategory-item :locationname="check.data.location"></maincategory-item>
     </div>
     <div v-else>
-      <h1>잠시만 기다려주세요</h1>
+      <loading-component></loading-component>
     </div>
   </div>
 </template>
@@ -12,11 +12,12 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'vuex'
+import LoadingComponent from '../common/loading-component.vue'
 import MaincategoryItem from './maincategory-item.vue'
 
 export default Vue.extend({
   name: 'maincategory-component',
-  components: { MaincategoryItem },
+  components: { MaincategoryItem, LoadingComponent },
   data() {
     return {
       maincateogoryId : ''

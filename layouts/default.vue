@@ -19,14 +19,15 @@ export default Vue.extend({
   computed:{
     ...mapState(['check'])
   },
-  mounted(){
+  created(){
     this.CHECK()
   },
   methods:{
     ...mapActions({
       CHECK: 'check/CHECK'
     })
-  }
+  },
+
 })
 </script>
 

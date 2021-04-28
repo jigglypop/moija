@@ -1,10 +1,20 @@
 <template>
   <div class="profileouter">
-    <div v-if="check && check.data && profile.data" class="profileinner">
+    <div v-if="profile.data" class="profileinner">
       <div class="top">
         <div class="top-left">
-          <profile-avatar :width="'200px'" :height="'200px'" :permission="profile.data.permission"></profile-avatar>
-          <h1 class="nickname">{{profile.data.nickname}}</h1>
+          <profile-avatar
+          :width="'200px'"
+          :height="'200px'"
+          :permission="profile.data.permission"
+          :image="profile.data.imageurl !== null && profile.data.imageurl !== '' ? profile.data.imageurl : null">
+          </profile-avatar>
+          <h1 class="nickname">{{profile.data.nickname}} </h1>
+          <glass-button
+            class="glassbutton"
+            v-if="check.data && check.data.username === profile.data.username">
+            <nuxt-link :to="`/updateprofile/${profile.data.id}`"><h4>프로필 변경하기</h4></nuxt-link>
+          </glass-button>
           <h1 class="email">{{profile.data.email}}</h1>
           <h1 class="top-text">{{new Date(profile.data.createdAt)}}</h1>
         </div>
@@ -18,7 +28,7 @@
       </div>
     </div>
     <div v-else>
-      <h1>잠시만 기다려주세요</h1>
+      <loading-component></loading-component>
     </div>
   </div>
 </template>
@@ -26,12 +36,14 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'vuex'
+import GlassButton from '../common/glass-button.vue'
+import LoadingComponent from '../common/loading-component.vue'
 import ProfileAvatar from '../common/profile-avatar.vue'
-import MaincategoryItem from './maincategory-item.vue'
+import WaveButton from '../common/wave-button.vue'
 
 export default Vue.extend({
-  name: 'maincategory-component',
-  components: { MaincategoryItem, ProfileAvatar },
+  name: 'profile-component',
+  components: { ProfileAvatar, LoadingComponent, WaveButton, GlassButton },
   props:{
     profile: Object
   },
@@ -43,13 +55,21 @@ export default Vue.extend({
   computed:{
     ...mapState(['check'])
   },
+  methods:{
+    onClick(){
+      console.log('클릭')
+    }
+  },
   created() {
-    console.log(this.profile)
+
   }
 })
 </script>
 
 <style scoped>
+  .glassbutton{
+    transform: scale(0.6);
+  }
   .profileouter{
     width: 100%;
     height: 100%;

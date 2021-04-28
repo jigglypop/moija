@@ -3,8 +3,8 @@
     <div class="top">
       <div v-if="location.data" class="top-left">
         <div class="main-item">
-          <div class="item-name">
-            <h4 >{{ location.data.maincategory.name }} / {{ location.data.location.name }}</h4>
+          <div class="item-name" >
+            <h4 >{{ location.data.maincategory.name }}({{ location.data.location.name }})</h4>
           </div>
           <div>
             <img :src="require(`~/assets/maincategory/${location.data.maincategory.image}`)" class="background"/>
@@ -13,10 +13,25 @@
       </div>
     </div>
     <div class="under">
-      <h1>언더</h1>
+      <div class="under-left">
+
+      </div>
+      <div class="under-right" v-if="location.data && check.data">
+        <nuxt-link :to="`/writegroup/${location.data.location.id}/?locationname=${location.data.maincategory.name}(${location.data.location.name})`">
+          <wave-button class="under-button">
+            <h5>내 지역 그룹 만들기</h5>
+          </wave-button>
+        </nuxt-link>
+      </div>
     </div>
-    <div class="mid">
-      <h1>내용</h1>
+    <div class="mid" v-if="location.data && location.data.location.groups.length >= 0">
+      <group-item
+        v-for="item in location.data.location.groups"
+        :key="item.id"
+        :group="item"
+        :maincategoryimg="location.data.maincategory.image">
+      </group-item>
+      <not-have class="not-have" v-if="location.data.location.groups.length === 0"></not-have>
     </div>
   </div>
 </template>
@@ -25,10 +40,13 @@
 import MapSvg from '../common/map-svg.vue'
 import Vue from 'vue'
 import { mapState, mapActions } from 'vuex'
+import GroupItem from './group-item.vue'
+import NotHave from '../common/not-have.vue'
+import WaveButton from '../common/wave-button.vue'
 
 export default Vue.extend({
   name: 'maincategory-item',
-  components: { MapSvg },
+  components: { MapSvg, GroupItem, NotHave, WaveButton  },
   props:{
     locationname: String
   },
@@ -48,7 +66,6 @@ export default Vue.extend({
   async mounted() {
     const { maincategory } = await this.$route.params
     if (maincategory && this.locationname){
-      console.log(this.locationname)
       this.LOCATION({
         maincategoryId: maincategory,
         locationname: this.locationname
@@ -64,7 +81,7 @@ export default Vue.extend({
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-rows: 200px 200px 1fr;
+    grid-template-rows: 200px 100px 1fr;
   }
   .top {
     grid-row: 1/2;
@@ -74,15 +91,33 @@ export default Vue.extend({
   .top-left{
     grid-column: 1/3;
   }
-  .under{
+  .under {
     grid-row: 2/3;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    grid-template-columns: 2fr 1fr;
+  }
+  .under-left {
+    grid-column: 1/2;
+  }
+  .under-right {
+    grid-column: 2/3;
   }
   .mid{
     grid-row: 3/4;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    padding: 3%;
   }
-
+  .not-have{
+    grid-column: 1/5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
   .main-item{
     position: relative;
     height: 200px;

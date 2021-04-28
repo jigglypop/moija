@@ -1,25 +1,33 @@
 <template>
   <div>
     <nav class="nav">
-      <div class="container">
+      <div class="header-container">
         <div class="headerdiv">
-          <nuxt-link to="/">
-            <div class="headerleft">
-              <div class="headerleftitem">
-                <img :src="require('~/assets/logo.png')" class="logoimage">
-              </div>
-              <div class="headerleftitem">
-                <h1 class="logotext">
-                  <h2 class="logoundertext">MOIJA</h2>
-                  세상의 모든 모임
-                </h1>
-              </div>
+          <div class="headerleft">
+            <div class="headerleftitem">
+                <pulse-blob :onClick="onClick"><i class="fas fa-bars hamberger"></i></pulse-blob>
             </div>
-          </nuxt-link>
+              <div class="headerleftitem">
+                <nuxt-link to="/">
+                  <img :src="require('~/assets/logo.png')" class="logoimage">
+                </nuxt-link>
+              </div>
+              <div class="headerleftitem">
+                <nuxt-link to="/">
+                  <h1 class="logotext">
+                    <h2 class="logoundertext">MOIJA</h2>
+                    세상의 모든 모임
+                  </h1>
+                </nuxt-link>
+              </div>
+          </div>
         </div>
         <div v-if="check.data">
           <div class="headerdiv">
-            <nuxt-link :to="`/profile/${check.data.id}`"><border-avatar :permission="check ? check.data.permission : 4"></border-avatar></nuxt-link>
+            <nuxt-link :to="`/profile/${check.data.id}`">
+              <border-avatar :permission="check ? check.data.permission : 4" :image="check ? check.data.imageurl: null">
+              </border-avatar>
+            </nuxt-link>
           </div>
           <div class="headerdiv">
             <nuxt-link :to="`/profile/${check.data.id}`"><h1 class="righttext">{{ check.data.nickname }}</h1></nuxt-link>
@@ -37,12 +45,9 @@
           </div>
         </div>
       </div>
-
     </nav>
     <div class="leftbar">
-      <div class="left-button">
-        <pulse-blob :onClick="onClick"></pulse-blob>
-      </div>
+
       <div class="left-inner">
 
       </div>
@@ -87,13 +92,12 @@ export default {
       const nav = document.querySelector('.nav')
       leftbar.classList.toggle('push')
       nav.classList.toggle('push')
-      console.log(document.querySelector('.leftbar'))
     }
   },
   mounted(){
     const nav = document.querySelector(".nav");
     const fixNav = () => {
-      if (window.scrollY > nav.offsetHeight + 50) {
+      if (window.scrollY > 50) {
         nav.classList.add("colors");
       } else {
         nav.classList.remove("colors");
@@ -106,22 +110,26 @@ export default {
 
 
 <style scoped>
+  .hamberger{
+    color: black
+  }
   .leftbar{
     position: fixed;
     top:0;
     left:0;
-    width: 80px;
+    width: 0;
     height: 100vh;
     background-color: black;
     display: grid;
     grid-template-rows: 100px 1fr;
-    z-index: 2;
+    z-index: 1;
     transition: all 0.5s ease-in-out;
   }
   .leftbar.push{
     width: 200px;
   }
   .left-button{
+    top: 50px;
     grid-row: 1/2;
     display: flex;
     justify-content: center;
@@ -135,6 +143,7 @@ export default {
     font-size: 15px;
     display: inline-block;
     vertical-align: middle;
+    z-index: 2;
   }
   .headerleft{
     display: flex;
@@ -142,7 +151,14 @@ export default {
     justify-content: center;
     align-items: center;
   }
-  .container {
+  .header-container {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
     transition: padding 0.3s ease-in-out;
   }
   .nav {
@@ -161,6 +177,7 @@ export default {
   .nav.colors {
     padding: 0;
     background-color: black;
+    z-index: 2;
   }
   .logoimage{
     width: 30px;
@@ -179,17 +196,10 @@ export default {
     color:#ffe259;
     cursor: pointer;
   }
-  .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: all 0.3s ease-in-out;
-  }
   .nav h1 {
     color: #fff;
     text-decoration: none;
     font-size: 12px;
-    /* margin: 10px; */
     padding: 10px;
     font-weight: 800;
     transition: all .3s ease-in-out;

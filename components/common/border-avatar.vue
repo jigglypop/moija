@@ -3,7 +3,7 @@
     <div className="box">
       <img
         v-if="permissions === 4"
-        :src="require(`~/assets/image/${imageurl}`)"
+        :src="imageurl"
         :style="{
           width: width? width: '40px',
           height: height? height: '40px',
@@ -11,7 +11,7 @@
         class="admin"/>
       <img
         v-if="permissions === 3"
-        :src="require(`~/assets/image/${imageurl}`)"
+        :src="imageurl"
         :style="{
           width: width? width: '40px',
           height: height? height: '40px',
@@ -19,7 +19,7 @@
         class="teacher"/>
       <img
         v-if="permissions === 2"
-        :src="require(`~/assets/image/${imageurl}`)"
+        :src="imageurl"
         :style="{
           width: width? width: '40px',
           height: height? height: '40px',
@@ -27,7 +27,7 @@
         class="manager"/>
       <img
         v-if="permissions === 1"
-        :src="require(`~/assets/image/${imageurl}`)"
+        :src="imageurl"
         :style="{
           width: width? width: '40px',
           height: height? height: '40px',
@@ -52,7 +52,7 @@ export default Vue.extend({
     return {
       borders : this.border ? this.border :'2px',
       permissions : this.permission ? this.permission : 4,
-      imageurl: this.image? this.image : "peopleicon.png"
+      imageurl: this.image ? this.image : require('~/assets/image/peopleicon.png')
     }
   }
 

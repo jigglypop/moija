@@ -1,17 +1,17 @@
 <template>
   <wrapper-component>
-    <profile-component :profile="profile"></profile-component>
+    <updateprofile-component :profile="profile"></updateprofile-component>
   </wrapper-component>
 </template>
 
 <script lang="ts">
 import wrapperComponent from '~/components/wrapper/wrapper-component.vue'
-import ProfileComponent from '~/components/profile/profile-component.vue'
+import UpdateprofileComponent from '~/components/updateprofile/updateprofile-component.vue'
 import Vue from 'vue'
 import { mapState, mapActions } from 'vuex'
 
 export default Vue.extend({
-  components: { wrapperComponent, ProfileComponent },
+  components: { wrapperComponent, UpdateprofileComponent },
   computed: {
     ...mapState(['profile'])
   },
@@ -22,19 +22,19 @@ export default Vue.extend({
   },
   async fetch({ store, params } ){
     store.dispatch('profile/PROFILE', {
-      profileId : params.profile
+      profileId : params.updateprofile
     })
   },
   created() {
-      if (this.profile.data === null && this.profile.error === ""){
-        this.PROFILE({
-        profileId : this.$route.params.profile
+    if (this.profile.data === null && this.profile.error === ""){
+      this.PROFILE({
+        profileId : this.$route.params.updateprofile
       })
     }
   },
   head() {
     return {
-      title: this.profile ? this.profile.data? "모이자 | 프로필 | " + this.profile.data.nickname : "모이자 | 프로필" : "모이자 | 프로필",
+      title: "모이자 | 프로필 업데이트 | " + this.profile.data.nickname,
       meta: [
         {
           hid: 'description',

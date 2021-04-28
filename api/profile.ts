@@ -1,6 +1,5 @@
-// import { IUpdateProfileForm } from "../module/updateprofile"
-
 import { IProfileForm } from "~/store/profile"
+import { IUpdateProfileForm } from "~/store/updateprofile"
 import { SERVER_URL } from "./constants"
 
 // 프로필 읽기
@@ -14,24 +13,30 @@ export const readProfileApi  = async (payload : IProfileForm) => {
   return { type:'SUCCESS', data: data.data }
 }
 
-// // 업데이트 프로필
-// export const updateprofileApi  = async ( updateprofile: IUpdateProfileForm,  thunkAPI: any) => {
-//     const res : any = await fetch(`${SERVER_URL}/api/profile/${updateprofile._id}`,{
-//         method: "PATCH",
-//         headers: {
-//             "Content-Type": "application/json",
-//             "Authorization":`${updateprofile.token}`
-//         },
-//         body: JSON.stringify({
-//             "imageurl": updateprofile.imageurl,
-//             "nickname": updateprofile.nickname,
-//             "type" : updateprofile.type,
-//             "info" : updateprofile.info
-//         }),
-//     })
-//     if (res.status != 200){
-//         const error = await res.json()
-//         return await thunkAPI.rejectWithValue(error)
-//     }
-//     return await res.json()
-// }
+// 업데이트 프로필
+export const updateprofileApi  = async ( payload: IUpdateProfileForm) => {
+  let token = ''
+  const storage = await localStorage.getItem('token')
+  if (storage){
+  token = await JSON.parse(storage)
+  }
+  const res : any = await fetch(`${SERVER_URL}/api/profile/${payload.profileId}`,{
+      method: "PATCH",
+      headers: {
+          "Content-Type": "application/json",
+          "Authorization":`${token}`
+      },
+      body: JSON.stringify({
+          "imageurl": payload.imageurl,
+          "nickname": payload.nickname,
+          "location" : payload.location,
+          "info" : payload.info
+      }),
+  })
+  if (res.status != 200){
+      const error = await res.json()
+      return { type:'FAILURE', data: error.error }
+  }
+  const data = await res.json()
+  return { type:'SUCCESS', data: data.data }
+}

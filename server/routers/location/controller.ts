@@ -23,7 +23,8 @@ export const read = async ( req : Request, res : Response ) =>{
     res.status(200).json({
       data: {
         location: _location,
-        maincategory: maincategory
+        maincategory: maincategory,
+        locationId: locationId
       }
     })
   } catch(e){

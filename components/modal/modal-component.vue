@@ -48,6 +48,9 @@
         </div>
       </div>
     </div>
+    <div class="modal-wrapper" v-show="modal.openname === 'join'">
+      <join-component ></join-component>
+    </div>
   </div>
 </template>
 
@@ -55,12 +58,14 @@
 import { mapState, mapMutations } from 'vuex'
 import LoginComponent from '../auth/login-component.vue'
 import RegisterComponent from '../auth/register-component.vue'
+import JoinComponent from './join-component.vue'
 
 export default {
   name: 'modal-component',
   components:{
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    JoinComponent
   },
   computed: {
     ...mapState(['modal'])

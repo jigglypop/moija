@@ -1,11 +1,12 @@
 import express, { Router } from "express";
 import checkLoggedIn from "../../middleware/checkLoggedIn";
 import jwtMiddleware from "../../middleware/jwtMiddleware";
-import { create, read } from "./controller";
+import { create, join, read } from "./controller";
 
 const groupRouter : Router = express.Router();
 
 groupRouter.post("/:locationId", jwtMiddleware, checkLoggedIn, create);
 groupRouter.get("/:groupId", read);
+groupRouter.post("/:profileId/:groupId", jwtMiddleware, checkLoggedIn, join);
 
 export default groupRouter;

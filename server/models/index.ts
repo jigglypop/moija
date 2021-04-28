@@ -32,9 +32,9 @@ const db = {
   User: UserFactory(sequelize),
   Profile: ProfileFactory(sequelize),
 }
-// 그룹 : 유저 -> N : M
-db.Group.belongsToMany(db.User, { through: 'GroupUser' })
-db.User.belongsToMany(db.Group, { through: 'GroupUser' })
+// 그룹 : 프로필 -> N : M
+db.Group.belongsToMany(db.Profile, { as: 'profiles', through: 'group_profile', foreignKey: 'group', otherKey: 'profile' });
+db.Profile.belongsToMany(db.Group, { as: 'groups', through: 'group_profile', foreignKey: 'profile', otherKey: 'group' });
 
 // 유저 : 포스트 -> 1 : N
 db.User.hasMany(db.Post)

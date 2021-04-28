@@ -1,5 +1,5 @@
 <template>
-  <button class="wave-button">
+  <button class="wave-button" >
     <slot></slot>
   </button>
 </template>

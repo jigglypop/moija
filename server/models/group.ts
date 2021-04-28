@@ -3,6 +3,8 @@ import { DataTypes, Sequelize } from "sequelize";
 export interface IGroup extends Document{
   id: string;
   name: string;
+  info: string;
+  imageurl: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -17,6 +19,14 @@ export function GroupFactory (sequelize: Sequelize) {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    info: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    imageurl:{
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     createdAt: {
       type: DataTypes.DATE,
