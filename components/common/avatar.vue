@@ -1,37 +1,25 @@
 <template>
-  <div class="border-div blob white" >
-    <div className="box" :style="styles">
+  <div class="border-div blob white">
+    <div className="box">
       <img
         v-if="permissions === 4"
         :src="imageurl"
-        :style="{
-          width: width? width: '40px',
-          height: height? height: '40px',
-          border: border? border + 'solid transparent' :  '3px solid transparent'}"
+        :style="styles"
         class="admin"/>
       <img
         v-if="permissions === 3"
         :src="imageurl"
-        :style="{
-          width: width? width: '40px',
-          height: height? height: '40px',
-          border: border? border + 'solid transparent' :  '3px solid transparent'}"
+        :style="styles"
         class="teacher"/>
       <img
         v-if="permissions === 2"
         :src="imageurl"
-        :style="{
-          width: width? width: '40px',
-          height: height? height: '40px',
-          border: border? border + 'solid transparent' :  '3px solid transparent'}"
+        :style="styles"
         class="manager"/>
       <img
         v-if="permissions === 1"
         :src="imageurl"
-        :style="{
-          width: width? width: '40px',
-          height: height? height: '40px',
-          border: border? border + 'solid transparent' :  '3px solid transparent'}"
+        :style="styles"
         class="normal"/>
     </div>
   </div>
@@ -40,19 +28,13 @@
 <script lang="ts">
 import Vue from 'vue'
 export default Vue.extend({
-  name:'border-avatar',
+  name:'avatar',
   props: {
     styles: Object,
-    width: String,
-    height: String,
-    border: String,
-    permission: Number,
     image: String
   },
   data() {
     return {
-      borders : this.border ? this.border :'2px',
-      permissions : this.permission ? this.permission : 4,
       imageurl: this.image ? this.image : require('~/assets/image/peopleicon.png')
     }
   }
@@ -76,6 +58,9 @@ export default Vue.extend({
   }
 
   img {
+    width: 40px;
+    height: 40px;
+    border: 2px solid transparent;
     border-radius: 50%;
     object-fit: cover;
   }

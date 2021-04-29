@@ -3,6 +3,7 @@
     <header-component></header-component>
     <modal-component></modal-component>
     <Nuxt />
+    <div class="toasts"></div>
   </div>
 </template>
 <script>
@@ -17,17 +18,59 @@ export default Vue.extend({
     ModalComponent
   },
   computed:{
-    ...mapState(['check'])
+    ...mapState(['check', 'maincategory'])
+  },
+  methods : {
+    ...mapActions({
+      PROFILE: 'profile/PROFILE',
+    })
+  },
+  async fetch({ store, params } ){
+    store.dispatch('profile/PROFILE', {
+      profileId : params.profile
+    })
   },
   created(){
     this.CHECK()
+    this.MAINCATEGORY()
   },
   methods:{
     ...mapActions({
-      CHECK: 'check/CHECK'
+      CHECK: 'check/CHECK',
+      MAINCATEGORY: 'maincategory/MAINCATEGORY'
     })
   },
 
 })
 </script>
+
+<style>
+  .toasts {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    z-index: 20;
+    color: black;
+  }
+  .toast {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 400px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border: 2px solid #ED213A;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 0.5rem;
+  }
+  .strong {
+    color : #ED213A;
+  }
+</style>
 

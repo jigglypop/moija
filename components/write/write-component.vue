@@ -16,19 +16,21 @@
 
       <div class="mid">
         <form @submit.prevent="onWrite">
-          <div class="textbox">
-            <div class="logobox">
-              <h1 class="label">제목 입력</h1>
-            </div>
+          <div class="logobox">
+            <h1 class="label">제목 입력</h1>
           </div>
           <label><input v-model="title" placeholder="제목"/></label>
-          <div class="textbox">
-            <div class="logobox">
-              <h1 class="label">내용 입력</h1>
-            </div>
+          <div class="logobox">
+            <h1 class="label">내용 입력</h1>
           </div>
-          <label><textarea v-model="content" placeholder="내용"  rows="10"/></label>
+          <TuiEditor
+            mode="markdown"
+            height="500px"
+            v-model="content"
+          />
+          <!-- <label><textarea  placeholder="내용"  rows="10"/></label> -->
           <h5 class="error">{{ write.error }}</h5>
+
           <wave-button type="submit"><h4>글쓰기</h4></wave-button>
         </form>
       </div>
@@ -49,7 +51,8 @@ export default Vue.extend({
   name: 'write-component',
   components: { LoadingComponent, WaveButton },
   props:{
-    profile: Object
+    profile: Object,
+    post: Object
   },
   data() {
     return {
@@ -71,15 +74,23 @@ export default Vue.extend({
         title: this.title,
         content: this.content,
       })
+      if (this.write.data){
+        await this.$router.push(`/post/${this.write.data.id}`)
+      }
     }
   },
   mounted() {
     this.categoryId = this.$route.params.category
+    if (this.post){
+      this.title = this.post.data.title
+      this.content = this.post.data.content
+    }
   }
 })
 </script>
 
 <style scoped>
+
   .error{
     color: #FF416C;
     margin: 5px;
@@ -94,8 +105,8 @@ export default Vue.extend({
   .label {
     font-size: 14px;
     font-weight: 800;
-    margin: 2px;
-    color: grey
+    margin: 10px;
+    color: white
   }
   .labelimage{
     width: 20px;
@@ -130,7 +141,7 @@ export default Vue.extend({
     text-align: center;
   }
   .logobox{
-    display: inline-block;
+    display: flex;
   }
   .nickname {
     font-size: 30px;
@@ -152,11 +163,14 @@ export default Vue.extend({
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
   }
   .mid {
     grid-row: 2/3;
     padding: 0 3% 3% 3%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   input, textarea, select {
     font-weight: 800;
@@ -164,12 +178,12 @@ export default Vue.extend({
     outline: none;
     padding: 1rem;
     margin: 0.5rem;
-    width: 70vw;
+    width: 45vw;
     box-sizing: border-box;
     border: none;
     border-image-slice: 1;
-    background: rgba(255,255,255,0.1);
-    color: white;
+    background: white;
+    color: black;
   }
   select {
     -webkit-appearance: button;

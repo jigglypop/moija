@@ -19,7 +19,7 @@ export default {
   plugins: ["@/plugins/fontawesome.ts"],
   components: true,
   buildModules: ["@nuxt/typescript-build", "@nuxtjs/vuetify"],
-  modules: ["@nuxtjs/axios"],
+  modules: ["@nuxtjs/axios", "@tui-nuxt/editor"],
   axios: {},
   build: {},
   serverMiddleware: ["~server/index.ts"],

@@ -1,11 +1,6 @@
 <template>
   <div class="maincategoryouter">
-    <div v-if="check && check.data">
-      <maincategory-item :locationname="check.data.location"></maincategory-item>
-    </div>
-    <div v-else>
-      <loading-component></loading-component>
-    </div>
+    <maincategory-item></maincategory-item>
   </div>
 </template>
 

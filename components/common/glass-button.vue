@@ -1,5 +1,5 @@
 <template>
-  <button class="glass-button">
+  <button class="glass-button" :style="styles">
     <slot></slot>
   </button>
 </template>
@@ -8,9 +8,9 @@
 import Vue from 'vue'
 
 export default Vue.extend({
-  name:"wave-button",
+  name:"glass-button",
   props: {
-    text: String,
+    styles: Object,
   }
 })
 </script>
@@ -18,18 +18,23 @@ export default Vue.extend({
 <style scoped>
   .glass-button {
     text-decoration: none;
-    width: 70%;
+    min-width: 80px;
+    min-height: 30px;
     font-size: 20px;
     font-weight: 800;
     transition: all 0.3s;
     position: relative;
     overflow: hidden;
-    background-color: #ffe259;
+    font-size: 14px;
+    font-weight: 800;
     color: black;
+    background-color: #ffe259;
+    box-shadow: 2px 2px 10px black;
+    padding: 0 20px;
   }
 
   .glass-button:hover {
-    background-color: #f3f9a7;
+    box-shadow: 2px 2px 20px black
   }
 
   .glass-button:before {
@@ -37,8 +42,8 @@ export default Vue.extend({
     background-color: white;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 50px;
+    width: 200%;
+    height: 30px;
     position: absolute;
     transform: translateX(-100%) rotate(45deg);
     transition: all 0.3s;

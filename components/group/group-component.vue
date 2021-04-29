@@ -5,9 +5,7 @@
         <div class="top">
           <div v-if="group.data" class="top-left">
             <div class="main-item">
-              <div>
-                <img :src="group.data.imageurl" class="background"/>
-              </div>
+              <img :src="group.data.imageurl" class="background"/>
             </div>
           </div>
         </div>
@@ -15,7 +13,7 @@
           <div class="mid-left">
             <h1 class="grouptitle">{{ group.data.name }}</h1>
             <h3 class="textunder">비공개 그룹</h3>
-            <button class="wave-button" @click="onJoin" v-if="!group.isJoin"><h4 >가입하기</h4></button>
+            <button class="wave-button" @click="onJoin" v-if="check.data && !group.isJoin"><h4>가입하기</h4></button>
             <h3 v-if="group.isJoin">그룹 회원</h3>
           </div>
           <div class="mid-right" >
@@ -32,9 +30,6 @@
         </div>
         <div class="category">
           <div class="info">
-            <div class="label">
-              <h6>모임 설명</h6>
-            </div>
             <div class="content">
               <h5>{{ group.data.info }}</h5>
             </div>
@@ -45,11 +40,15 @@
                 <div>
                   <h6>{{ category.name }}</h6>
                 </div>
-                <button class="small-button">
                   <nuxt-link :to="`/write/${category.id}`"  v-if="group.isJoin">
-                    <h6 class="smaal-button-text">글쓰기</h6>
+                    <glass-button
+                      :styles="{
+                        backgroundImage: 'linear-gradient(45deg,#8E2DE2,#4A00E0)',
+                        color: 'white'
+                      }">
+                      <h6 class="smaal-button-text">글쓰기</h6>
+                    </glass-button>
                   </nuxt-link>
-                </button>
               </div>
               <div class="content">
                 <group-post-item :posts="category.posts"></group-post-item>
@@ -68,16 +67,15 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapState, mapMutations, mapActions } from 'vuex'
-import _group from '~/pages/writegroup/_group.vue'
 import BorderAvatar from '../common/border-avatar.vue'
-import GlassBorder from '../common/glass-border.vue'
+import GlassButton from '../common/glass-button.vue'
 import LoadingComponent from '../common/loading-component.vue'
 import WaveButton from '../common/wave-button.vue'
 import GroupPostItem from './group-post-item.vue'
 
 export default Vue.extend({
   name: 'group-component',
-  components: { LoadingComponent, GlassBorder, BorderAvatar, WaveButton, _group, GroupPostItem },
+  components: { LoadingComponent, BorderAvatar, WaveButton, GroupPostItem, GlassButton },
   data() {
     return {
       joinedprofiles: null
@@ -89,14 +87,26 @@ export default Vue.extend({
   methods: {
     ...mapMutations({
       JOIN: 'modal/JOIN',
-      ISJOIN: 'group/ISJOIN'
+      ISJOIN: 'group/ISJOIN',
+      SLICE: 'group/SLICE'
     }),
     ...mapActions({
-      CHECK: 'check/CHECK'
+      CHECK: 'check/CHECK',
+      GROUP: 'group/GROUP'
     }),
-    onJoin(){
-      this.JOIN()
-    }
+    async onJoin(){
+      await this.JOIN()
+      await this.ISJOIN({
+        profileId: this.check.data.id
+      })
+      await this.GROUP({
+        groupId : this.$route.params.group
+      })
+      if (this.group.data){
+        await this.SLICE()
+      }
+    },
+
   },
   async mounted(){
     if (this.check.data){
@@ -105,13 +115,11 @@ export default Vue.extend({
       })
     } else{
       await this.CHECK()
-      await this.ISJOIN({
-        profileId: this.check.data.id
-      })
+      // await this.ISJOIN({
+      //   profileId: this.check.data.id
+      // })
     }
-    console.log(this.group.data)
   }
-
 })
 </script>
 
@@ -134,7 +142,7 @@ export default Vue.extend({
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-rows: 200px 200px 1fr;
+    grid-template-rows: 400px 200px 1fr;
   }
   .top {
     grid-row: 1/2;
@@ -201,6 +209,7 @@ export default Vue.extend({
     margin-left: 20px;
   }
   .content{
+    line-height:150%;
     grid-row: 2/3;
     display: flex;
     justify-content: center;
@@ -243,18 +252,24 @@ export default Vue.extend({
     text-align: center;
   }
   .main-item{
-    position: relative;
-    height: 200px;
-    overflow: hidden;
-    margin: 10px;
-  }
 
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .background {
+    position: relative;
+    margin: 10px;
+    width: 100%;
+    height: 400px;
+    object-fit: contain;
+  }
   img {
     transition: all .3s ease-in-out;
     width: 100%;
   }
-
-
   .item-name {
     position: absolute;
     font-size: 20px;
@@ -265,85 +280,7 @@ export default Vue.extend({
 
 
 
-  .wave-button {
-    border: none;
-    padding: 12px 30px;
-    margin: 10px;
-    background: linear-gradient(45deg, #ffb347, #ffcc33);
 
-    color: black;
-    font-size: 12px;
-    font-weight: 800;
-    text-transform: uppercase;
-    cursor: pointer;
-    position: relative;
-  }
-  .wave-button:before {
-    content: "";
-    position: absolute;
-    width: 24px;
-    height: 24px;
-    top: -5px;
-    left: -5px;
-    border-top: 2px solid #ffe259;
-    border-left: 2px solid #ffe259;
-    transition: all 0.25s;
-  }
-
-  .wave-button:hover:before,
-  .wave-button:hover:after {
-    height: 100%;
-    width: 100%;
-  }
-
-  .wave-button:after {
-    content: "";
-    position: absolute;
-    width: 24px;
-    height: 24px;
-    bottom: -5px;
-    right: -5px;
-    border-bottom: 2px solid #ffe259;
-    border-right: 2px solid #ffe259;
-    transition: all 0.25s;
-  }
-
-  .small-button {
-    text-decoration: none;
-    width: 100px;
-    height: 30px;
-    margin: 10px;
-    font-size: 20px;
-    font-weight: 800;
-    transition: all 0.3s;
-    position: relative;
-    overflow: hidden;
-    color: white;
-    background-image: linear-gradient(45deg,#8E2DE2,#4A00E0);
-  }
-
-  .small-button:hover {
-    background-color: #f3f9a7;
-  }
-
-  .small-button:before {
-    content: "";
-    background-color: white;
-    top: 0;
-    left: 0;
-    width: 200%;
-    height: 50px;
-    position: absolute;
-    transform: translateX(-100%) rotate(45deg);
-    transition: all 0.3s;
-  }
-  .small-button:hover:before {
-    transform: translateX(100%) rotate(45deg);
-  }
-  .smaal-button-text{
-    font-size: 10px;
-    font-weight: 800;
-  }
   @media only screen and (max-width: 1200px) {
 
   }

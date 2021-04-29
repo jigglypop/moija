@@ -81,7 +81,7 @@ export default Vue.extend({
         info: this.info
       })
       if (this.writegroup.data){
-        // await this.$router.push(`/profile/${this.updateprofile.data.id}`)
+        await this.$router.push(`/group/${this.writegroup.data.id}`)
       }
     }
   },

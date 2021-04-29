@@ -1,3 +1,5 @@
+import { createToast } from "~/components/common/createToast"
+import { IPostForm } from "~/store/post"
 import { IWriteForm } from "~/store/write"
 import { SERVER_URL } from "./constants"
 
@@ -25,20 +27,21 @@ export const writeApi  = async ( payload: IWriteForm) => {
       return { type:'FAILURE', data: error.error }
   }
   const data = await res.json()
+  createToast('글쓰기')
   return { type:'SUCCESS', data: data.data }
 }
 
 
-// // 그룹 읽기
-// export const readGroupApi  = async (payload : IGroupForm) => {
-//   const res : any = await fetch(`${SERVER_URL}/api/group/${payload.groupId}`)
-//   if (res.status != 200){
-//       const error = await res.json()
-//       return { type:'FAILURE', data: error.error }
-//   }
-//   const data = await res.json()
-//   return { type:'SUCCESS', data: data.data }
-// }
+// 포스트 읽기
+export const readPostApi  = async (payload : IPostForm) => {
+  const res : any = await fetch(`${SERVER_URL}/api/post/${payload.postId}`)
+  if (res.status != 200){
+      const error = await res.json()
+      return { type:'FAILURE', data: error.error }
+  }
+  const data = await res.json()
+  return { type:'SUCCESS', data: data.data }
+}
 
 
 // // 그룹 가입

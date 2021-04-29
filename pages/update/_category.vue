@@ -1,7 +1,6 @@
 <template>
   <wrapper-component>
-    <write-component></write-component>
-
+    <write-component :post="post"></write-component>
   </wrapper-component>
 </template>
 
@@ -14,12 +13,25 @@ import WriteComponent from '~/components/write/write-component.vue'
 export default Vue.extend({
   components: { wrapperComponent, WriteComponent },
   computed: {
-    ...mapState(['profile'])
+    ...mapState(['profile', 'post'])
   },
   methods : {
     ...mapActions({
-      PROFILE: 'profile/PROFILE'
+      PROFILE: 'profile/PROFILE',
+      POST: 'post/POST'
     })
+  },
+  async fetch({ store, params } ){
+    store.dispatch('post/POST', {
+      postId : params.post
+    })
+  },
+  created() {
+      if (this.post.data === null && this.post.error === ""){
+        this.POST({
+        postId : this.$route.params.post
+      })
+    }
   },
   head() {
     return {

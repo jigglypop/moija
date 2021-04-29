@@ -1,5 +1,5 @@
 <template>
-  <button class="wave-button" >
+  <button class="wave-button" :style="styles" >
     <slot></slot>
   </button>
 </template>
@@ -11,6 +11,10 @@ export default Vue.extend({
   name:"wave-button",
   props: {
     text: String,
+    styles: Object,
+  },
+  mounted(){
+    console.log(this.styles)
   }
 })
 </script>
@@ -20,11 +24,11 @@ export default Vue.extend({
     border: none;
     padding: 12px 30px;
     margin: 10px;
-    background-color: #ffe259;
     color: black;
     font-size: 12px;
     font-weight: 800;
     text-transform: uppercase;
+    background: #ffe259;
     cursor: pointer;
     position: relative;
   }

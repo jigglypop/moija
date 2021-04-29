@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Post, User } from "../../models";
+import { Post, Profile, User } from "../../models";
 
 // 글쓰기
 export const write = async ( req : Request, res : Response ) =>{
@@ -33,7 +33,24 @@ export const read = async ( req : Request, res : Response ) =>{
     // 포스트 아이디
     if (!postId ) throw new Error('포스트 아이디를 입력해 주세요.')
     // 포스트가 있는지
-    const post = await Post.findByPk(postId, { include: User })
+    const post = await Post.findByPk(postId, {
+      include: [
+        {
+          model: User,
+          as: 'user',
+          include: [
+            {
+              model:Profile,
+              as: 'profile'
+            }
+          ]
+        },
+        {
+          model: Profile,
+          as: 'profiles'
+        }
+      ]
+    })
     if (!post) throw new Error('포스트가 없습니다.')
     res.status(200).json({
       data: post

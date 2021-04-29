@@ -4,8 +4,8 @@
       <div class="header-container">
         <div class="headerdiv">
           <div class="headerleft">
-            <div class="headerleftitem">
-                <pulse-blob :onClick="onClick"><i class="fas fa-bars hamberger"></i></pulse-blob>
+            <div class="headerleftitem hamberger">
+              <pulse-blob :onClick="onClick"><i class="fas fa-bars hamberger"></i></pulse-blob>
             </div>
               <div class="headerleftitem">
                 <nuxt-link to="/">
@@ -22,21 +22,15 @@
               </div>
           </div>
         </div>
-        <div v-if="check.data">
+        <div v-if="check.data" class="header-right">
           <div class="headerdiv">
-            <nuxt-link :to="`/profile/${check.data.id}`">
-              <border-avatar :permission="check ? check.data.permission : 4" :image="check ? check.data.imageurl: null">
-              </border-avatar>
-            </nuxt-link>
-          </div>
-          <div class="headerdiv">
-            <nuxt-link :to="`/profile/${check.data.id}`"><h1 class="righttext">{{ check.data.nickname }}</h1></nuxt-link>
+            <user-component :profile="check.data"></user-component>
           </div>
           <div class="headerdiv">
             <a @click="onLogout"><i class="logout fas fa-sign-out-alt fa-2x"></i></a>
           </div>
         </div>
-        <div v-else>
+        <div v-else class="header-right">
           <div class="headerdiv">
             <a @click="openRegister"><h1 class="righttext">회원가입</h1></a>
           </div>
@@ -46,28 +40,28 @@
         </div>
       </div>
     </nav>
-    <div class="leftbar">
-
-      <div class="left-inner">
-
-      </div>
-    </div>
+    <inner-component></inner-component>
   </div>
 </template>
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
 import BorderAvatar from '../common/border-avatar.vue'
+import { createToast } from '../common/createToast'
 import pulseBlob from '../common/pulse-blob.vue'
+import UserComponent from '../user/user-component.vue'
+import InnerComponent from './inner-component.vue'
 
 export default {
   components: {
     pulseBlob,
-    BorderAvatar
+    BorderAvatar,
+    UserComponent,
+    InnerComponent
   },
   name:'header-component',
   computed:{
-    ...mapState(['check'])
+    ...mapState(['check', 'maincategory'])
   },
   methods: {
     ...mapMutations({
@@ -75,7 +69,7 @@ export default {
       LOGIN: 'modal/LOGIN',
     }),
     ...mapActions({
-      CHECK: 'check/CHECK'
+      CHECK: 'check/CHECK',
     }),
     openRegister(){
       this.REGISTER()
@@ -86,6 +80,8 @@ export default {
     async onLogout(){
       await localStorage.clear()
       await this.CHECK()
+      await this.$router.push('/')
+      await createToast('로그아웃')
     },
     onClick(){
       const leftbar = document.querySelector('.leftbar')
@@ -110,23 +106,12 @@ export default {
 
 
 <style scoped>
-  .hamberger{
-    color: black
+  .headerleftitem.hamberger{
+    color: black;
   }
-  .leftbar{
-    position: fixed;
-    top:0;
-    left:0;
-    width: 0;
-    height: 100vh;
-    background-color: black;
-    display: grid;
-    grid-template-rows: 100px 1fr;
-    z-index: 1;
-    transition: all 0.5s ease-in-out;
-  }
+
   .leftbar.push{
-    width: 200px;
+    transform: translateX(0);
   }
   .left-button{
     top: 50px;
@@ -143,13 +128,23 @@ export default {
     font-size: 15px;
     display: inline-block;
     vertical-align: middle;
-    z-index: 2;
+  }
+  .headerdiv.button{
+    position: absolute;
+    z-index: 10;
   }
   .headerleft{
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+  }
+  .header-right{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-right: 30px;
   }
   .header-container {
     position: relative;
@@ -169,15 +164,15 @@ export default {
     left: 0;
     right: 0;
     transition: all 0.5s ease-in-out;
-    z-index: 2;
+    z-index: 4;
   }
   .nav.push{
-    left: 120px;
+    left: 200px;
   }
   .nav.colors {
     padding: 0;
     background-color: black;
-    z-index: 2;
+    z-index: 3;
   }
   .logoimage{
     width: 30px;
@@ -208,5 +203,27 @@ export default {
   .nav h1:hover {
     color: #ffe259;
     border-bottom: 2px solid#ffe259;
+  }
+  @media only screen and (max-width: 1200px) {
+    .nav.push{
+      left: 150px;
+    }
+    .logotext{
+      display: none;
+    }
+    .logoimage{
+      width: 35px;
+    }
+  }
+  @media only screen and (max-width: 600px) {
+    .nav.push{
+      left: 100px;
+    }
+    .logotext{
+      display: none;
+    }
+    .logoimage{
+      width: 40px;
+    }
   }
 </style>

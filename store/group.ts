@@ -21,8 +21,8 @@ export const mutations = {
   ...createMutations(type),
   SLICE(state: any){
     if (state.data){
+      state.profiles = state.data.profiles.slice(0, 5)
       if (state.data.profiles.length > 5){
-        state.profiles = state.data.profiles.slice(0, 5)
         state.isSlice = true
       }
     }

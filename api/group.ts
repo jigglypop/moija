@@ -1,3 +1,4 @@
+import { createToast } from "~/components/common/createToast"
 import { IGroupForm } from "~/store/group"
 import { IJoinForm } from "~/store/join"
 import { IWriteGroupForm } from "~/store/writegroup"
@@ -29,6 +30,7 @@ export const writeGroupApi  = async ( payload: IWriteGroupForm) => {
       return { type:'FAILURE', data: error.error }
   }
   const data = await res.json()
+  createToast('그룹 생성')
   return { type:'SUCCESS', data: data.data }
 }
 

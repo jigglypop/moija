@@ -48,6 +48,10 @@ export default Vue.extend({
       if (this.check.data){
         await this.CLOSE()
         await this.$router.push('/')
+        const leftbar = document.querySelector('.leftbar')
+        const nav = document.querySelector('.nav')
+        leftbar?.classList.add('push')
+        nav?.classList.add('push')
       }
     }
   }

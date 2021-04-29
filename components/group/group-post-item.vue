@@ -2,21 +2,9 @@
 	<div class="content-wrapper">
     <div v-if="posts" class="content-wrapper">
       <div v-if="posts.length !== 0" class="content-wrapper">
-        <div class="content" v-for="item in posts" :key="item.id">
-          <div>
-            <h6>{{ item.title }}</h6>
-          </div>
-          <div>
-            <h6>
-              {{ new Date(item.createdAt).getFullYear() + '년 '
-              + new Date(item.createdAt).getMonth() + '월 '
-              + new Date(item.createdAt).getDate() + '일 '
-              + new Date(item.createdAt).getHours() + '시 '
-              + new Date(item.createdAt).getMinutes() + '분 '
-              }}
-            </h6>
-          </div>
-        </div>
+        <nuxt-link :to="`/post/${item.id}`" class="content" v-for="item in posts" :key="item.id">
+          <group-innerpost-item :post="item"></group-innerpost-item>
+        </nuxt-link>
       </div>
       <div v-else>
         <h6>포스트가 없습니다.</h6>
@@ -27,16 +15,14 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import groupInnerpostItem from './group-innerpost-item.vue'
 
 export default Vue.extend({
+  components: { groupInnerpostItem },
   name: 'group-post-item',
   props :{
-    posts: Object,
+    posts: Array,
   },
-  computed:{
-  },
-  mounted(){
-  }
 })
 </script>
 
@@ -45,14 +31,8 @@ export default Vue.extend({
     width: 100%;
   }
   .content{
-    padding: 20px 0;
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    border-bottom: 2px solid white;
   }
-
   @media only screen and (max-width: 1200px) {
 
   }

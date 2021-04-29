@@ -1,4 +1,5 @@
 import { SERVER_URL } from "~/api/constants"
+import { createToast } from "~/components/common/createToast"
 import { ILoginForm } from "~/store/login"
 import { IResiterForm } from "~/store/register"
 
@@ -15,6 +16,7 @@ export const loginApi = async ( payload : ILoginForm) => {
   }
   await localStorage.setItem('token', JSON.stringify(res.headers.get('token')))
   const data = await res.json()
+  createToast('로그인')
   return { type:'SUCCESS', data: data.data }
 }
 
@@ -31,6 +33,7 @@ export const registerApi = async (payload: IResiterForm ) => {
   }
   await localStorage.setItem('token', JSON.stringify(res.headers.get('token')))
   const data = await res.json()
+  createToast('회원가입')
   return { type:'SUCCESS', data: data.data }
 }
 

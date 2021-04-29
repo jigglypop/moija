@@ -11,9 +11,9 @@
           </profile-avatar>
           <h1 class="nickname">{{profile.data.nickname}} </h1>
           <glass-button
-            class="glassbutton"
+            :styles="{ transform: 'scale(0.6)' }"
             v-if="check.data && check.data.username === profile.data.username">
-            <nuxt-link :to="`/updateprofile/${profile.data.id}`"><h4>프로필 변경하기</h4></nuxt-link>
+            <nuxt-link :to="`/updateprofile/${profile.data.id}`"><h3>프로필 변경하기</h3></nuxt-link>
           </glass-button>
           <h1 class="email">{{profile.data.email}}</h1>
           <h1 class="top-text">{{new Date(profile.data.createdAt)}}</h1>
@@ -67,15 +67,11 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-  .glassbutton{
-    transform: scale(0.6);
-  }
   .profileouter{
     width: 100%;
     height: 100%;
     margin: 10%;
     background-color: black;
-
   }
   .profileinner{
     position: relative;

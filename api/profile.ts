@@ -1,3 +1,4 @@
+import { createToast } from "~/components/common/createToast"
 import { IProfileForm } from "~/store/profile"
 import { IUpdateProfileForm } from "~/store/updateprofile"
 import { SERVER_URL } from "./constants"
@@ -38,5 +39,6 @@ export const updateprofileApi  = async ( payload: IUpdateProfileForm) => {
       return { type:'FAILURE', data: error.error }
   }
   const data = await res.json()
+  createToast('프로필 업데이트')
   return { type:'SUCCESS', data: data.data }
 }
