@@ -1,8 +1,7 @@
 <template>
   <div class="profileouter">
     <div v-if="profile.data" class="profileinner">
-      <div class="top">
-        <div class="top-left">
+      <div class="left">
           <profile-avatar
           :width="'200px'"
           :height="'200px'"
@@ -16,15 +15,14 @@
             <nuxt-link :to="`/updateprofile/${profile.data.id}`"><h3>프로필 변경하기</h3></nuxt-link>
           </glass-button>
           <h1 class="email">{{profile.data.email}}</h1>
-          <h1 class="top-text">{{new Date(profile.data.createdAt)}}</h1>
-        </div>
-        <div class="top-right">
-
-        </div>
+          <h1 class="left-text">{{getDateToString(profile.data.createdAt)}}에 가입</h1>
+          <div class="info-wrapper">
+            {{profile.data.info}}
+          </div>
       </div>
 
-      <div class="mid">
-
+      <div class="right">
+        <profile-right-component></profile-right-component>
       </div>
     </div>
     <div v-else>
@@ -36,33 +34,28 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'vuex'
+import { getDateToString } from '../common/getDateToString'
 import GlassButton from '../common/glass-button.vue'
 import LoadingComponent from '../common/loading-component.vue'
 import ProfileAvatar from '../common/profile-avatar.vue'
 import WaveButton from '../common/wave-button.vue'
+import ProfileRightComponent from './profile-right-component.vue'
 
 export default Vue.extend({
   name: 'profile-component',
-  components: { ProfileAvatar, LoadingComponent, WaveButton, GlassButton },
+  components: { ProfileAvatar, LoadingComponent, WaveButton, GlassButton, ProfileRightComponent },
   props:{
     profile: Object
   },
   data() {
     return {
-      maincateogoryId : ''
+      maincateogoryId : '',
+      getDateToString: getDateToString
     }
   },
   computed:{
     ...mapState(['check'])
   },
-  methods:{
-    onClick(){
-      console.log('클릭')
-    }
-  },
-  created() {
-
-  }
 })
 </script>
 
@@ -70,34 +63,25 @@ export default Vue.extend({
   .profileouter{
     width: 100%;
     height: 100%;
-    margin: 10%;
+    margin: 5%;
     background-color: black;
   }
   .profileinner{
     position: relative;
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 4fr;
   }
-  .top {
-    position: relative;
-    grid-row: 1/4;
-    grid-column: 1/2;
-    display: grid;
+  .left {
     margin: 10%;
-  }
-  .top-left {
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    grid-row:1/2;
     grid-column: 1/2;
     line-height: 4rem;
   }
-  .top-right{
-  }
+
   .nickname {
     font-size: 40px;
     font-weight: 800;
@@ -107,14 +91,33 @@ export default Vue.extend({
     font-size: 25px;
     font-weight: 800;
   }
-  .top-text {
+  .info-wrapper {
+    position: relative;
+    min-height: 200px;
+    width: 100%;
+    border-style: solid;
+    border-image: linear-gradient(45deg,#ffe259, #fff6c7);
+    border-image-slice: 1;
+    border-image-width: 2px;
+    margin: 10px;
+    padding: 10px;
+    font-size: 15px;
+    font-weight: 800;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .left-text {
     font-size: 12px;
     font-weight: 800;
     color: grey;
   }
 
-  .top-right{
-
+  .right{
+    position: relative;
+    grid-column: 2/3;
   }
   @media only screen and (max-width: 1200px) {
 

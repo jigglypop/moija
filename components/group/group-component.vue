@@ -56,6 +56,9 @@
               </div>
             </div>
           </div>
+          <div class="large-list">
+            <group-list-item :categories="group.data.categories"></group-list-item>
+          </div>
         </div>
       </div>
     </div>
@@ -72,18 +75,19 @@ import BorderAvatar from '../common/border-avatar.vue'
 import GlassButton from '../common/glass-button.vue'
 import LoadingComponent from '../common/loading-component.vue'
 import WaveButton from '../common/wave-button.vue'
+import GroupListItem from './group-list-item.vue'
 import GroupPostItem from './group-post-item.vue'
 
 export default Vue.extend({
   name: 'group-component',
-  components: { LoadingComponent, BorderAvatar, WaveButton, GroupPostItem, GlassButton },
+  components: { LoadingComponent, BorderAvatar, WaveButton, GroupPostItem, GlassButton, GroupListItem },
   data() {
     return {
-      joinedprofiles: null
+      joinedprofiles: null,
     }
   },
   computed:{
-    ...mapState(['check', 'group'])
+    ...mapState(['check', 'group']),
   },
   methods: {
     ...mapMutations({
@@ -102,14 +106,13 @@ export default Vue.extend({
   async mounted(){
     await this.CHECK()
     if (this.check.data){
-      console.log(this.check.data)
       await this.ISJOIN({
         profileId: this.check.data.id
       })
     } else{
       await this.CHECK()
     }
-  }
+  },
 })
 </script>
 
@@ -192,6 +195,16 @@ export default Vue.extend({
   .category-item{
     display: grid;
     grid-template-rows: 30px 1fr;
+  }
+  .large-list{
+    grid-column: 2/3;
+    grid-row: 1/3;
+    border-style: solid;
+    border-image: linear-gradient(45deg,#8E2DE2,#4A00E0);
+    border-image-slice: 1;
+    border-image-width: 2px;
+    margin: 20px;
+    padding: 10px;
   }
   .label{
     grid-row: 1/2;
@@ -284,24 +297,40 @@ export default Vue.extend({
     left: 50%;
     transform: translate(-50%, -50%);
   }
-
-
-
-
   @media only screen and (max-width: 1200px) {
+    .category{
+      grid-template-rows: 3fr 6fr 4fr;
+      grid-template-columns: 1fr;
+    }
     .info{
-      grid-column: 1/3;
+      grid-row: 1/2;
+      grid-column: 1/2;
     }
     .category-inner {
-      grid-column: 1/3;
+      grid-row: 2/3;
+      grid-column: 1/2;
+    }
+    .large-list{
+      grid-row: 3/4;
+      grid-column: 1/2;
     }
   }
   @media only screen and (max-width: 600px) {
+    .category{
+      grid-template-rows: 3fr 6fr 4fr;
+      grid-template-columns: 1fr;
+    }
     .info{
-      grid-column: 1/3;
+      grid-row: 1/2;
+      grid-column: 1/2;
     }
     .category-inner {
-      grid-column: 1/3;
+      grid-row: 2/3;
+      grid-column: 1/2;
+    }
+    .large-list{
+      grid-row: 3/4;
+      grid-column: 1/2;
     }
   }
 </style>

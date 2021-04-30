@@ -23,6 +23,8 @@ export default Vue.extend({
   methods : {
     ...mapActions({
       PROFILE: 'profile/PROFILE',
+      CHECK: 'check/CHECK',
+      MAINCATEGORY: 'maincategory/MAINCATEGORY'
     })
   },
   async fetch({ store, params } ){
@@ -34,13 +36,6 @@ export default Vue.extend({
     this.CHECK()
     this.MAINCATEGORY()
   },
-  methods:{
-    ...mapActions({
-      CHECK: 'check/CHECK',
-      MAINCATEGORY: 'maincategory/MAINCATEGORY'
-    })
-  },
-
 })
 </script>
 

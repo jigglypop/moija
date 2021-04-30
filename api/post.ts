@@ -1,5 +1,7 @@
 import { createToast } from "~/components/common/createToast"
 import { IDeleteForm } from "~/store/delete"
+import { IFollowForm } from "~/store/follow"
+import { ILikeForm } from "~/store/like"
 import { IPostForm } from "~/store/post"
 import { IWriteForm } from "~/store/write"
 import { SERVER_URL } from "./constants"
@@ -95,4 +97,94 @@ export const deleteApi  = async ( payload : IDeleteForm ) => {
   const data = await res.json()
   createToast('글 삭제')
   return { type:'SUCCESS', data: data }
+}
+
+
+// 좋아요 읽기
+export const readLikeApi  = async (payload : ILikeForm) => {
+    let token = ''
+  const storage = await localStorage.getItem('token')
+  if (storage){
+    token = await JSON.parse(storage)
+  }
+  const res : any = await fetch(`${SERVER_URL}/api/like/post/${payload.postId}/${payload.userId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization":`${token}`
+      },
+  })
+  if (res.status != 200){
+      const error = await res.json()
+      return { type:'FAILURE', data: error.error }
+  }
+  const data = await res.json()
+  return { type:'SUCCESS', data: data.data }
+}
+
+// 좋아요 토글
+export const readToggleLikeApi  = async (payload : ILikeForm) => {
+    let token = ''
+  const storage = await localStorage.getItem('token')
+  if (storage){
+    token = await JSON.parse(storage)
+  }
+  const res : any = await fetch(`${SERVER_URL}/api/like/post/${payload.postId}/${payload.userId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization":`${token}`
+      },
+  })
+  if (res.status != 200){
+      const error = await res.json()
+      return { type:'FAILURE', data: error.error }
+  }
+  const data = await res.json()
+  return { type:'SUCCESS', data: data.data }
+}
+
+// 좋아요 읽기
+export const readFollowApi = async (payload : IFollowForm) => {
+    let token = ''
+  const storage = await localStorage.getItem('token')
+  if (storage){
+    token = await JSON.parse(storage)
+  }
+  const res : any = await fetch(`${SERVER_URL}/api/follow/${payload.followerId}/${payload.followingId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization":`${token}`
+      },
+  })
+  if (res.status != 200){
+      const error = await res.json()
+      return { type:'FAILURE', data: error.error }
+  }
+  const data = await res.json()
+  console.log(data.data)
+  return { type:'SUCCESS', data: data.data }
+}
+
+// 팔로우 토글
+export const readToggleFollowApi  = async (payload : IFollowForm) => {
+    let token = ''
+  const storage = await localStorage.getItem('token')
+  if (storage){
+    token = await JSON.parse(storage)
+  }
+  const res : any = await fetch(`${SERVER_URL}/api/follow/${payload.followerId}/${payload.followingId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization":`${token}`
+      },
+  })
+  if (res.status != 200){
+      const error = await res.json()
+      return { type:'FAILURE', data: error.error }
+  }
+  const data = await res.json()
+  return { type:'SUCCESS', data: data.data }
 }

@@ -44,13 +44,16 @@
             />
           </div>
           <div class="under-div">
-            <div>
-              <h4 class="created">{{ getDateToString(post.data.createdAt) }}</h4>
-            </div>
-            <div v-if="post.data.user">
-              <div v-if="post.data.user.profile">
-                <user-component :profile="post.data.user.profile"></user-component>
+            <div class="user-under-div">
+              <div v-if="post.data.user">
+                <div v-if="post.data.user.profile">
+                  <user-component :profile="post.data.user.profile"></user-component>
+                </div>
               </div>
+            </div>
+            <div class="follow-like-div">
+              <follow-component></follow-component>
+              <like-component></like-component>
             </div>
           </div>
         </div>
@@ -60,13 +63,15 @@
 <script lang="ts">
 import Vue from 'vue'
 import { getDateToString } from '../common/getDateToString'
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 import userComponent from '../user/user-component.vue'
 import WaveButton from '../common/wave-button.vue'
 import GlassButton from '../common/glass-button.vue'
+import LikeComponent from '../like/like-component.vue'
+import FollowComponent from '../follow/follow-component.vue'
 
 export default Vue.extend({
-  components: { userComponent, WaveButton, GlassButton },
+  components: { userComponent, WaveButton, GlassButton, LikeComponent, FollowComponent },
   name: 'post-component',
   data() {
     return {
@@ -74,16 +79,45 @@ export default Vue.extend({
     }
   },
   computed:{
-    ...mapState(['profile', 'post', 'check']),
+    ...mapState(['profile', 'post', 'check', 'like', 'follow']),
   },
   methods: {
     ...mapMutations({
       OPENDELETE: 'modal/DELETE',
+      CLEARLIKE: 'like/CLEAR',
+      CLEARFOLLOW: 'follow/CLEAR',
+    }),
+    ...mapActions({
+      GETLIKE: 'like/LIKE',
+      GETFOLLOW: 'follow/FOLLOW',
+      CHECK: 'check/CHECK',
     }),
     onDelete(){
       this.OPENDELETE()
     },
   },
+  async mounted(){
+    await this.CHECK()
+    if (this.check.data && this.post.data){
+      await this.GETLIKE({
+        postId: this.$route.params.post,
+        userId: this.check.data.id
+      })
+      if (this.post.data.user){
+        if (this.post.data.user.profile){
+          await this.GETFOLLOW({
+            followerId: this.check.data.id,
+            followingId: this.post.data.user.profile.id
+          })
+        }
+      }
+
+    }
+  },
+  destroyed(){
+    this.CLEARLIKE()
+    this.CLEARFOLLOW()
+  }
 })
 </script>
 
@@ -99,7 +133,7 @@ export default Vue.extend({
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-rows: 200px 1fr 50px;
+    grid-template-rows: 200px 1fr 150px;
   }
   .created{
     font-size: 12px;
@@ -168,13 +202,29 @@ export default Vue.extend({
   }
   .under-div {
     grid-row: 3/4;
-    display: flex;
-    color: black;
-
-    justify-content: space-between;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
     align-items: center;
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.1);
-    padding: 5%;
+    background-color: #141414;
+    padding: 2%;
+  }
+  .user-under-div{
+    grid-row:1/2;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .follow-like-div{
+    grid-row:2/3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .under-right{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
   }
 </style>

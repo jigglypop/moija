@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Group, Category, Profile, Post } from "../../models";
+import { Group, Category, Profile, Post, User, Comment } from "../../models";
 
 // 그룹생성
 export const create = async ( req : Request, res : Response ) =>{
@@ -48,6 +48,8 @@ export const read = async ( req : Request, res : Response ) =>{
             {
               model: Post,
               as: 'posts',
+              limit: 5,
+              order: [['createdAt','DESC']]
             }
           ]
         },
@@ -131,3 +133,50 @@ export const join = async ( req : Request, res : Response ) =>{
   }
 }
 
+
+// 그룹 자식 포스트 페이지로 읽기
+export const readpost = async ( req : Request, res : Response ) =>{
+  try {
+    const { categoryId } = await req.params
+    const { page } = await req.query
+    // 페이지 한계
+    const limit = 10
+    if (!categoryId) throw new Error('잘못된 경로입니다.')
+    let posts : any = await Post.findAndCountAll(
+      {
+        where: {
+        "categoryId" : categoryId
+        },
+        order: [['createdAt','DESC']],
+        offset: Number(page) * limit,
+        limit: limit,
+        include: [
+          {
+            model: User,
+            as: 'user',
+            include: [
+              {
+                model:Profile,
+                as: 'profile'
+              }
+            ]
+          },
+          {
+            model: Profile,
+            as: 'profiles'
+          },
+          {
+            model: Comment,
+            as: 'comments'
+          },
+        ]
+      })
+    if (!posts) throw new Error('포스트 페이지가 없습니다.')
+    posts['totalpage'] = Math.ceil(posts.count / limit)
+    res.status(200).json({
+      data: posts
+    })
+  } catch(e){
+    res.status(500).json({ error: e.toString().replace("Error: ", "") })
+  }
+}

@@ -63,6 +63,41 @@ export const like = async ( req : Request, res : Response ) =>{
 }
 
 
+// 좋아요 읽어오기
+export const readlike = async ( req : Request, res : Response ) =>{
+  try {
+    const { postId } = req.params
+    const { profileId } = req.body
+    let post : any = await Post.findByPk(postId, {
+      include: [
+        {
+          model: Profile,
+          as: 'profiles'
+        },
+      ]
+    })
+    let profileset = []
+    for (let item of post.profiles){
+      await profileset.push(item.get('id'))
+    }
+    // 있으면
+    let isin = false
+    if (profileset.includes(parseInt(profileId))){
+      isin = true
+    }
+    res.status(200).json({
+      data: {
+        isin : isin,
+        length: profileset.length,
+        profileset: profileset
+      }
+    })
+  } catch (e){
+    res.status(500).json({ error: e.toString().replace("Error: ", "") })
+  }
+}
+
+
 // 댓글 좋아요
 export const likecomment = async ( req : Request, res : Response ) =>{
   try {

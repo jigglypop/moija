@@ -1,6 +1,7 @@
 import { createToast } from "~/components/common/createToast"
 import { IGroupForm } from "~/store/group"
 import { IJoinForm } from "~/store/join"
+import { IListForm } from "~/store/list"
 import { IWriteGroupForm } from "~/store/writegroup"
 import { SERVER_URL } from "./constants"
 
@@ -67,5 +68,16 @@ export const joinApi  = async ( payload : IJoinForm ) => {
   }
   const data = await res.json()
   createToast('모임 가입')
+  return { type:'SUCCESS', data: data.data }
+}
+
+// 리스트 페이지 가져오기
+export const readListPageApi  = async (payload : IListForm) => {
+  const res : any = await fetch(`${SERVER_URL}/api/group/post/${payload.categoryId}/?page=${payload.page}`)
+  if (res.status != 200){
+      const error = await res.json()
+      return { type:'FAILURE', data: error.error }
+  }
+  const data = await res.json()
   return { type:'SUCCESS', data: data.data }
 }
