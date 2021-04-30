@@ -8,14 +8,27 @@ export interface IPostForm {
   postId: string | null
 }
 
-export const state = () => ({
-  data: null,
-  error: '',
-  loading: false,
-});
+export interface IPostState {
+  data: object | null
+  error: string
+  loading: boolean
+}
+
+export const getDefaultState = () => {
+  return {
+    data: null,
+    error: '',
+    loading: false,
+  }
+}
+
+export const state = getDefaultState()
 
 export const mutations = {
   ...createMutations(type),
+  CLEAR (state: IPostState) {
+    Object.assign(state, getDefaultState())
+  }
 };
 export const actions = {
   ...createActions<IPostForm>(type, readPostApi),

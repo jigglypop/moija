@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Comment, Post } from "../../models";
+import { Comment, Post, Profile, User } from "../../models";
 
 const getPostCommentsAll = async (postId : string) =>{
   const post = await Post.findByPk(postId, {
@@ -9,7 +9,37 @@ const getPostCommentsAll = async (postId : string) =>{
         include: [
           {
             model: Comment,
-            as:'recomments'
+            as:'recomments',
+            include: [
+              {
+                model: Profile,
+                as:'profiles'
+              },
+              {
+                model: User,
+                as:'user',
+                include:[
+                  {
+                    model: Profile,
+                    as:'profile'
+                  },
+                ]
+              }
+            ]
+          },
+          {
+            model: Profile,
+            as:'profiles'
+          },
+          {
+            model: User,
+            as:'user',
+            include:[
+              {
+                model: Profile,
+                as:'profile'
+              },
+            ]
           }
         ]
       }

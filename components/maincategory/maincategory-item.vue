@@ -116,7 +116,6 @@ export default Vue.extend({
   .mid{
     grid-row: 3/4;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
     padding: 3%;
   }
   .not-have{

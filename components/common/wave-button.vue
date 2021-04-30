@@ -13,9 +13,6 @@ export default Vue.extend({
     text: String,
     styles: Object,
   },
-  mounted(){
-    console.log(this.styles)
-  }
 })
 </script>
 

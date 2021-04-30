@@ -1,14 +1,19 @@
 <template>
-	<div class="card">
-		<div class="imgbox">
-			<img :src="imageurl">
-		</div>
-		<div class="content">
-			<h3>{{ group.name }}</h3>
-			<p>{{ group.info }}</p>
-			<nuxt-link :to="`/group/${group.id}`"><h4>모임 둘러보기</h4></nuxt-link>
-		</div>
-	</div>
+  <nuxt-link :to="`/group/${group.id}`">
+    <div class="card">
+        <div class="imgbox">
+          <img :src="imageurl" class="img">
+        </div>
+        <div class="content">
+          <div class="content-top">
+            <h3>{{ group.name }}</h3>
+          </div>
+          <div class="content-bottom">
+            <h5>{{ group.info }}</h5>
+          </div>
+        </div>
+    </div>
+  </nuxt-link>
 </template>
 
 <script lang="ts">
@@ -25,104 +30,89 @@ export default Vue.extend({
       imageurl: ""
     }
   },
-  computed:{
-  },
   mounted(){
     this.imageurl = this.group.imageurl ? this.group.imageurl : require(`~/assets/maincategory/${this.maincategoryimg}`)
-  }
+  },
+
 })
 </script>
 
 <style scoped>
   .card {
     position: relative;
-    width: 300px;
-    height: 400px;
+    width: 100%;
+    height: 300px;
     background-color: black;
     margin: 10px;
-  }
+    display: grid;
+    grid-template-columns: 300px 1fr;
 
-  .content {
-    position: absolute;
-    bottom: 0px;
-    width: 80%;
-    height: 80px;
-    background-color: white;
-    color: black;
-    left: 10%;
-    text-align: center;
-    transition: 0.5s;
-    overflow: hidden;
-  }
-
-  h3 {
-    font-size: 20px;
-    font-weight: 800;
-    text-transform: uppercase;
-    margin: 25px;
-  }
-
-  p {
-    width: 80%;
-    margin: 10px auto;
-    font-size: 12px;
-    font-weight: 800;
-    transition: 0.5s;
-    opacity: 0;
-  }
-
-  a {
-    text-decoration: none;
-    background-color: black;
-    color: white;
-    padding: 10px 15px;
-    display: inline-block;
-    margin-top: 10px;
-    transition: 0.5s;
-    opacity: 0;
-  }
-
-  .card:hover {
-    box-shadow: 0px 20px 20px rgba(255,255,255,0.5);
-  }
-
-  .card:hover .content {
-    height: 100%;
-    width: 100%;
-    left: 0%;
-  }
-
-  .card:hover p,
-  .card:hover a {
-    opacity: 1;
-    transition-delay: 0.5s;
+    background-color: rgba(0,0, 0, 0.4);
+    border-style: solid;
+    border-image: linear-gradient(45deg,#8E2DE2,#4A00E0);
+    border-image-slice: 1;
+    border-image-width: 2px;
   }
 
   .imgbox {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    transition: 0.5s;
+    grid-column: 1/2;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
   }
 
-  img {
-    width: 100%;
-    height: 100%;
+  .img {
+    width: 200px;
+    height: 200px;
     object-fit: cover;
-    transition: 0.5s;
-    opacity: 0.5;
   }
 
-  .card:hover img {
-    opacity: 0;
+  .content {
+    position: relative;
+    width: 100%;
+    grid-column: 2/3;
+    display: grid;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    grid-template-rows: 1fr 1fr;
+    padding: 10%;
+  }
+  .createdAt{
+    font-size: 10px;
+  }
+  .content-top {
+    grid-row: 1/2;
+    font-size: 25px;
+    color: #4A00E0;
+    display: grid;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+  }
+  .content-bottom{
+    grid-row: 2/3;
+    display: grid;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
   }
 
   @media only screen and (max-width: 1200px) {
-
+    .img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+    }
   }
   @media only screen and (max-width: 600px) {
-
+    .img {
+      display: none;
+    }
+    .content {
+      grid-column: 1/3;
+    }
   }
 </style>

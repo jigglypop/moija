@@ -11,11 +11,11 @@
           </div>
         </div>
         <h1 class="top-text">세상의 모든 모임</h1>
-        <h1 class="email">글쓰기</h1>
+        <h1 class="email">{{ pathname }}</h1>
       </div>
 
       <div class="mid">
-        <form @submit.prevent="onWrite">
+        <form @submit.prevent="onSubmit">
           <div class="logobox">
             <h1 class="label">제목 입력</h1>
           </div>
@@ -28,10 +28,8 @@
             height="500px"
             v-model="content"
           />
-          <!-- <label><textarea  placeholder="내용"  rows="10"/></label> -->
           <h5 class="error">{{ write.error }}</h5>
-
-          <wave-button type="submit"><h4>글쓰기</h4></wave-button>
+          <wave-button type="submit"><h4>{{ pathname }}</h4></wave-button>
         </form>
       </div>
     </div>
@@ -52,38 +50,61 @@ export default Vue.extend({
   components: { LoadingComponent, WaveButton },
   props:{
     profile: Object,
-    post: Object
+    postId: String
   },
   data() {
     return {
       title: '',
       content: '',
       categoryId: '',
+      pathname: ''
     }
   },
   computed:{
-    ...mapState(['check', 'write'])
+    ...mapState(['check', 'write', 'post', 'update'])
   },
   methods:{
     ...mapActions({
       WRITE: 'write/WRITE',
+      UPDATE: 'update/UPDATE',
+      POST: 'post/POST'
     }),
-    async onWrite(){
-      await this.WRITE({
-        categoryId: this.categoryId,
-        title: this.title,
-        content: this.content,
-      })
-      if (this.write.data){
-        await this.$router.push(`/post/${this.write.data.id}`)
+    async onSubmit(){
+      if (this.pathname === '글쓰기'){
+        await this.WRITE({
+          categoryId: this.categoryId,
+          title: this.title,
+          content: this.content,
+        })
+        if (this.write.data){
+          await this.$router.push(`/post/${this.write.data.id}`)
+        }
+      } else if (this.pathname === '업데이트'){
+        await this.UPDATE({
+          postId: this.post.data.id,
+          title: this.title,
+          content: this.content,
+        })
+        if (this.update.data){
+          await this.$router.push(`/post/${this.update.data.id}`)
+        }
       }
-    }
+    },
+
   },
-  mounted() {
-    this.categoryId = this.$route.params.category
-    if (this.post){
-      this.title = this.post.data.title
-      this.content = this.post.data.content
+  async mounted() {
+    if (this.$route.path.split('/')[1] === 'update'){
+      await this.POST({
+        postId: this.$route.params.post
+      })
+      this.pathname = await '업데이트'
+      if (this.post.data){
+        this.title = await this.post.data.title
+        this.content = await this.post.data.content
+      }
+    } else{
+      this.categoryId = await this.$route.params.category
+      this.pathname = await '글쓰기'
     }
   }
 })
@@ -163,7 +184,7 @@ export default Vue.extend({
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
   }
   .mid {
     grid-row: 2/3;

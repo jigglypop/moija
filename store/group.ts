@@ -8,18 +8,33 @@ export interface IGroupForm {
   groupId: string | null
 }
 
-export const state = () => ({
-  profiles: null,
-  isSlice: false,
-  isJoin: false,
-  data: null,
-  error: '',
-  loading: false,
-});
+export interface IGroupState {
+  profiles: object | null
+  isSlice: boolean
+  isJoin: boolean
+  data: {
+    profiles : object[]
+  }
+  error: string
+  loading: boolean
+}
+
+export const getDefaultState = () => {
+  return {
+    profiles: null,
+    isSlice: false,
+    isJoin: false,
+    data: null,
+    error: '',
+    loading: false,
+  }
+}
+
+export const state = getDefaultState()
 
 export const mutations = {
   ...createMutations(type),
-  SLICE(state: any){
+  SLICE(state: IGroupState){
     if (state.data){
       state.profiles = state.data.profiles.slice(0, 5)
       if (state.data.profiles.length > 5){
@@ -27,16 +42,22 @@ export const mutations = {
       }
     }
   },
-  ISJOIN(state: any, payload: any){
+  ISJOIN(state: IGroupState, payload: { profileId : string }){
+    state.isJoin = false
     if (state.data){
-      if (state.data.profiles.length){
-        let join = state.data.profiles.filter((item : any) =>  item.id === payload.profileId)
-        console.log(join.length, join.length > 0)
-        if (join.length > 0){
-          state.isJoin = true
+      if (state.data.profiles){
+        for (let profile of state.data.profiles){
+          const _profile : any = { ...profile }
+          if (payload.profileId === _profile.id){
+            state.isJoin = true
+            break
+          }
         }
       }
     }
+  },
+  CLEAR (state: IGroupState) {
+    Object.assign(state, getDefaultState())
   }
 };
 export const actions = {

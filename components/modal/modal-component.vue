@@ -51,6 +51,9 @@
     <div class="modal-wrapper" v-show="modal.openname === 'join'">
       <join-component ></join-component>
     </div>
+    <div class="modal-wrapper" v-show="modal.openname === 'delete'">
+      <delete-component ></delete-component>
+    </div>
   </div>
 </template>
 
@@ -58,6 +61,7 @@
 import { mapState, mapMutations } from 'vuex'
 import LoginComponent from '../auth/login-component.vue'
 import RegisterComponent from '../auth/register-component.vue'
+import DeleteComponent from './delete-component.vue'
 import JoinComponent from './join-component.vue'
 
 export default {
@@ -65,7 +69,8 @@ export default {
   components:{
     LoginComponent,
     RegisterComponent,
-    JoinComponent
+    JoinComponent,
+    DeleteComponent
   },
   computed: {
     ...mapState(['modal'])

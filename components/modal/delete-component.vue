@@ -2,15 +2,15 @@
   <div class="join-wrapper">
     <div class="join-content">
       <div>
-        <h4 class="join-title">모임 가입</h4>
+        <h4 class="join-title">글 삭제</h4>
       </div>
       <div>
-        <h5>모임에 가입하시겠습니까?</h5>
+        <h5>글을 삭제하시겠습니까?</h5>
       </div>
     </div>
     <div class="join-buttons">
       <button @click="close" class="glass-button cancel"><h6 class="buttontext">취소</h6></button>
-      <button @click="onJoin" class="glass-button join"><h6 class="buttontext">가입</h6></button>
+      <button @click="onDelete" class="glass-button join"><h6 class="buttontext">삭제</h6></button>
     </div>
   </div>
 </template>
@@ -23,39 +23,30 @@ import Vue from 'vue'
 
 export default Vue.extend({
   components: { WaveButton, GlassButton },
-  name:"join-component",
+  name:"delete-component",
   props:{
     onClick: Function
   },
     computed:{
-    ...mapState(['login', 'check', 'join'])
+    ...mapState(['login', 'check', 'post', 'delete'])
   },
   methods:{
     ...mapMutations({
-      OPENREGISTER: 'modal/REGISTER',
       CLOSE: 'modal/CLOSE',
-      SETGROUP : 'join/SETGROUP',
-      ISJOIN: 'group/ISJOIN',
-      SLICE: 'group/SLICE'
     }),
     ...mapActions({
-      JOIN: 'join/JOIN',
       CHECK: 'check/CHECK',
-      GROUP: 'group/GROUP'
+      GROUP: 'group/GROUP',
+      DELETE: 'delete/DELETE'
     }),
-    async onJoin(){
-      await this.JOIN({
-        profileId: this.check.data.id,
-        groupId: this.$route.params.group
+    async onDelete(){
+      await this.DELETE({
+        postId: this.post.data.id
       })
-      await this.GROUP({
-        groupId : this.$route.params.group
-      })
-      await this.ISJOIN({
-        profileId: this.check.data.id
-      })
-      await this.SLICE()
-      await this.CLOSE()
+      if (this.delete.data){
+        await this.close()
+        await this.$router.push('/')
+      }
     },
     close(){
       this.CLOSE()
@@ -119,6 +110,7 @@ export default Vue.extend({
   .glass-button:hover {
     background-color: #f3f9a7;
   }
+
   .glass-button:before {
     content: "";
     background-color: white;
@@ -130,6 +122,7 @@ export default Vue.extend({
     transform: translateX(-100%) rotate(45deg);
     transition: all 0.3s;
   }
+
   .glass-button:hover:before {
     transform: translateX(100%) rotate(45deg);
   }

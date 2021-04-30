@@ -1,17 +1,20 @@
-import { readMainCategoryApi } from "~/api/maincategory";
 import createMutations from "../util/createMutations";
 import createActions from "../util/createActions";
+import { writeCommentApi } from "~/api/comment";
 
-const type = 'MAINCATEGORY'
+const type = 'WRITECOMMENT'
 
-export interface IMainCategoryForm {
+export interface IWriteCommentForm {
   postId: string | null
+  commentId : string | null
+  content: string
 }
 
-export interface IMainCategoryState {
+export interface IWriteCommentState {
   data: object | null
   error: string
   loading: boolean
+  comments: object
 }
 
 export const getDefaultState = () => {
@@ -21,14 +24,15 @@ export const getDefaultState = () => {
     loading: false,
   }
 }
+
 export const state = getDefaultState()
 
 export const mutations = {
   ...createMutations(type),
-  CLEAR (state: IMainCategoryState) {
+  CLEAR (state: IWriteCommentState) {
     Object.assign(state, getDefaultState())
-  }
+  },
 };
 export const actions = {
-  ...createActions(type, readMainCategoryApi),
+  ...createActions<IWriteCommentForm>(type, writeCommentApi),
 };

@@ -66,5 +66,6 @@ export const joinApi  = async ( payload : IJoinForm ) => {
       return { type:'FAILURE', data: error.error }
   }
   const data = await res.json()
+  createToast('모임 가입')
   return { type:'SUCCESS', data: data.data }
 }

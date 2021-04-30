@@ -64,13 +64,16 @@ export default Vue.extend({
     border: 2px solid #ED213A;
     color: white;
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 800;
     border-radius: 5px;
     padding: 20px;
     margin: 0.5rem;
   }
   .strong {
     color : #ED213A;
+    font-size: 13px;
+    font-weight: 800;
+    margin: 2px;
   }
 </style>
 

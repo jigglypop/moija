@@ -11,10 +11,11 @@
         </div>
         <div class="mid" v-if="group.data">
           <div class="mid-left">
-            <h1 class="grouptitle">{{ group.data.name }}</h1>
-            <h3 class="textunder">비공개 그룹</h3>
-            <button class="wave-button" @click="onJoin" v-if="check.data && !group.isJoin"><h4>가입하기</h4></button>
-            <h3 v-if="group.isJoin">그룹 회원</h3>
+            <h1 class="grouptitle">{{ group.data.name }} <i class="fas fa-lock fa-sm"></i></h1>
+            <div @click="onJoin" v-if="check.data && !group.isJoin">
+              <wave-button ><h4>가입하기</h4></wave-button>
+            </div>
+            <h3 v-if="group.isJoin" class="isgroupjoin">그룹 회원</h3>
           </div>
           <div class="mid-right" >
             <div class="border-avatar" v-if="group.profiles">
@@ -30,7 +31,7 @@
         </div>
         <div class="category">
           <div class="info">
-            <div class="content">
+            <div class="info-content">
               <h5>{{ group.data.info }}</h5>
             </div>
           </div>
@@ -96,28 +97,17 @@ export default Vue.extend({
     }),
     async onJoin(){
       await this.JOIN()
-      await this.ISJOIN({
-        profileId: this.check.data.id
-      })
-      await this.GROUP({
-        groupId : this.$route.params.group
-      })
-      if (this.group.data){
-        await this.SLICE()
-      }
     },
-
   },
   async mounted(){
+    await this.CHECK()
     if (this.check.data){
+      console.log(this.check.data)
       await this.ISJOIN({
         profileId: this.check.data.id
       })
     } else{
       await this.CHECK()
-      // await this.ISJOIN({
-      //   profileId: this.check.data.id
-      // })
     }
   }
 })
@@ -143,6 +133,13 @@ export default Vue.extend({
     height: 100%;
     display: grid;
     grid-template-rows: 400px 200px 1fr;
+  }
+  .isgroupjoin{
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 10px;
+    color : #ED213A;
+    border:2px solid #ED213A;
   }
   .top {
     grid-row: 1/2;
@@ -184,9 +181,7 @@ export default Vue.extend({
   .info {
     grid-row: 1/2;
     grid-column: 1/2;
-
     display: grid;
-    grid-template-rows: 100px 1fr;
   }
   .category-inner{
     grid-row: 2/3;
@@ -206,11 +201,25 @@ export default Vue.extend({
     justify-content: space-between;
     align-items: center;
     text-align: center;
-    margin-left: 20px;
+    margin:0 20px;
   }
   .content{
     line-height:150%;
     grid-row: 2/3;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    min-height: 300px;
+    margin: 20px;
+    padding: 10px;
+    background-color: rgba(0,0, 0, 0.4);
+    border-style: solid;
+    border-image: linear-gradient(45deg,#8E2DE2,#4A00E0);
+    border-image-slice: 1;
+    border-image-width: 2px;
+  }
+  .info-content{
+    line-height:150%;
     display: flex;
     justify-content: center;
     text-align: center;
@@ -233,17 +242,17 @@ export default Vue.extend({
     align-items: center;
     text-align: center;
   }
-
   .textunder{
     color: grey;
     font-size: 12px;
     font-weight: 800;
+    margin: 10px;
   }
   .grouptitle{
     font-size: 30px;
     font-weight: 800;
+    margin: 10px;
   }
-
   .not-have{
     grid-column: 1/5;
     display: flex;
@@ -252,8 +261,6 @@ export default Vue.extend({
     text-align: center;
   }
   .main-item{
-
-
     display: flex;
     justify-content: center;
     align-items: center;
@@ -282,9 +289,19 @@ export default Vue.extend({
 
 
   @media only screen and (max-width: 1200px) {
-
+    .info{
+      grid-column: 1/3;
+    }
+    .category-inner {
+      grid-column: 1/3;
+    }
   }
   @media only screen and (max-width: 600px) {
-
+    .info{
+      grid-column: 1/3;
+    }
+    .category-inner {
+      grid-column: 1/3;
+    }
   }
 </style>

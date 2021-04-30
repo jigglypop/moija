@@ -9,18 +9,25 @@ export interface ILocationForm {
   locationname: string | null
 }
 
-export const state = () => ({
-  location: {
-    maincategoryId: '',
-    locationname: '',
-  },
-  data: null,
-  error: null,
-  loading: false,
-});
+export interface ILocationState {
+  data: object | null
+  error: string
+  loading: boolean
+}
+export const getDefaultState = () => {
+  return {
+    data: null,
+    error: '',
+    loading: false,
+  }
+}
+export const state = getDefaultState()
 
 export const mutations = {
   ...createMutations(type),
+  CLEAR (state: ILocationState) {
+    Object.assign(state, getDefaultState())
+  }
 };
 export const actions = {
   ...createActions(type, readLocationApi),

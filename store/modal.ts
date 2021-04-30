@@ -13,6 +13,9 @@ export const mutations = {
   REGISTER(state: IOpen) {
     state.openname = 'register'
   },
+  DELETE(state: IOpen) {
+    state.openname = 'delete'
+  },
   JOIN(state: IOpen) {
     state.openname = 'join'
   },

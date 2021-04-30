@@ -35,7 +35,7 @@ export default Vue.extend({
   },
   head() {
     return {
-      title: "모이자 | 글쓰기 ",
+      title: "모이자 | 업데이트 ",
       meta: [
         {
           hid: 'description',

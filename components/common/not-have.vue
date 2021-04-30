@@ -1,6 +1,6 @@
 <template>
   <div class="nothave-outer">
-      <pulse-blob-big :onClick="onClick">
+      <pulse-blob-big>
         <h1>MOIJA</h1>
         <h4>NOT FOUND</h4>
       </pulse-blob-big>

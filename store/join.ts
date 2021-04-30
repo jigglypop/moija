@@ -9,17 +9,30 @@ export interface IJoinForm {
   groupId: string | null
 }
 
-export const state = () => ({
-  data: null,
-  error: '',
-  loading: false,
-});
+export interface IJoinState {
+  data: object | null
+  error: string
+  loading: boolean
+}
+
+export const getDefaultState = () => {
+  return {
+    data: null,
+    error: '',
+    loading: false,
+  }
+}
+
+export const state = getDefaultState()
 
 export const mutations = {
   ...createMutations(type),
   async SETGROUP({ commit } : any ,state: any, payload: any){
     await commit('group/GROUP', payload.group)
     state.data = await null
+  },
+  CLEAR (state: IJoinState) {
+    Object.assign(state, getDefaultState())
   }
 };
 export const actions = {

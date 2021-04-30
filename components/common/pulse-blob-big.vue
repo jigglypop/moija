@@ -1,5 +1,5 @@
 <template>
-  <button class="blob white" @click="onClick">
+  <button class="blob white" >
     <slot>
     </slot>
   </button>
@@ -8,9 +8,6 @@
 <script>
 export default {
   name: "pulse-blob-big",
-  props: {
-    onClick: Function,
-  },
 };
 </script>
 

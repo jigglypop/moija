@@ -21,7 +21,9 @@ export default Vue.extend({
       GROUP: 'group/GROUP',
     }),
     ...mapMutations({
-      SLICE: 'group/SLICE'
+      SLICE: 'group/SLICE',
+      CLEARGROUP: 'group/CLEAR',
+      CLEARJOIN: 'join/CLEAR'
     }),
   },
   async fetch({ store, params } ){
@@ -37,6 +39,10 @@ export default Vue.extend({
       })
       await this.SLICE()
     }
+  },
+  destroyed(){
+    this.CLEARGROUP()
+    this.CLEARJOIN()
   },
   head() {
     return {
