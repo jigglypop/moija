@@ -8,7 +8,7 @@
 import wrapperComponent from '~/components/wrapper/wrapper-component.vue'
 import ProfileComponent from '~/components/profile/profile-component.vue'
 import Vue from 'vue'
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapMutations } from 'vuex'
 
 export default Vue.extend({
   components: { wrapperComponent, ProfileComponent },
@@ -18,6 +18,9 @@ export default Vue.extend({
   methods : {
     ...mapActions({
       PROFILE: 'profile/PROFILE'
+    }),
+    ...mapMutations({
+      CLEARPROFILE: 'profile/CLEAR'
     })
   },
   async fetch({ store, params } ){
@@ -31,6 +34,9 @@ export default Vue.extend({
         profileId : this.$route.params.profile
       })
     }
+  },
+  destroyed(){
+    this.CLEARPROFILE()
   },
   head() {
     return {

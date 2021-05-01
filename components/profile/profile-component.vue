@@ -101,12 +101,12 @@ export default Vue.extend({
     border-image-width: 2px;
     margin: 10px;
     padding: 10px;
-    font-size: 15px;
+    font-size: 12px;
     font-weight: 800;
 
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
   }
 
   .left-text {

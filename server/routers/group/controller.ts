@@ -169,8 +169,8 @@ export const readpost = async ( req : Request, res : Response ) =>{
             model: Comment,
             as: 'comments'
           },
-        ]
-      })
+      ]
+    })
     if (!posts) throw new Error('포스트 페이지가 없습니다.')
     posts['totalpage'] = Math.ceil(posts.count / limit)
     res.status(200).json({

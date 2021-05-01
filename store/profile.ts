@@ -8,14 +8,27 @@ export interface IProfileForm {
   profileId: string | null
 }
 
-export const state = () => ({
-  data: null,
-  error: '',
-  loading: false,
-});
+export interface IProfileState {
+  data: object | null
+  error: string
+  loading: boolean
+}
+
+export const getState = () => {
+  return {
+    data: null,
+    error: '',
+    loading: false,
+  }
+}
+
+export const state = getState()
 
 export const mutations = {
   ...createMutations(type),
+  CLEAR (state: IProfileState) {
+    Object.assign(state, getState())
+  }
 };
 export const actions = {
   ...createActions<IProfileForm>(type, readProfileApi),

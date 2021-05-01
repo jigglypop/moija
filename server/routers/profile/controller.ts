@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Post, Profile, User } from "../../models";
+import { Profile, User } from "../../models";
 
 // 프로필 읽기
 export const read = async ( req : Request, res : Response ) =>{
@@ -7,11 +7,15 @@ export const read = async ( req : Request, res : Response ) =>{
     const { profileId } = await req.params
     // 프로필 아이디
     if (!profileId ) throw new Error('프로필 아이디를 입력해 주세요.')
-    // 프로필이 있는지
-    const profile = await Profile.findByPk(profileId)
-    if (!profile) throw new Error('프로필이 없습니다.')
+    // // 프로필이 있는지
+    const profile : any = await Profile.findAll({
+      where: { id: profileId },
+      include: [ { all: true } ]
+    })
+    if (!profile ) throw new Error('프로필이 없습니다')
+    // console.log(profile.getRows())
     res.status(200).json({
-      data: profile
+      data: profile[0]
     })
   } catch(e){
     res.status(500).json({ error: e.toString().replace("Error: ", "") })
@@ -46,7 +50,6 @@ export const update = async ( req : Request, res : Response ) =>{
     const user = await User.findOne({ where: { username: decoded.username }})
     if (!user) throw new Error('유저가 없습니다.')
     const _profileId = user.get('profileId')
-    console.log(String(_profileId), String(profileId))
     if (String(_profileId) !== String(profileId)) throw new Error('프로필 주인이 아닙니다.')
     const { nickname, location, imageurl, info } = await req.body
     if (!nickname || !location || !imageurl || !info ) throw new Error('모두 입력해 주세요')
@@ -62,10 +65,13 @@ export const update = async ( req : Request, res : Response ) =>{
       },
     })
     if (!result) throw new Error('프로필 업데이트 실패')
-    const profile = await Profile.findByPk(profileId)
+    const profile : any = await Profile.findAll({
+      where: { id: profileId },
+      include: [ { all: true } ]
+    })
     if (!profile) throw new Error('프로필이 없습니다.')
     res.status(200).json({
-      data: profile
+      data: profile[0]
     })
   } catch(e){
     res.status(500).json({ error: e.toString().replace("Error: ", "") })
