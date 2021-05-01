@@ -18,14 +18,14 @@
             <h3 v-if="group.isJoin" class="isgroupjoin">그룹 회원</h3>
           </div>
           <div class="mid-right" >
-            <div class="border-avatar" v-if="group.profiles">
+            <!-- <div class="border-avatar" v-if="group.profiles">
               <div v-for="profile in group.profiles" :key="profile.id" class="borderset">
                 <border-avatar :permission="profile.permission" :image="profile.imageurl"></border-avatar>
               </div>
               <div v-if="group.isSlice">
                 <i class="fas fa-plus fa-x"></i>
               </div>
-            </div>
+            </div> -->
             <h3 class="textunder">{{ group.data.profiles.length}}명의 회원이 가입했습니다</h3>
           </div>
         </div>
@@ -35,25 +35,12 @@
               <h5>{{ group.data.info }}</h5>
             </div>
           </div>
-          <div class="category-inner">
-            <div v-for="category in group.data.categories" :key="category.id" class="category-item">
-              <div class="label">
-                <div>
-                  <h6>{{ category.name }}</h6>
-                </div>
-                  <nuxt-link :to="`/write/${category.id}`"  v-if="group.isJoin">
-                    <glass-button
-                      :styles="{
-                        backgroundImage: 'linear-gradient(45deg,#8E2DE2,#4A00E0)',
-                        color: 'white'
-                      }">
-                      <h6 class="smaal-button-text">글쓰기</h6>
-                    </glass-button>
-                  </nuxt-link>
-              </div>
-              <div class="content">
-                <group-post-item :posts="category.posts"></group-post-item>
-              </div>
+          <div class="join">
+            <div class="info-content">
+              <nuxt-link :to="`/profile/${profile.id}`" v-for="profile in group.data.profiles" :key="profile.id" class="joinset">
+                <border-avatar :permission="profile.permission" :image="profile.imageurl"></border-avatar>
+                <h6>{{ profile.nickname }}</h6>
+              </nuxt-link>
             </div>
           </div>
           <div class="large-list">
@@ -178,13 +165,26 @@ export default Vue.extend({
   .category{
     grid-row: 3/4;
     display: grid;
-    grid-template-rows: 3fr 6fr;
+    grid-template-rows: 1fr 4fr;
     grid-template-columns: 1fr 1fr;
   }
   .info {
     grid-row: 1/2;
     grid-column: 1/2;
     display: grid;
+  }
+
+  .join {
+    grid-row: 1/2;
+    grid-column: 2/3;
+    display: grid;
+  }
+  .joinset{
+    padding: 10px;
+    border-radius: 10px;
+    max-height: 80px;
+    border:2px solid #ED213A;
+    margin: 2px;
   }
   .category-inner{
     grid-row: 2/3;
@@ -197,8 +197,8 @@ export default Vue.extend({
     grid-template-rows: 30px 1fr;
   }
   .large-list{
-    grid-column: 2/3;
-    grid-row: 1/3;
+    grid-column: 1/3;
+    grid-row: 2/3;
     border-style: solid;
     border-image: linear-gradient(45deg,#8E2DE2,#4A00E0);
     border-image-slice: 1;

@@ -19,13 +19,26 @@
         <h4 class="undertext">세상의 모든 모임, 내 근처의 모임을 만나보세요</h4>
       </div>
     </div>
+
+    <div class="main-mid">
+      <main-mid-component></main-mid-component>
+    </div>
+
+
+    <div class="main-bottom">
+      <main-bottom-component></main-bottom-component>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
+import MainBottomComponent from './main-bottom-component.vue'
+import MainMidComponent from './main-mid-component.vue'
 export default {
   name: 'MainComponent',
   components:{
+    MainMidComponent,
+    MainBottomComponent
   },
   props :{
     maincategory : Object
@@ -35,9 +48,12 @@ export default {
 
 <style scoped>
   .mainouter{
-    height: 400vh
+    /* height: 300vh; */
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
   }
   .mainwrapper{
+    grid-column:1/2;
     height: 100vh;
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -94,6 +110,15 @@ export default {
   }
   .background {
     object-fit: cover;
+  }
+
+  .main-mid {
+    position: relative;
+    grid-row: 2/3;
+  }
+  .main-bottom {
+    position: relative;
+    grid-row: 3/4;
   }
   @media only screen and (max-width: 1200px) {
   .main {

@@ -109,7 +109,7 @@ export default Vue.extend({
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-rows: 50px 1fr 1fr;
+    grid-template-rows: 50px 1fr;
     margin: 1px;
     transition: all .3s ease-in-out;
   }
