@@ -6,7 +6,8 @@ export const create = async ( req : Request, res : Response ) =>{
   try {
     const { locationId } = await req.params
     if (!locationId) throw new Error('지역을 입력해 주세요')
-    const { name, info, imageurl } = await req.body
+    const { name, info, imageurl, profileId } = await req.body
+    if (!profileId) throw new Error('모임 가입은 로그인 후 가능합니다.')
     if (!name || !info || !imageurl) throw new Error('이름, 모임 설명, 이미지를 입력해 주세요')
     const group = await Group.create({
       locationId: locationId,
@@ -26,8 +27,15 @@ export const create = async ( req : Request, res : Response ) =>{
       groupId: group.get('id'),
       name: "공지사항",
     })
+    let _group : any = await Group.findByPk(group.getDataValue('id'))
+    let _profile : any = await Profile.findByPk(profileId)
+    if (!_group || !_profile) throw new Error('테이블 불러오기 실패')
+
+    await _profile.addGroups(parseInt(group.getDataValue('id')))
+    await _group.addProfiles(parseInt(profileId))
+    const __group : any = await Group.findByPk(group.getDataValue('id'))
     res.status(200).json({
-      data: group
+      data: __group
     })
   } catch(e){
     res.status(500).json({ error: e.toString().replace("Error: ", "") })

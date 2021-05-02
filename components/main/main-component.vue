@@ -48,7 +48,6 @@ export default {
 
 <style scoped>
   .mainouter{
-    /* height: 300vh; */
     display: grid;
     grid-template-rows: 1fr 1fr 1fr;
   }

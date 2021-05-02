@@ -57,7 +57,7 @@ export default Vue.extend({
     align-items: center;
   }
   .like-text{
-    margin: 2px;
+    padding: 10px;
     color: #ED213A;
     transition: all .3s ease-out;
   }

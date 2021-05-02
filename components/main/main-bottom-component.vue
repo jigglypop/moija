@@ -6,7 +6,6 @@
           <img :src="require(`~/assets/meet/${item}.png`)" class="background"/>
         </div>
       </div>
-
     </div>
     <div class="right">
       <h1 class="titletext">MEET</h1>
@@ -68,7 +67,6 @@ export default {
   .undertext{
     font-size: 11px;
   }
-
   .right {
     grid-column: 2/3;
     display: grid;
@@ -106,11 +104,7 @@ export default {
     object-fit: cover;
   }
   @media only screen and (max-width: 1200px) {
-  .main {
-    }
   }
   @media only screen and (max-width: 600px) {
-  .main {
-    }
   }
 </style>

@@ -20,9 +20,7 @@ app.use(cookieParser())
 app.use(rootRouter)
 
 const server = createServer(app)
-server.listen(process.env.PORT, ()=> {
-  console.log(`http://localhost:${process.env.PORT}`)
-})
+server.listen(3000)
 module.exports = {
   path: '/api', handler: app
 }

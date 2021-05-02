@@ -58,7 +58,7 @@ export default Vue.extend({
 
   }
   .follow-text{
-    margin: 2px;
+    padding: 10px;
     color: #40e0d0;
     transition: all .3s ease-out;
     border : 2px solid #40e0d0;

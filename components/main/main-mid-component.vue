@@ -13,7 +13,6 @@
         <h5 >{{item}}</h5>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -53,7 +52,6 @@ export default {
 
 <style scoped>
   .main-mid-outer{
-
     display: grid;
     justify-content: center;
     text-align: center;
