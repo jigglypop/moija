@@ -30,15 +30,19 @@ export default {
 
 <style scoped>
   .main-bottom-outer{
-    position: relative;
-    width: 100%;
-    height: 100%;
+    grid-row:3/4;
+    height: 100vh;
     display: grid;
     justify-content: center;
     text-align: center;
     align-items: center;
-    padding: 3%;
-    grid-template-columns: 2fr 1fr;
+    margin: 5%;
+    /* padding: 10%; */
+    grid-template-columns: 1fr 1fr;
+    border-style: solid;
+    border-image: linear-gradient(45deg, #ffe259, #ffa751);
+    border-image-slice: 1;
+    border-image-width: 2px;
   }
   .main {
     width: 100%;
@@ -50,7 +54,6 @@ export default {
     grid-template-rows: 1fr 1fr;
   }
   .left{
-    position: relative;
     grid-column: 1/2;
     display: grid;
     justify-content: center;
@@ -63,6 +66,7 @@ export default {
   }
   .subtitletext{
     font-size: 20px;
+    padding-bottom: 10px;
   }
   .undertext{
     font-size: 11px;
@@ -103,8 +107,32 @@ export default {
     height: 200px;
     object-fit: cover;
   }
+
   @media only screen and (max-width: 1200px) {
+    .main-bottom-outer{
+      height: 120vh;
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 1fr;
+    }
+    .left{
+      grid-row: 2/3;
+      grid-column: 1/3;
+    }
+    .right{
+      grid-row: 1/2;
+      grid-column: 1/3;
+    }
   }
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 900px) {
+    .main-bottom-outer{
+      height: 160vh;
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 1fr;
+    }
+  }
+  @media only screen and (max-width: 700px) {
+    .main-bottom-outer{
+      height: 180vh;
+    }
   }
 </style>

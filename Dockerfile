@@ -1,16 +1,15 @@
-FROM node:10 AS builder
+FROM node:14
 
-WORKDIR /app
-COPY . .
+WORKDIR /usr/src/app
+
+COPY . ./
 RUN yarn
+
+EXPOSE 8000
+
+ENV HOST=0.0.0.0
+ENV PORT=8000
+
 RUN yarn build
-
-FROM node:10-alpine
-
-WORKDIR /app
-COPY --from=builder /app ./
 RUN yarn global add pm2
-ENV NODE_ENV=development
-# CMD ["pm2-runtime", "start", "./dist/main.js"]
-# CMD ["npm", "run", "start:prod"]
-CMD ["pm2-runtime", "dev"]
+CMD [ "pm2-runtime", "./node_modules/nuxt/bin/nuxt.js" ]

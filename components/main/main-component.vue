@@ -2,22 +2,24 @@
   <div class="mainouter">
     <div class="mainwrapper">
       <div class="main">
-        <div class="main-item" v-for="item in maincategory.data" :key="item.id">
-          <nuxt-link :to="`/maincategory/${item.id}`">
-          <div class="item-name">
-            <h4 >{{ item.name }}</h4>
+          <div class="main-inner">
+            <div class="main-item" v-for="item in maincategory.data" :key="item.id">
+              <nuxt-link :to="`/maincategory/${item.id}`">
+              <div class="item-name">
+                <h4 >{{ item.name }}</h4>
+              </div>
+              <div>
+                <img :src="require(`~/assets/maincategory/${item.image}`)" class="background"/>
+              </div>
+              </nuxt-link>
+            </div>
           </div>
-          <div>
-            <img :src="require(`~/assets/maincategory/${item.image}`)" class="background"/>
-          </div>
-          </nuxt-link>
         </div>
-      </div>
-      <div class="mainunder">
-        <h1 class="titletext">MOIJA</h1>
-        <h2 class="subtitletext">모이자</h2>
-        <h4 class="undertext">세상의 모든 모임, 내 근처의 모임을 만나보세요</h4>
-      </div>
+        <div class="mainunder">
+          <h1 class="titletext">MOIJA</h1>
+          <h2 class="subtitletext">모이자</h2>
+          <h4 class="undertext">세상의 모든 모임, 내 근처의 모임을 만나보세요</h4>
+        </div>
     </div>
 
     <div class="main-mid">
@@ -50,18 +52,27 @@ export default {
   .mainouter{
     display: grid;
     grid-template-rows: 1fr 1fr 1fr;
+    justify-content: center;
+    align-content: center;
   }
   .mainwrapper{
-    grid-column:1/2;
+    position: relative;
+    grid-row:1/2;
     height: 100vh;
     display: grid;
     grid-template-columns: 2fr 1fr;
+    margin: 5%;
+    padding: 5%;
+    border-style: solid;
+    border-image: linear-gradient(45deg, #ffe259, #ffa751);
+    border-image-slice: 1;
+    border-image-width: 2px;
   }
   .mainunder{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     text-align: center;
     grid-column: 2/3;
   }
@@ -71,18 +82,21 @@ export default {
   }
   .subtitletext{
     font-size: 20px;
+    padding-bottom: 10px;
   }
   .undertext{
     font-size: 11px;
   }
   .main {
     grid-column: 1/2;
-    height: 60vh;
-    padding: 10vw 2vw 10vw 10vw;
-    display: grid;
+    display: flex;
     justify-content: center;
     text-align: center;
     align-items: center;
+
+  }
+  .main-inner{
+    display: grid;
     grid-template-columns: 200px 200px 200px 200px;
     grid-template-rows: 200px 200px;
   }
@@ -110,7 +124,6 @@ export default {
   .background {
     object-fit: cover;
   }
-
   .main-mid {
     position: relative;
     grid-row: 2/3;
@@ -119,14 +132,43 @@ export default {
     position: relative;
     grid-row: 3/4;
   }
-  @media only screen and (max-width: 1200px) {
-  .main {
+  @media only screen and (max-width: 1400px) {
+    .main-inner {
       grid-template-columns: 200px 200px 200px;
       grid-template-rows: 200px 200px  200px;
     }
   }
-  @media only screen and (max-width: 600px) {
-  .main {
+  @media only screen and (max-width: 1200px) {
+    .mainwrapper{
+      height: 120vh;
+    }
+    .main-inner {
+      grid-template-columns: 200px 200px 200px;
+      grid-template-rows: 200px 200px  200px;
+    }
+  }
+  @media only screen and (max-width: 900px) {
+    .mainwrapper{
+      height: 160vh;
+    }
+    .mainwrapper{
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 1fr;
+    }
+    .main{
+      grid-row: 2/3;
+      grid-column: 1/3;
+    }
+    .mainunder{
+      grid-row: 1/2;
+      grid-column: 1/3;
+    }
+  }
+  @media only screen and (max-width: 700px) {
+    .mainwrapper{
+      height: 180vh;
+    }
+    .main-inner {
       grid-template-columns: 200px 200px;
       grid-template-rows: 200px 200px  200px  200px;
     }

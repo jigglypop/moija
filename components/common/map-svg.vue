@@ -1,11 +1,6 @@
 <template>
-  <div class="mapouter">
-    <svg width="524.23737" height="630.5871" fill="url(#grad1)" filter="url(#f2)" @mouseover="onHover">
+    <svg width="524.23737" height="630.5871" filter="url(#f2)" @mouseover="onHover">
       <defs>
-        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" style="stop-color:#a8ff78;stop-opacity:1" />
-          <stop offset="100%" style="stop-color:#78ffd6;stop-opacity:1" />
-        </linearGradient>
         <filter id="f2" x="0" y="0" width="200%" height="200%">
           <feOffset result="offOut" in="SourceGraphic" dx="5" dy="5" />
           <feGaussianBlur result="blurOut" in="offOut" stdDeviation="10" />
@@ -82,7 +77,6 @@
           class="Sejong"
           id="KR-50" />
     </svg>
-  </div>
 
 </template>
 
@@ -115,16 +109,18 @@ export default {
 
 <style scoped>
   .mapouter{
-    transition: all 1s ease-in-out;
+    /* transition: all 1s ease-in-out; */
+    padding: 0;
   }
   svg{
-    transform: scale(0.8);
+    transform: scale(0.7);
   }
   path {
-    stroke: black;
+    fill:#141414;
+    stroke: #78ffd6;
     stroke-width:1px;
     stroke-linejoin: round;
-    transition: all 1s ease-in-out;
+    transition: all 0.4s ease-in-out;
   }
   path:hover {
     fill: #78ffd6;

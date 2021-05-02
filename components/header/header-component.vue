@@ -157,7 +157,7 @@ export default {
     transition: padding 0.3s ease-in-out;
   }
   .nav {
-    padding: 5%;
+    padding: 6%;
     background-color: transparent;
     position: fixed;
     top: 0;

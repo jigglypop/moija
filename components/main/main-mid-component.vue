@@ -10,8 +10,9 @@
     </div>
     <div class="right">
       <div v-for="item in imageurl" :key="item" :class="`location-text-item ${item}`">
-        <h5 >{{item}}</h5>
+        <h6 >{{item}}</h6>
       </div>
+
     </div>
   </div>
 </template>
@@ -52,15 +53,24 @@ export default {
 
 <style scoped>
   .main-mid-outer{
+    grid-row:2/3;
+    height: 100vh;
     display: grid;
     justify-content: center;
     text-align: center;
     align-items: center;
-    margin: 8%;
-    grid-template-columns: 1fr 1fr 1fr;
+    margin: 5%;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 100px;
+
+    border-style: solid;
+    border-image: linear-gradient(45deg, #ffe259, #ffa751);
+    border-image-slice: 1;
+    border-image-width: 2px;
   }
 
   .left{
+    grid-row: 1/3;
     grid-column: 1/2;
     display: grid;
     justify-content: center;
@@ -73,6 +83,7 @@ export default {
   }
   .subtitletext{
     font-size: 20px;
+    padding-bottom: 10px;
   }
   .undertext{
     font-size: 11px;
@@ -80,19 +91,26 @@ export default {
 
   .mid {
     grid-column: 2/3;
+    grid-row: 1/2;
     display: grid;
     justify-content: center;
     text-align: center;
     align-items: center;
   }
   .right {
-    grid-column: 3/4;
+    transform: translateY(-100px);
+    grid-column: 2/3;
+    grid-row: 2/3;
+
     display: grid;
     justify-content: center;
     text-align: center;
     align-items: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+  .right-inner{
+    top: -100px;
   }
   .location-text-item{
     color: gray;
@@ -106,12 +124,38 @@ export default {
     border: 2px solid #ED213A;
     box-shadow: 0 0 20px #ED213A;
   }
+
   @media only screen and (max-width: 1200px) {
-  .main {
+    .main-mid-outer{
+      height: 120vh;
+    }
+  }
+  @media only screen and (max-width: 1000px) {
+    .main-mid-outer{
+      grid-template-rows: 1fr 1fr 100px;
+      grid-template-columns: 1fr;
+    }
+    .left{
+      grid-row: 1/2;
+      grid-column: 1/3;
+    }
+    .mid{
+      grid-row: 2/3;
+      grid-column: 1/3;
+    }
+    .right{
+      grid-row: 3/4;
+      grid-column: 1/3;
     }
   }
   @media only screen and (max-width: 600px) {
-  .main {
+    .mainwrapper{
+      height: 180vh;
+      margin: 20%;
+    }
+    .main-inner {
+      grid-template-columns: 200px 200px;
+      grid-template-rows: 200px 200px  200px  200px;
     }
   }
 </style>
