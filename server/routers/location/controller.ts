@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Model } from "sequelize/types";
 import { ILocation } from "../../models/location";
-import { Group, MainCategory, Location } from "../../models";
+import { Group, MainCategory, Location, Profile } from "../../models";
 import { IMainCategory } from "../../models/maincategory";
 
 
@@ -19,7 +19,20 @@ export const read = async ( req : Request, res : Response ) =>{
         locationId = await location.get('id')
       }
     }
-    const _location: Model<ILocation> | null = await Location.findByPk(locationId, { include: Group })
+    const _location: Model<ILocation> | null = await Location.findByPk(locationId, {
+      include: [
+        {
+          model: Group,
+          as:'groups',
+          include : [
+            {
+              model: Profile,
+              as:'profiles',
+            }
+          ]
+        }
+      ]
+    })
     res.status(200).json({
       data: {
         location: _location,

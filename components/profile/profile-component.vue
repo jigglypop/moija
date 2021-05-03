@@ -16,8 +16,8 @@
           </glass-button>
           <h1 class="email">{{profile.data.email}}</h1>
           <h1 class="left-text">{{getDateToString(profile.data.createdAt)}}에 가입</h1>
-          <div class="info-wrapper">
-            {{profile.data.info}}
+          <div class="info-wrapper" >
+            <h4>{{profile.data.info !== null ? profile.data.info : '자기소개가 없습니다.'}}</h4>
           </div>
       </div>
 
@@ -92,7 +92,10 @@ export default Vue.extend({
     font-weight: 800;
   }
   .info-wrapper {
-    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
     min-height: 200px;
     width: 100%;
     border-style: solid;
@@ -104,9 +107,6 @@ export default Vue.extend({
     font-size: 12px;
     font-weight: 800;
 
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
   }
 
   .left-text {
@@ -120,9 +120,16 @@ export default Vue.extend({
     grid-column: 2/3;
   }
   @media only screen and (max-width: 1200px) {
-
-  }
-  @media only screen and (max-width: 600px) {
-
+    .profileinner{
+      grid-template-rows: 1fr 1fr;
+    }
+    .left{
+      grid-row: 1/2;
+      grid-column: 1/3;
+    }
+    .right{
+      grid-row: 2/3;
+      grid-column: 1/3;
+    }
   }
 </style>

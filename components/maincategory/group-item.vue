@@ -9,7 +9,7 @@
             <h3>{{ group.name }}</h3>
           </div>
           <div class="content-bottom">
-            <h5>{{ group.info }}</h5>
+            <h5>{{ group.info.length >= 100 ?  group.info.slice(0, 50) + '...' : group.info }}</h5>
           </div>
         </div>
     </div>
@@ -31,6 +31,7 @@ export default Vue.extend({
     }
   },
   mounted(){
+    console.log(this.group)
     this.imageurl = this.group.imageurl ? this.group.imageurl : require(`~/assets/maincategory/${this.maincategoryimg}`)
   },
 
@@ -41,7 +42,7 @@ export default Vue.extend({
   .card {
     position: relative;
     width: 100%;
-    height: 300px;
+    height: 250px;
     background-color: black;
     margin: 10px;
     display: grid;
@@ -91,6 +92,7 @@ export default Vue.extend({
     justify-content: space-between;
     align-items: center;
     text-align: center;
+    text-shadow: 0 0 10px#4A00E0;
   }
   .content-bottom{
     grid-row: 2/3;

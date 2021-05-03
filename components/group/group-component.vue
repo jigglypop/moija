@@ -18,29 +18,28 @@
             <h3 v-if="group.isJoin" class="isgroupjoin">그룹 회원</h3>
           </div>
           <div class="mid-right" >
-            <!-- <div class="border-avatar" v-if="group.profiles">
-              <div v-for="profile in group.profiles" :key="profile.id" class="borderset">
-                <border-avatar :permission="profile.permission" :image="profile.imageurl"></border-avatar>
-              </div>
-              <div v-if="group.isSlice">
-                <i class="fas fa-plus fa-x"></i>
-              </div>
-            </div> -->
             <h3 class="textunder">{{ group.data.profiles.length}}명의 회원이 가입했습니다</h3>
           </div>
         </div>
         <div class="category">
           <div class="info">
             <div class="info-content">
-              <h5>{{ group.data.info }}</h5>
+              <div class="info-text">
+                <h5>{{ group.data.info }}</h5>
+              </div>
             </div>
           </div>
           <div class="join">
-            <div class="info-content">
-              <nuxt-link :to="`/profile/${profile.id}`" v-for="profile in group.data.profiles" :key="profile.id" class="joinset">
-                <border-avatar :permission="profile.permission" :image="profile.imageurl"></border-avatar>
-                <h6>{{ profile.nickname }}</h6>
-              </nuxt-link>
+            <div class="join-content">
+              <div class="join-text">
+                <h4>가입자</h4>
+              </div>
+              <div class="join-avatar">
+                <nuxt-link :to="`/profile/${profile.id}`" v-for="profile in group.data.profiles" :key="profile.id" class="joinset">
+                  <border-avatar :permission="profile.permission" :image="profile.imageurl"></border-avatar>
+                  <h6>{{ profile.nickname }}</h6>
+                </nuxt-link>
+              </div>
             </div>
           </div>
           <div class="large-list">
@@ -128,6 +127,8 @@ export default Vue.extend({
     font-size: 14px;
     padding: 10px;
     border-radius: 10px;
+    justify-content: center;
+    align-items: center;
     color : #ED213A;
     border:2px solid #ED213A;
   }
@@ -165,7 +166,7 @@ export default Vue.extend({
   .category{
     grid-row: 3/4;
     display: grid;
-    grid-template-rows: 1fr 4fr;
+    grid-template-rows: 1fr 2fr;
     grid-template-columns: 1fr 1fr;
   }
   .info {
@@ -173,25 +174,54 @@ export default Vue.extend({
     grid-column: 1/2;
     display: grid;
   }
-
   .join {
     grid-row: 1/2;
     grid-column: 2/3;
     display: grid;
   }
+
+  .join-content{
+    display: grid;
+    grid-template-rows: 50px 1fr;
+    margin: 20px;
+    padding: 10px;
+    border-style: solid;
+    background-color: rgba(0,0, 0, 0.4);
+    border-image: linear-gradient(45deg,#8E2DE2,#4A00E0);
+    border-image-slice: 1;
+    border-image-width: 2px;
+  }
+  .join-text{
+    grid-row: 1/2;
+    font-size: 20px;
+    color: #8E2DE2;
+    text-shadow: 0 0 20px #8E2DE2;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    border-bottom: 2px solid #8E2DE2;
+  }
+  .join-avatar{
+    padding: 10px;
+    grid-row: 2/3;
+    display: flex;
+    justify-content: flex-start;
+    text-align: center;
+    min-height: 300px;
+  }
   .joinset{
     padding: 10px;
     border-radius: 10px;
     max-height: 80px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     border:2px solid #ED213A;
     margin: 2px;
   }
-  .category-inner{
-    grid-row: 2/3;
-    grid-column: 1/2;
-    display: grid;
-    grid-template-rows: 1fr 1fr 1fr;
-  }
+
   .category-item{
     display: grid;
     grid-template-rows: 30px 1fr;
@@ -199,12 +229,14 @@ export default Vue.extend({
   .large-list{
     grid-column: 1/3;
     grid-row: 2/3;
+    max-height: 800px;
     border-style: solid;
     border-image: linear-gradient(45deg,#8E2DE2,#4A00E0);
     border-image-slice: 1;
     border-image-width: 2px;
     margin: 20px;
     padding: 10px;
+    overflow: scroll;
   }
   .label{
     grid-row: 1/2;
@@ -232,7 +264,6 @@ export default Vue.extend({
     border-image-width: 2px;
   }
   .info-content{
-    line-height:150%;
     display: flex;
     justify-content: center;
     text-align: center;
@@ -245,6 +276,13 @@ export default Vue.extend({
     border-image-slice: 1;
     border-image-width: 2px;
   }
+
+  .info-text{
+    line-height:200%;
+    margin: 20px;
+    font-size: 20px;
+  }
+
   .borderset{
     position: relative;
     margin-left: -15px;
@@ -257,7 +295,7 @@ export default Vue.extend({
   }
   .textunder{
     color: grey;
-    font-size: 12px;
+    font-size: 15px;
     font-weight: 800;
     margin: 10px;
   }
@@ -299,38 +337,28 @@ export default Vue.extend({
   }
   @media only screen and (max-width: 1200px) {
     .category{
-      grid-template-rows: 3fr 6fr 4fr;
+      grid-template-rows: 1fr 1fr 4fr;
       grid-template-columns: 1fr;
     }
+
     .info{
       grid-row: 1/2;
-      grid-column: 1/2;
+      grid-column: 1/3;
     }
-    .category-inner {
+    .join{
       grid-row: 2/3;
-      grid-column: 1/2;
+      grid-column: 1/3;
     }
     .large-list{
       grid-row: 3/4;
-      grid-column: 1/2;
+      grid-column: 1/3;
     }
   }
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 900px) {
     .category{
-      grid-template-rows: 3fr 6fr 4fr;
+      grid-template-rows: 1fr 1fr 2fr;
       grid-template-columns: 1fr;
     }
-    .info{
-      grid-row: 1/2;
-      grid-column: 1/2;
-    }
-    .category-inner {
-      grid-row: 2/3;
-      grid-column: 1/2;
-    }
-    .large-list{
-      grid-row: 3/4;
-      grid-column: 1/2;
-    }
   }
+
 </style>

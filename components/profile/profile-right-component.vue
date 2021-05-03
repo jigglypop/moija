@@ -80,7 +80,7 @@ export default Vue.extend({
     position: relative;
     background-color: black;
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 2fr;
     grid-template-columns: 1fr 1fr;
   }
   .item-top{
@@ -151,30 +151,9 @@ export default Vue.extend({
     margin: 20px;
     padding: 10px;
   }
-  /* .bottom-left{
-    grid-row: 3/4;
-    grid-column: 1/2;
-    border-style: solid;
-    border-image: linear-gradient(45deg,#8E2DE2,#4A00E0);
-    border-image-slice: 1;
-    border-image-width: 2px;
-    margin: 20px;
-    padding: 10px;
-  }
-  .bottom-right{
-    grid-row: 3/4;
-    grid-column: 2/3;
 
-    border-style: solid;
-    border-image: linear-gradient(45deg,#8E2DE2,#4A00E0);
-    border-image-slice: 1;
-    border-image-width: 2px;
-    margin: 20px;
-    padding: 10px;
-  } */
   .borderset{
     position: relative;
-    /* margin-left: -15px; */
   }
   .border-avatar{
     display: flex;
