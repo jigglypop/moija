@@ -7,7 +7,7 @@
         </div>
       </div>
     </div>
-    <div class="right">
+    <div class="right" v-focus="onMove">
       <h1 class="titletext">MEET</h1>
       <h2 class="subtitletext">근처의 친구들을 만나보세요</h2>
       <h4 class="undertext">세상의 모든 모임, 내 근처의 모임을 만나보세요</h4>
@@ -37,7 +37,6 @@ export default {
     text-align: center;
     align-items: center;
     margin: 5%;
-    /* padding: 10%; */
     grid-template-columns: 1fr 1fr;
     border-style: solid;
     border-image: linear-gradient(45deg, #ffe259, #ffa751);

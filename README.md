@@ -4,7 +4,7 @@
 ```
 
 sudo snap install docker
-docker build -t ydh2244/moija .
+docker build -t ydh2244/moija:0955 .
 docker run -d -p 8000:8000 ydh2244/moija
 
 docker push ydh2244/moija
@@ -38,6 +38,10 @@ index index.html index.html index.nginx-debian.html; # 지우기
 server_name moija.link; # 수정
 location / {
 		proxy_pass http://localhost:8000; # 추가(나오는 경로)
-		
 }
+```
+* cors
+
+```
+vi /etc/nginx/nginx.conf
 ```

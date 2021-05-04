@@ -14,7 +14,7 @@
         <h1 class="email">프로필 변경하기</h1>
       </div>
 
-      <div class="mid">
+      <div class="mid" v-if="profile.data">
         <form @submit.prevent="onUpdateProfile">
           <div class="textbox">
             <div class="logobox">
@@ -92,17 +92,22 @@ export default Vue.extend({
         imageurl: this.imageurl,
         info: this.info
       })
+      console.log(this.check.data)
       if (this.updateprofile.data){
+        console.log(this.check.data)
+        console.log(this.updateprofile.data)
         await this.CHECK()
         await this.$router.push(`/profile/${this.updateprofile.data.id}`)
       }
     }
   },
   mounted() {
-    this.nickname = this.profile.data.nickname
-    this.location = this.profile.data.location
-    this.imageurl = this.profile.data.imageurl
-    this.info = this.profile.data.info
+    if (this.profile.data){
+      this.nickname = this.profile.data.nickname ? this.profile.data.nickname : ''
+      this.location = this.profile.data.location ? this.profile.data.location : ''
+      this.imageurl = this.profile.data.imageurl ? this.profile.data.imageurl : ''
+      this.info = this.profile.data.info ? this.profile.data.info : ''
+    }
   }
 })
 </script>

@@ -34,7 +34,7 @@ export default Vue.extend({
   },
   head() {
     return {
-      title: "모이자 | 프로필 업데이트 | " + this.profile.data.nickname,
+      title: this.profile ? this.profile.data? "모이자 | 프로필 업데이트 | " + this.profile.data.nickname : "모이자 | 프로필 업데이트" : "모이자 | 프로필 업데이트",
       meta: [
         {
           hid: 'description',
