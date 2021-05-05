@@ -29,8 +29,8 @@ export default Vue.extend({
     })
   },
   created() {
-      if (this.profile.data === null && this.profile.error === ""){
-        this.PROFILE({
+    if (this.profile.data === null && this.profile.error === ""){
+      this.PROFILE({
         profileId : this.$route.params.profile
       })
     }

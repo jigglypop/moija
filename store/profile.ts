@@ -1,4 +1,4 @@
-import createMutations from "../util/createMutations";
+import createMutationClean from "../util/createMutationClean";
 import createActions from "../util/createActions";
 import { readProfileApi } from "~/api/profile";
 
@@ -14,21 +14,14 @@ export interface IProfileState {
   loading: boolean
 }
 
-export const getState = () => {
-  return {
-    data: null,
-    error: '',
-    loading: false,
-  }
-}
-
-export const state = getState()
+export const state = () => ({
+  data: null,
+  error: '',
+  loading: false,
+})
 
 export const mutations = {
-  ...createMutations(type),
-  CLEAR (state: IProfileState) {
-    Object.assign(state, getState())
-  }
+  ...createMutationClean<IProfileState>(type, state()),
 };
 export const actions = {
   ...createActions<IProfileForm>(type, readProfileApi),

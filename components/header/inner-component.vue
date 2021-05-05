@@ -29,10 +29,7 @@
             <nuxt-link :to="`/maincategory/${item.id}`">
               <div class="main-item">
                 <div class="item-name" >
-                  <h4 >{{ item.name }}</h4>
-                </div>
-                <div>
-                  <img :src="require(`~/assets/maincategory/${item.image}`)" class="background"/>
+                  <h4 class="item-text">{{ item.name }}</h4>
                 </div>
               </div>
             </nuxt-link>
@@ -69,7 +66,7 @@ export default Vue.extend({
     left:0;
     width: 200px;
     height: 100vh;
-    background: linear-gradient(45deg, rgb(168, 255, 120, 0.6), rgb(120, 255, 214, 0.6));
+    background: linear-gradient(20deg, rgba(172, 0, 255, 0.8) 46%, rgba(0, 207, 255, 0.8) 100%);
     transition: all 0.5s ease-in-out;
     transform: translateX(-200px);
     z-index: 3;
@@ -109,17 +106,25 @@ export default Vue.extend({
   }
   .main-item{
     position: relative;
-    height: 50px;
+    height: 30px;
     overflow: hidden;
-    margin: 0 10px;
-    opacity: 0.6;
+    margin: 0 20px;
     transition: all .1s ease-in-out;
+    background-color: black;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
   }
   .background {
     width: 100%;
   }
   .main-item:hover{
-    opacity: 1;
+    border-style: solid;
+    border-image: linear-gradient(45deg, #ffe259, #ffa751);
+    border-image-slice: 1;
+    border-image-width: 2px;
+    box-shadow: 0 0 10px #ffe259;
   }
   .item-name {
     position: absolute;
@@ -139,7 +144,11 @@ export default Vue.extend({
       width: 150px;
     }
     .item-name {
+      width: 100%;
       font-size: 10px;
+    }
+    .main-item{
+      margin: 0 10px;
     }
   }
   @media only screen and (max-width: 600px) {
@@ -147,10 +156,15 @@ export default Vue.extend({
       width: 100px;
     }
     .item-name {
-      font-size: 10px;
+      width: 100%;
+      font-size: 9px;
     }
     .top {
       display: none;
+    }
+    .main-item{
+      margin: 0;
+
     }
   }
 </style>

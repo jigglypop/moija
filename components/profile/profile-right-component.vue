@@ -69,9 +69,6 @@ export default Vue.extend({
   computed:{
     ...mapState(['profile'])
   },
-  mounted(){
-    console.log(this.profile)
-  }
 })
 </script>
 

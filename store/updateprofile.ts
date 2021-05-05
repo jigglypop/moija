@@ -1,4 +1,4 @@
-import createMutations from "../util/createMutations";
+import createMutationClean from "../util/createMutationClean";
 import createActions from "../util/createActions";
 import { updateprofileApi } from "~/api/profile";
 
@@ -11,15 +11,20 @@ export interface IUpdateProfileForm {
   imageurl: string
   info: string
 }
+export interface IUpdateProfileState {
+  data: object | null
+  error: string
+  loading: boolean
+}
 
 export const state = () => ({
   data: null,
   error: '',
   loading: false,
-});
+})
 
 export const mutations = {
-  ...createMutations(type),
+  ...createMutationClean<IUpdateProfileState>(type, state()),
 };
 export const actions = {
   ...createActions<IUpdateProfileForm>(type, updateprofileApi),

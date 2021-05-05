@@ -7,6 +7,7 @@ import rootRouter from './routers'
 import cookieParser from 'cookie-parser'
 import bodyParser from "body-parser";
 
+
 config()
 sequelize.sync()
 const app = express()
@@ -17,8 +18,9 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser())
 // 루트 라우터
-app.use(rootRouter)
 
+
+app.use(rootRouter)
 const server = createServer(app)
 server.listen(3000)
 module.exports = {

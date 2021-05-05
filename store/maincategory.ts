@@ -1,5 +1,5 @@
 import { readMainCategoryApi } from "~/api/maincategory";
-import createMutations from "../util/createMutations";
+import createMutationClean from "../util/createMutationClean";
 import createActions from "../util/createActions";
 
 const type = 'MAINCATEGORY'
@@ -14,20 +14,17 @@ export interface IMainCategoryState {
   loading: boolean
 }
 
-export const getDefaultState = () => {
-  return {
-    data: null,
-    error: '',
-    loading: false,
-  }
-}
-export const state = getDefaultState()
+export const state = () => ({
+  data: null,
+  error: '',
+  loading: false,
+})
 
 export const mutations = {
-  ...createMutations(type),
-  CLEAR (state: IMainCategoryState) {
-    Object.assign(state, getDefaultState())
-  }
+  ...createMutationClean<IMainCategoryState>(type, state()),
+  SETMAINCATEGORY(state: IMainCategoryState, payload: { data: object }){
+    state.data = payload.data
+  },
 };
 export const actions = {
   ...createActions(type, readMainCategoryApi),

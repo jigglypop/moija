@@ -55,7 +55,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapMutations } from 'vuex'
 import LoadingComponent from '../common/loading-component.vue'
 import WaveButton from '../common/wave-button.vue'
 
@@ -64,9 +64,6 @@ export const location_list = ["서울", "부산", "대구", "인천", "광주", 
 export default Vue.extend({
   name: 'updateprofile-component',
   components: { LoadingComponent, WaveButton },
-  props:{
-    profile: Object
-  },
   data() {
     return {
       nickname: '',
@@ -77,12 +74,17 @@ export default Vue.extend({
     }
   },
   computed:{
-    ...mapState(['check', 'updateprofile'])
+    ...mapState(['check', 'updateprofile', 'profile'])
   },
   methods:{
+    ...mapMutations({
+      SETCHECK: 'check/SETCHECK',
+      CLEARUPDATEPROFILE : 'updateprofile/CLEAR'
+    }),
     ...mapActions({
       UPDATEPROFILE: 'updateprofile/UPDATEPROFILE',
-      CHECK: 'check/CHECK'
+      CHECK: 'check/CHECK',
+      GETPROFILE: 'profile/PROFILE'
     }),
     async onUpdateProfile(){
       await this.UPDATEPROFILE({
@@ -92,22 +94,30 @@ export default Vue.extend({
         imageurl: this.imageurl,
         info: this.info
       })
-      console.log(this.check.data)
       if (this.updateprofile.data){
-        console.log(this.check.data)
-        console.log(this.updateprofile.data)
-        await this.CHECK()
+        await this.SETCHECK({
+          data: this.updateprofile.data
+        })
         await this.$router.push(`/profile/${this.updateprofile.data.id}`)
       }
     }
   },
-  mounted() {
-    if (this.profile.data){
-      this.nickname = this.profile.data.nickname ? this.profile.data.nickname : ''
-      this.location = this.profile.data.location ? this.profile.data.location : ''
-      this.imageurl = this.profile.data.imageurl ? this.profile.data.imageurl : ''
-      this.info = this.profile.data.info ? this.profile.data.info : ''
+  async created() {
+    if (this.profile.data === null && this.profile.error === ""){
+      await this.GETPROFILE({
+        profileId : this.$route.params.updateprofile
+      })
     }
+    if (this.profile.data !== null){
+      this.nickname = this.profile.data.nickname
+      this.location =  this.profile.data.location
+      this.imageurl = this.profile.data.imageurl
+      this.info = this.profile.data.info
+    }
+  },
+
+  destroyed(){
+    this.CLEARUPDATEPROFILE()
   }
 })
 </script>

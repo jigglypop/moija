@@ -10,7 +10,7 @@
 import Vue from 'vue'
 import HeaderComponent from '../components/header/header-component.vue'
 import ModalComponent from '../components/modal/modal-component.vue'
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapMutations } from 'vuex'
 
 export default Vue.extend({
   components: {
@@ -21,6 +21,10 @@ export default Vue.extend({
     ...mapState(['check', 'maincategory'])
   },
   methods : {
+    ...mapMutations({
+      MAINCATEGORY: 'maincategory/MAINCATEGORY',
+      SETMAINCATEGORY: 'maincategory/SETMAINCATEGORY'
+    }),
     ...mapActions({
       PROFILE: 'profile/PROFILE',
       CHECK: 'check/CHECK',
@@ -34,8 +38,21 @@ export default Vue.extend({
   },
   created(){
     this.CHECK()
-    this.MAINCATEGORY()
+
   },
+  async mounted(){
+    if (this.maincategory.data === null && this.maincategory.error === ''){
+      const maincategory = await localStorage.getItem('maincategory')
+      if (maincategory === null){
+        await this.MAINCATEGORY()
+        await localStorage.setItem('maincategory', JSON.stringify(this.maincategory.data))
+      } else {
+        this.SETMAINCATEGORY({
+          data: JSON.parse(localStorage.getItem('maincategory'))
+        })
+      }
+    }
+  }
 })
 </script>
 

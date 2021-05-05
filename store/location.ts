@@ -1,4 +1,4 @@
-import createMutations from "../util/createMutations";
+import createMutationClean from "../util/createMutationClean";
 import createActions from "../util/createActions";
 import { readLocationApi } from "~/api/location";
 
@@ -14,20 +14,15 @@ export interface ILocationState {
   error: string
   loading: boolean
 }
-export const getDefaultState = () => {
-  return {
-    data: null,
-    error: '',
-    loading: false,
-  }
-}
-export const state = getDefaultState()
+
+export const state = () => ({
+  data: null,
+  error: '',
+  loading: false,
+})
 
 export const mutations = {
-  ...createMutations(type),
-  CLEAR (state: ILocationState) {
-    Object.assign(state, getDefaultState())
-  }
+  ...createMutationClean<ILocationState>(type, state()),
 };
 export const actions = {
   ...createActions(type, readLocationApi),

@@ -23,6 +23,8 @@
     "@types/cors": "2.8.10",
     "@types/express": "4.17.11",
     "@types/jsonwebtoken": "8.5.1",
+    "@types/passport": "1.0.6",
+    "@types/passport-kakao": "0.2.0",
     "bcrypt": "5.0.1",
     "body-parser": "1.19.0",
     "cookie-parser": "1.4.5",
@@ -37,11 +39,14 @@
     "mysql": "2.18.1",
     "mysql2": "2.2.5",
     "nuxt": "^2.15.3",
+    "passport": "0.4.1",
+    "passport-kakao": "1.0.1",
     "pm2": "4.5.6",
     "sequelize": "6.6.2",
     "sequelize-paginate": "1.1.6",
     "sequelize-typescript": "2.1.0",
     "vue-awesome": "4.1.0",
+    "vue-kakao-login": "1.0.5",
     "vuetify": "2.4.11"
   },
   "devDependencies": {

@@ -20,18 +20,6 @@ export default Vue.extend({
       PROFILE: 'profile/PROFILE'
     })
   },
-  async fetch({ store, params } ){
-    store.dispatch('profile/PROFILE', {
-      profileId : params.updateprofile
-    })
-  },
-  created() {
-    if (this.profile.data === null && this.profile.error === ""){
-      this.PROFILE({
-        profileId : this.$route.params.updateprofile
-      })
-    }
-  },
   head() {
     return {
       title: this.profile ? this.profile.data? "모이자 | 프로필 업데이트 | " + this.profile.data.nickname : "모이자 | 프로필 업데이트" : "모이자 | 프로필 업데이트",

@@ -1,9 +1,9 @@
 <template>
   <div class="border-div blob white" >
-    <div className="box" :style="styles">
+    <div class="box" :style="styles">
       <img
         v-if="permissions === 4"
-        :src="imageurl"
+        :src="image ? image : require('~/assets/image/peopleicon.png')"
         :style="{
           width: width? width: '40px',
           height: height? height: '40px',
@@ -11,7 +11,7 @@
         class="admin"/>
       <img
         v-if="permissions === 3"
-        :src="imageurl"
+        :src="image ? image : require('~/assets/image/peopleicon.png')"
         :style="{
           width: width? width: '40px',
           height: height? height: '40px',
@@ -19,7 +19,7 @@
         class="teacher"/>
       <img
         v-if="permissions === 2"
-        :src="imageurl"
+        :src="image ? image : require('~/assets/image/peopleicon.png')"
         :style="{
           width: width? width: '40px',
           height: height? height: '40px',
@@ -27,7 +27,7 @@
         class="manager"/>
       <img
         v-if="permissions === 1"
-        :src="imageurl"
+        :src="image ? image : require('~/assets/image/peopleicon.png')"
         :style="{
           width: width? width: '40px',
           height: height? height: '40px',

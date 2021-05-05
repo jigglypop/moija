@@ -7,7 +7,7 @@
         </div>
       </div>
     </div>
-    <div class="right" v-focus="onMove">
+    <div class="right">
       <h1 class="titletext">MEET</h1>
       <h2 class="subtitletext">근처의 친구들을 만나보세요</h2>
       <h4 class="undertext">세상의 모든 모임, 내 근처의 모임을 만나보세요</h4>
@@ -20,10 +20,8 @@ export default {
   name: 'main-bottom-component',
   data(){
     return {
-      imageurls : [1,2,3,4]
+      imageurls : [1, 2, 3, 4]
     }
-  },
-  components:{
   },
 }
 </script>

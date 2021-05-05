@@ -102,3 +102,6 @@ export const check = async ( req : Request, res : Response, next: NextFunction )
 export const logout = async ( res : Response ) =>{
     await res.status(200).json({ data: '로그아웃 되었습니다.'} )
 }
+
+
+

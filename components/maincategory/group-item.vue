@@ -6,7 +6,17 @@
         </div>
         <div class="content">
           <div class="content-top">
-            <h3>{{ group.name }}</h3>
+            <div>
+              <h3>{{ group.name }}</h3>
+            </div>
+            <div class="content-join" v-if="group.profiles">
+              <div>
+                <join-icon></join-icon>
+              </div>
+              <div>
+               <h3 class="joiner">가입자 : {{ group.profiles.length}}명</h3>
+              </div>
+            </div>
           </div>
           <div class="content-bottom">
             <h5>{{ group.info.length >= 100 ?  group.info.slice(0, 50) + '...' : group.info }}</h5>
@@ -18,8 +28,10 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import joinIcon from '../common/join-icon.vue'
 
 export default Vue.extend({
+  components: { joinIcon },
   name: 'group-item',
   props :{
     group: Object,
@@ -31,7 +43,6 @@ export default Vue.extend({
     }
   },
   mounted(){
-    console.log(this.group)
     this.imageurl = this.group.imageurl ? this.group.imageurl : require(`~/assets/maincategory/${this.maincategoryimg}`)
   },
 
@@ -74,25 +85,36 @@ export default Vue.extend({
     width: 100%;
     grid-column: 2/3;
     display: grid;
-    justify-content: flex-start;
     align-items: center;
     text-align: center;
     grid-template-rows: 1fr 1fr;
-    padding: 10%;
+    padding: 2%;
   }
   .createdAt{
     font-size: 10px;
   }
   .content-top {
+    width: 100%;
     grid-row: 1/2;
-    font-size: 25px;
-    color: #4A00E0;
-    display: grid;
+    font-size: 20px;
+    color: #00d2ff;
+    display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     text-align: center;
-    text-shadow: 0 0 10px#4A00E0;
+  }
+  .content-join{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+  }
+  .joiner{
+    color:  #00d2ff;
+    font-size: 10px;
+    text-shadow: 0 0 10px #00d2ff;
   }
   .content-bottom{
     grid-row: 2/3;

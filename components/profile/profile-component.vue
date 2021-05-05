@@ -2,6 +2,7 @@
   <div class="profileouter">
     <div v-if="profile.data" class="profileinner">
       <div class="left">
+        <div class="left-top">
           <profile-avatar
           :width="'200px'"
           :height="'200px'"
@@ -9,16 +10,27 @@
           :image="profile.data.imageurl !== null && profile.data.imageurl !== '' ? profile.data.imageurl : null">
           </profile-avatar>
           <h1 class="nickname">{{profile.data.nickname}} </h1>
+
+        </div>
+        <div class="left-name">
+          <h1 class="email">{{profile.data.email}}</h1>
+          <h1 class="left-text">{{getDateToString(profile.data.createdAt)}}에 가입</h1>
+          <follow-profile
+            v-if="check.data && check.data.username !== profile.data.username">
+          </follow-profile>
           <glass-button
-            :styles="{ transform: 'scale(0.6)' }"
             v-if="check.data && check.data.username === profile.data.username">
             <nuxt-link :to="`/updateprofile/${profile.data.id}`"><h3>프로필 변경하기</h3></nuxt-link>
           </glass-button>
-          <h1 class="email">{{profile.data.email}}</h1>
-          <h1 class="left-text">{{getDateToString(profile.data.createdAt)}}에 가입</h1>
+        </div>
+        <div class="left-info">
           <div class="info-wrapper" >
             <h4>{{profile.data.info !== null ? profile.data.info : '자기소개가 없습니다.'}}</h4>
           </div>
+
+        </div>
+
+
       </div>
 
       <div class="right">
@@ -39,11 +51,12 @@ import GlassButton from '../common/glass-button.vue'
 import LoadingComponent from '../common/loading-component.vue'
 import ProfileAvatar from '../common/profile-avatar.vue'
 import WaveButton from '../common/wave-button.vue'
+import FollowProfile from '../follow/follow-profile.vue'
 import ProfileRightComponent from './profile-right-component.vue'
 
 export default Vue.extend({
   name: 'profile-component',
-  components: { ProfileAvatar, LoadingComponent, WaveButton, GlassButton, ProfileRightComponent },
+  components: { ProfileAvatar, LoadingComponent, WaveButton, GlassButton, ProfileRightComponent, FollowProfile },
   props:{
     profile: Object
   },
@@ -69,26 +82,49 @@ export default Vue.extend({
   .profileinner{
     position: relative;
     display: grid;
-    grid-template-columns: 1fr 4fr;
+    grid-template-rows: 1fr 1fr;
   }
   .left {
-    margin: 10%;
+    grid-row: 1/2;
+    grid-column: 1/3;
+    margin: 0 10%;
     position: relative;
+    display: grid;
+    grid-template-rows: 3fr 2fr;
+    grid-template-columns: 1fr 1fr;
+  }
+  .left-top{
+    grid-row: 1/2;
+    grid-column: 1/3;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  .left-name{
+    grid-row: 2/3;
+    grid-column: 1/2;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    grid-column: 1/2;
-    line-height: 4rem;
   }
-
+  .left-info{
+    grid-row: 2/3;
+    grid-column: 2/3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
   .nickname {
     font-size: 40px;
     font-weight: 800;
     color: #ffe259;
   }
   .email {
-    font-size: 25px;
+    font-size: 15px;
+    margin: 10px;
     font-weight: 800;
   }
   .info-wrapper {
@@ -106,18 +142,18 @@ export default Vue.extend({
     padding: 10px;
     font-size: 12px;
     font-weight: 800;
-
   }
-
   .left-text {
     font-size: 12px;
     font-weight: 800;
     color: grey;
+    margin: 10px;
   }
 
   .right{
     position: relative;
-    grid-column: 2/3;
+    grid-row: 2/3;
+    grid-column: 1/3;
   }
   @media only screen and (max-width: 1200px) {
     .profileinner{

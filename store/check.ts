@@ -12,6 +12,9 @@ export const state = () => ({
 
 export const mutations = {
   ...createMutations(type),
+  SETCHECK(state: any, payload: any) {
+    state.data = payload.data
+  }
 };
 export const actions = {
   ...createActions(type, checkApi),

@@ -8,7 +8,7 @@
 
 import Vue from 'vue'
 import MainComponent from '../components/main/main-component.vue'
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapState, mapMutations } from 'vuex'
 
 export default Vue.extend({
   components:{
@@ -22,16 +22,18 @@ export default Vue.extend({
     ...mapState(['maincategory'])
   },
   methods: {
+    ...mapMutations({
+      SETMAINCATEGORY: 'maincategory/SETMAINCATEGORY'
+    }),
     ...mapActions({
       MAINCATEGORY: 'maincategory/MAINCATEGORY'
     }),
   },
-  created(){
-    this.MAINCATEGORY()
-    if (this.maincategory.data === null && this.maincategory.error === ""){
-        this.MAINCATEGORY()
-    }
-  },
+  // created(){
+  //   if (this.maincategory.data === null && this.maincategory.error === ""){
+  //     this.MAINCATEGORY()
+  //   }
+  // },
 })
 </script>
 

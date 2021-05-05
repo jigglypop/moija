@@ -2,7 +2,7 @@
     <div class="user-container">
       <div class="user-div">
         <nuxt-link :to="`/profile/${profile.id}`">
-          <border-avatar :permission="profile ? profile.permission : 4" :image="profile ? profile.imageurl: null">
+          <border-avatar :permission="profile.permission" :image="profile.imageurl">
           </border-avatar>
         </nuxt-link>
       </div>
@@ -32,7 +32,6 @@ export default Vue.extend({
 
 <style scoped>
   .righttext {
-    /* color: #fff; */
     text-decoration: none;
     font-size: 12px;
     padding: 10px;

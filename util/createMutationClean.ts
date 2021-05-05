@@ -8,10 +8,12 @@ interface IState {
   error:  object | null
 }
 
-const createMutations = (type: string) =>{
+const createMutationClean = <IMixedState>(type: string, initialState: IMixedState) =>{
   const SUCCESS = `${type}_SUCCESS`
   const FAILURE = `${type}_FAILURE`
-
+  const init = () => {
+    return {...initialState}
+  }
   return {
     async [SUCCESS] (state: IState, payload: IPayload) {
       state.data = payload
@@ -20,8 +22,11 @@ const createMutations = (type: string) =>{
     async [FAILURE] (state: IState, payload: IPayload) {
       state.data = null
       state.error = payload
-    }
+    },
+    CLEAR(state: IMixedState) {
+      Object.assign(state, init())
+    },
   }
 }
 
-export default createMutations
+export default createMutationClean

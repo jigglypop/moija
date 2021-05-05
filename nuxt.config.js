@@ -21,7 +21,11 @@ export default {
   buildModules: ["@nuxt/typescript-build", "@nuxtjs/vuetify"],
   modules: ["@nuxtjs/axios", "@tui-nuxt/editor"],
   axios: {},
-  build: {},
+  build: {
+    babel: {
+      plugins: [["@babel/plugin-proposal-private-methods", { loose: true }]]
+    }
+  },
   serverMiddleware: ["~server/index.ts"],
   vuetify: {}
 };
