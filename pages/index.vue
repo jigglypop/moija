@@ -14,10 +14,14 @@ export default Vue.extend({
   components:{
     MainComponent
   },
+  head: {
+    script: [
+      { src: 'https://developers.kakao.com/sdk/js/kakao.min.js' }
+    ]
+  },
   async fetch({ store } ){
     store.dispatch('maincategory/MAINCATEGORY')
   },
-
   computed: {
     ...mapState(['maincategory'])
   },
@@ -29,11 +33,6 @@ export default Vue.extend({
       MAINCATEGORY: 'maincategory/MAINCATEGORY'
     }),
   },
-  // created(){
-  //   if (this.maincategory.data === null && this.maincategory.error === ""){
-  //     this.MAINCATEGORY()
-  //   }
-  // },
 })
 </script>
 

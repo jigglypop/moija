@@ -4,6 +4,7 @@
     <label><input v-model="username" placeholder="아이디"/></label>
     <label><input v-model="email" placeholder="이메일"/></label>
     <label><input v-model="password" placeholder="비밀번호" type="password"/></label>
+    <kakao-button-component></kakao-button-component>
     <h5 class="error">{{ register.error }}</h5>
     <wave-button type="submit" class="wave-button"><h4>회원가입</h4></wave-button>
   </form>
@@ -13,9 +14,10 @@
 import Vue from 'vue'
 import { mapState, mapActions, mapMutations } from 'vuex'
 import waveButton from '../common/wave-button.vue'
+import KakaoButtonComponent from '../modal/kakao-button-component.vue'
 
 export default Vue.extend({
-  components: { waveButton },
+  components: { waveButton, KakaoButtonComponent },
   name:'register-component',
   data(){
     return {

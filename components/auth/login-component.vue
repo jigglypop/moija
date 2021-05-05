@@ -3,7 +3,9 @@
     <h5>처음 방문하였나요? <span class="move" @click="openRegister">회원가입</span></h5>
     <label><input v-model="username" placeholder="아이디"/></label>
     <label><input v-model="password" placeholder="비밀번호" type="password"/></label>
+    <kakao-button-component></kakao-button-component>
     <h5 class="error">{{ login.error }}</h5>
+
     <wave-button type="submit"><h4>로그인</h4></wave-button>
   </form>
 </template>
@@ -12,9 +14,10 @@
 import Vue from 'vue'
 import { mapState, mapActions, mapMutations } from 'vuex'
 import waveButton from '../common/wave-button.vue'
+import KakaoButtonComponent from '../modal/kakao-button-component.vue'
 
 export default Vue.extend({
-  components: { waveButton },
+  components: { waveButton, KakaoButtonComponent },
   name:'login-component',
   data(){
     return {

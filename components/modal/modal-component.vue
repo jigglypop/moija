@@ -70,7 +70,7 @@ export default {
     LoginComponent,
     RegisterComponent,
     JoinComponent,
-    DeleteComponent
+    DeleteComponent,
   },
   computed: {
     ...mapState(['modal'])

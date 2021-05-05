@@ -17,6 +17,11 @@ export default Vue.extend({
     HeaderComponent,
     ModalComponent
   },
+  head: {
+    script: [
+      { src: 'https://developers.kakao.com/sdk/js/kakao.min.js' }
+    ]
+  },
   computed:{
     ...mapState(['check', 'maincategory'])
   },
@@ -38,7 +43,6 @@ export default Vue.extend({
   },
   created(){
     this.CHECK()
-
   },
   async mounted(){
     if (this.maincategory.data === null && this.maincategory.error === ''){
