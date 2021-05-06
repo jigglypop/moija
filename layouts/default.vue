@@ -46,15 +46,10 @@ export default Vue.extend({
   },
   async mounted(){
     if (this.maincategory.data === null && this.maincategory.error === ''){
-      const maincategory = await localStorage.getItem('maincategory')
-      if (maincategory === null){
-        await this.MAINCATEGORY()
-        await localStorage.setItem('maincategory', JSON.stringify(this.maincategory.data))
-      } else {
-        this.SETMAINCATEGORY({
-          data: JSON.parse(localStorage.getItem('maincategory'))
-        })
-      }
+      await this.MAINCATEGORY()
+    }
+    if (!window.Kakao.Auth){
+      await window.Kakao.init(process.env.NUXT_ENV_KAKAO_REST_API_KEY)
     }
   }
 })

@@ -1,4 +1,4 @@
-import createMutations from "../util/createMutations";
+import createMutationClean from "../util/createMutationClean";
 import createActions from "../util/createActions";
 import { registerApi } from "~/api/auth";
 
@@ -20,9 +20,13 @@ export const state = () => ({
   error: '',
   loading: false,
 });
-
+export interface IRegisterState {
+  data: object | null
+  error: string
+  loading: boolean
+}
 export const mutations = {
-  ...createMutations(type),
+  ...createMutationClean<IRegisterState>(type, state()),
 };
 export const actions = {
   ...createActions<IResiterForm>(type, registerApi),

@@ -12,7 +12,7 @@ export const register = async ( req : Request, res : Response ) =>{
   try {
     const { username, password, email } = req.body
     // 에러처리 (빈칸과 형식)
-    if (!username || username.length <= 3 || username.length >= 10  || !password || !email){
+    if (!username || !password || !email){
       let table : any = {username : username, password : password, email : email}
       let blanks = []
       for (let blank of ['username', 'password', 'email']){
@@ -22,18 +22,21 @@ export const register = async ( req : Request, res : Response ) =>{
     };
     // 에러처리 (이메일 형식)
     const emailValidation = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)
-    if (!emailValidation) throw new Error(`이메일의 형식이 올바르게 입력되지 않았습니다. ex) honggildong@naver.com `)
+
+    if (!emailValidation && email !== 'kakao') throw new Error(`이메일의 형식이 올바르게 입력되지 않았습니다. ex) honggildong@naver.com `)
     // 에러처리 (이미 존재하는 계정)
     const nameExists = await User.findOne({ where: { username: username }})
     if (nameExists) throw new Error("같은 이름의 계정이 존재합니다.");
     // 에러처리 (이미 존재하는 이메일)
     const emailExists = await User.findOne({ where: { email: email }})
     if (emailExists) throw new Error("이미 가입된 이메일입니다.");
-    const hashedPassword = await bcrypt.hash(password, 10)
+
+    const hashedPassword = await bcrypt.hash(password.toString(), 10)
     const now = new Date()
     const profile = await Profile.create({
       username: username,
       email: email,
+      imageurl: req.body.imageurl? req.body.imageurl : undefined,
       nickname: username,
       createdAt: now,
       updatedAt: now
@@ -56,7 +59,6 @@ export const register = async ( req : Request, res : Response ) =>{
     res.status(500).json({ error: e.toString().replace("Error: ", "") })
   }
 }
-
 
 // 로그인
 export const login = async ( req : Request, res : Response ) =>{

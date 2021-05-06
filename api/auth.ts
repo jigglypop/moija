@@ -28,8 +28,8 @@ export const registerApi = async (payload: IResiterForm ) => {
     body: JSON.stringify(payload),
   })
   if (res.status != 200){
-      const error = await res.json()
-      return { type:'FAILURE', data: error.error }
+    const error = await res.json()
+    return { type:'FAILURE', data: error.error }
   }
   await localStorage.setItem('token', JSON.stringify(res.headers.get('token')))
   const data = await res.json()

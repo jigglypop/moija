@@ -130,13 +130,25 @@ export default Vue.extend({
       height: 150px;
       object-fit: cover;
     }
+    .content-top{
+      font-size: 15px;
+    }
   }
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 900px) {
     .img {
       display: none;
     }
     .content {
       grid-column: 1/3;
+    }
+  }
+  @media only screen and (max-width: 600px) {
+    .img {
+      display: none;
+    }
+
+    .content-top{
+      font-size: 12px;
     }
   }
 </style>

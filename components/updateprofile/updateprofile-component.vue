@@ -98,6 +98,9 @@ export default Vue.extend({
         await this.SETCHECK({
           data: this.updateprofile.data
         })
+        await this.GETPROFILE({
+          profileId: this.updateprofile.data.id
+        })
         await this.$router.push(`/profile/${this.updateprofile.data.id}`)
       }
     }
@@ -115,7 +118,6 @@ export default Vue.extend({
       this.info = this.profile.data.info
     }
   },
-
   destroyed(){
     this.CLEARUPDATEPROFILE()
   }

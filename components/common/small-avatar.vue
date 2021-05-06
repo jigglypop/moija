@@ -1,36 +1,36 @@
 <template>
   <div class="small-border-div" >
-    <div className="box" :style="styles">
+    <div class="box" :style="styles">
       <img
         v-if="permissions === 4"
         :src="imageurl"
         :style="{
-          width: width? width: '25px',
-          height: height? height: '25px',
+          width: width? width: '30px',
+          height: height? height: '30px',
           border: border? border + 'solid transparent' :  '2px solid transparent'}"
         class="admin"/>
       <img
         v-if="permissions === 3"
         :src="imageurl"
         :style="{
-          width: width? width: '25px',
-          height: height? height: '25px',
+          width: width? width: '30px',
+          height: height? height: '30px',
           border: border? border + 'solid transparent' :  '2px solid transparent'}"
         class="teacher"/>
       <img
         v-if="permissions === 2"
         :src="imageurl"
         :style="{
-          width: width? width: '25px',
-          height: height? height: '25px',
+          width: width? width: '30px',
+          height: height? height: '30px',
           border: border? border + 'solid transparent' :  '2px solid transparent'}"
         class="manager"/>
       <img
         v-if="permissions === 1"
         :src="imageurl"
         :style="{
-          width: width? width: '25px',
-          height: height? height: '25px',
+          width: width? width: '30px',
+          height: height? height: '30px',
           border: border? border + 'solid transparent' :  '2px solid transparent'}"
         class="normal"/>
     </div>
@@ -62,17 +62,21 @@ export default Vue.extend({
 
 <style scoped>
   .small-border-div{
-    transition: .5s;
-    margin: 2px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .small-border-div:hover {
     cursor: pointer;
   }
   .box {
-    display: inline-block;
+    display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
+    margin: 2px;
   }
 
   img {

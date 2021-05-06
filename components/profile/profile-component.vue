@@ -10,7 +10,6 @@
           :image="profile.data.imageurl !== null && profile.data.imageurl !== '' ? profile.data.imageurl : null">
           </profile-avatar>
           <h1 class="nickname">{{profile.data.nickname}} </h1>
-
         </div>
         <div class="left-name">
           <h1 class="email">{{profile.data.email}}</h1>
@@ -27,12 +26,8 @@
           <div class="info-wrapper" >
             <h4>{{profile.data.info !== null ? profile.data.info : '자기소개가 없습니다.'}}</h4>
           </div>
-
         </div>
-
-
       </div>
-
       <div class="right">
         <profile-right-component></profile-right-component>
       </div>

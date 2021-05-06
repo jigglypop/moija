@@ -18,7 +18,15 @@
             <h3 v-if="group.isJoin" class="isgroupjoin">그룹 회원</h3>
           </div>
           <div class="mid-right" >
-            <h3 class="textunder">{{ group.data.profiles.length}}명의 회원이 가입했습니다</h3>
+            <div  v-if="group.data.owners[0]">
+              <nuxt-link :to="`/profile/${group.data.owners[0].id}`" class="avatar-set">
+                <small-avatar
+                  :image="group.data.owners[0].imageurl"
+                  :permission="group.data.owners[0].permission"></small-avatar>
+                <h5>{{ group.data.owners[0].nickname}}</h5>
+                <h5 class="avatar-text">모임장</h5>
+              </nuxt-link>
+            </div>
           </div>
         </div>
         <div class="category">
@@ -32,7 +40,7 @@
           <div class="join">
             <div class="join-content">
               <div class="join-text">
-                <h4>가입자</h4>
+                <h3 class="textunder">가입자 : {{ group.data.profiles.length}}명의 회원이 가입했습니다</h3>
               </div>
               <div class="join-avatar">
                 <nuxt-link :to="`/profile/${profile.id}`" v-for="profile in group.data.profiles" :key="profile.id" class="joinset">
@@ -60,13 +68,21 @@ import { mapState, mapMutations, mapActions } from 'vuex'
 import BorderAvatar from '../common/border-avatar.vue'
 import GlassButton from '../common/glass-button.vue'
 import LoadingComponent from '../common/loading-component.vue'
+import SmallAvatar from '../common/small-avatar.vue'
 import WaveButton from '../common/wave-button.vue'
 import GroupListItem from './group-list-item.vue'
 import GroupPostItem from './group-post-item.vue'
 
 export default Vue.extend({
   name: 'group-component',
-  components: { LoadingComponent, BorderAvatar, WaveButton, GroupPostItem, GlassButton, GroupListItem },
+  components: {
+    LoadingComponent,
+    BorderAvatar,
+    WaveButton,
+    GroupPostItem,
+    GlassButton,
+    GroupListItem,
+    SmallAvatar },
   data() {
     return {
       joinedprofiles: null,
@@ -132,6 +148,16 @@ export default Vue.extend({
     color : #ED213A;
     border:2px solid #ED213A;
   }
+  .avatar-text{
+    font-size: 10px;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    color : #ED213A;
+    border:2px solid #ED213A;
+  }
   .top {
     grid-row: 1/2;
     display: grid;
@@ -159,6 +185,13 @@ export default Vue.extend({
     grid-column: 2/3;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .avatar-set{
+    display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -193,9 +226,7 @@ export default Vue.extend({
   }
   .join-text{
     grid-row: 1/2;
-    font-size: 20px;
     color: #8E2DE2;
-    text-shadow: 0 0 20px #8E2DE2;
     display: flex;
     justify-content: center;
     text-align: center;
@@ -294,7 +325,6 @@ export default Vue.extend({
     text-align: center;
   }
   .textunder{
-    color: grey;
     font-size: 15px;
     font-weight: 800;
     margin: 10px;

@@ -75,7 +75,8 @@ export default Vue.extend({
   name: 'post-component',
   data() {
     return {
-      getDateToString: getDateToString
+      getDateToString: getDateToString,
+      people: ['John'],
     }
   },
   computed:{

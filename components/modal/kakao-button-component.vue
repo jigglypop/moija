@@ -14,15 +14,9 @@ export default Vue.extend({
       { src: 'https://developers.kakao.com/sdk/js/kakao.min.js' }
     ]
   },
-  mounted(){
-  },
   methods:{
-    kakaoLogin(){
-      if(!window.Kakao){
-        console.log('이미 있음', window.Kakao)
-        window.Kakao.init(process.env.NUXT_ENV_KAKAO_REST_API_KEY)
-      }
-      window.Kakao.Auth.login({
+    async kakaoLogin(){
+      await window.Kakao.Auth.login({
         redirectUri: 'http://localhost:8000/kakao',
       })
     }

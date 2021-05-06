@@ -36,6 +36,15 @@ const db = {
 db.Group.belongsToMany(db.Profile, { as: 'profiles', through: 'group_profile', foreignKey: 'group', otherKey: 'profile' });
 db.Profile.belongsToMany(db.Group, { as: 'groups', through: 'group_profile', foreignKey: 'profile', otherKey: 'group' });
 
+// 그룹 : 프로필 -> N : M
+db.Group.belongsToMany(db.Profile, { as: 'owners', through: 'mygroup_owner', foreignKey: 'mygroup', otherKey: 'owner' });
+db.Profile.belongsToMany(db.Group, { as: 'mygroups', through: 'mygroup_owner', foreignKey: 'owner', otherKey: 'mygroup' });
+
+// 그룹 : 프로필 -> N : M
+db.Group.hasMany(db.Profile, { as: 'managers' })
+db.Profile.belongsTo(db.Group)
+
+
 // 유저 : 포스트 -> 1 : N
 db.User.hasMany(db.Post)
 db.Post.belongsTo(db.User)

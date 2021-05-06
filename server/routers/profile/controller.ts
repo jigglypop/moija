@@ -12,8 +12,7 @@ export const read = async ( req : Request, res : Response ) =>{
       where: { id: profileId },
       include: [ { all: true } ]
     })
-    if (!profile ) throw new Error('프로필이 없습니다')
-    // console.log(profile.getRows())
+    if (!profile) throw new Error('프로필이 없습니다')
     res.status(200).json({
       data: profile[0]
     })

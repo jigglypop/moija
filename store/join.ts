@@ -1,4 +1,4 @@
-import createMutations from "../util/createMutations";
+import createMutationClean from "../util/createMutationClean";
 import createActions from "../util/createActions";
 import { joinApi } from "~/api/group";
 
@@ -15,25 +15,18 @@ export interface IJoinState {
   loading: boolean
 }
 
-export const getDefaultState = () => {
-  return {
-    data: null,
-    error: '',
-    loading: false,
-  }
-}
-
-export const state = getDefaultState()
+export const state = () => ({
+  data: null,
+  error: '',
+  loading: false,
+})
 
 export const mutations = {
-  ...createMutations(type),
+  ...createMutationClean<IJoinState>(type, state()),
   async SETGROUP({ commit } : any ,state: any, payload: any){
     await commit('group/GROUP', payload.group)
     state.data = await null
   },
-  CLEAR (state: IJoinState) {
-    Object.assign(state, getDefaultState())
-  }
 };
 export const actions = {
   ...createActions<IJoinForm>(type, joinApi),

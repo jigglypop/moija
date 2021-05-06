@@ -1,4 +1,4 @@
-import createMutations from "../util/createMutations";
+import createMutationClean from "../util/createMutationClean";
 import createActions from "../util/createActions";
 import { readToggleLikeApi } from "~/api/post";
 
@@ -15,21 +15,14 @@ export interface IToggleLikeState {
   loading: boolean
 }
 
-export const getDefaultState = () => {
-  return {
-    data: null,
-    error: '',
-    loading: false,
-  }
-}
-
-export const state = getDefaultState()
+export const state = () => ({
+  data: null,
+  error: '',
+  loading: false,
+})
 
 export const mutations = {
-  ...createMutations(type),
-  CLEAR (state: IToggleLikeState) {
-    Object.assign(state, getDefaultState())
-  }
+  ...createMutationClean<IToggleLikeState>(type, state()),
 };
 export const actions = {
   ...createActions<IToggleLikeForm>(type, readToggleLikeApi),

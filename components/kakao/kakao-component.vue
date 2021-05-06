@@ -6,7 +6,6 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { mapState } from 'vuex'
 import loadingComponent from '../common/loading-component.vue'
 
 export default Vue.extend({

@@ -4,6 +4,7 @@
     <label><input v-model="username" placeholder="아이디"/></label>
     <label><input v-model="email" placeholder="이메일"/></label>
     <label><input v-model="password" placeholder="비밀번호" type="password"/></label>
+    <label><input v-model="passwordconfirm" placeholder="비밀번호 확인" type="password"/></label>
     <kakao-button-component></kakao-button-component>
     <h5 class="error">{{ register.error }}</h5>
     <wave-button type="submit" class="wave-button"><h4>회원가입</h4></wave-button>
@@ -24,6 +25,7 @@ export default Vue.extend({
       username: '',
       email:'',
       password:'',
+      passwordconfirm: ''
     }
   },
   computed:{
@@ -32,34 +34,41 @@ export default Vue.extend({
   methods:{
     ...mapActions({
       REGISTER: 'register/REGISTER',
-      CHECK: 'check/CHECK'
+      CHECK: 'check/CHECK',
     }),
     ...mapMutations({
       OPENLOGIN: 'modal/LOGIN',
-      CLOSE: 'modal/CLOSE'
+      CLOSE: 'modal/CLOSE',
+      CLEARREGISTER: 'register/CLEAR',
+      SETREGISTERERROR: 'register/SETERROR'
     }),
     openLogin(){
       this.OPENLOGIN()
     },
     async onRegister(){
-      await this.REGISTER({
-        username: this.$data.username,
-        email: this.$data.email,
-        password: this.$data.password
-      })
-      if (this.register.data){
-        await this.CHECK()
+      if (this.$data.password !== this.$data.passwordconfirm  || this.$data.password === '' || this.$data.passwordconfirm === ''){
+        this.SETREGISTERERROR('비밀번호와 확인 비밀번호가 다릅니다.')
+      } else{
+        await this.REGISTER({
+          username: this.$data.username,
+          email: this.$data.email,
+          password: this.$data.password
+        })
+        if (this.register.data){
+          await this.CHECK()
+        }
+        if (this.check.data){
+          await this.CLOSE()
+          await this.$router.push('/')
+          const leftbar = document.querySelector('.leftbar')
+          const nav = document.querySelector('.nav')
+          leftbar?.classList.add('push')
+          nav?.classList.add('push')
+        }
       }
-      if (this.check.data){
-        await this.CLOSE()
-        await this.$router.push('/')
-        const leftbar = document.querySelector('.leftbar')
-        const nav = document.querySelector('.nav')
-        leftbar?.classList.add('push')
-        nav?.classList.add('push')
-      }
+
     }
-  }
+  },
 })
 </script>
 

@@ -5,17 +5,18 @@
           <div class="main-inner">
             <div class="main-item" v-for="item in maincategory.data" :key="item.id">
               <nuxt-link :to="`/maincategory/${item.id}`">
-              <div class="item-name">
-                <h4 >{{ item.name }}</h4>
-              </div>
-              <div>
-                <img :src="require(`~/assets/maincategory/${item.image}`)" class="background"/>
-              </div>
+                <div class="item-name">
+                  <h4 >{{ item.name }}</h4>
+                </div>
+                <div>
+                  <img :src="require(`~/assets/maincategory/${item.image}`)" class="background"/>
+                </div>
               </nuxt-link>
             </div>
           </div>
         </div>
         <div class="mainunder">
+
           <h1 class="titletext">MOIJA</h1>
           <h2 class="subtitletext">모이자</h2>
           <h4 class="undertext">세상의 모든 모임, 내 근처의 모임을 만나보세요</h4>
@@ -36,11 +37,13 @@
 <script lang="ts">
 import MainBottomComponent from './main-bottom-component.vue'
 import MainMidComponent from './main-mid-component.vue'
+
+
 export default {
   name: 'MainComponent',
   components:{
     MainMidComponent,
-    MainBottomComponent
+    MainBottomComponent,
   },
   props :{
     maincategory : Object

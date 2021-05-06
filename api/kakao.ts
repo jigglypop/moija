@@ -20,10 +20,6 @@ export const kakaoApi  = async (code: string) => {
     .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(strings[k]))
     .join('&');
   const result = await axios.post('https://kauth.kakao.com/oauth/token', queryString, { headers: kakaoHeader });
-  // if (result.status !== 200){
-  //     return result
-  // }
-  console.log('결과', result)
   const res = await JSON.parse(result.request.response)
   const ACCESS_TOKEN = await res.access_token
   createToast('카카오 프로필 가져오기')

@@ -1,6 +1,6 @@
-import createMutations from "../util/createMutations";
 import createActions from "../util/createActions";
 import { readPostApi } from "~/api/post";
+import createMutationClean from "~/util/createMutationClean";
 
 const type = 'POST'
 
@@ -14,21 +14,14 @@ export interface IPostState {
   loading: boolean
 }
 
-export const getDefaultState = () => {
-  return {
-    data: null,
-    error: '',
-    loading: false,
-  }
-}
-
-export const state = getDefaultState()
+export const state = () => ({
+  data: null,
+  error: '',
+  loading: false,
+})
 
 export const mutations = {
-  ...createMutations(type),
-  CLEAR (state: IPostState) {
-    Object.assign(state, getDefaultState())
-  }
+  ...createMutationClean<IPostState>(type, state()),
 };
 export const actions = {
   ...createActions<IPostForm>(type, readPostApi),

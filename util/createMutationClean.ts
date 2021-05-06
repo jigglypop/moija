@@ -26,6 +26,9 @@ const createMutationClean = <IMixedState>(type: string, initialState: IMixedStat
     CLEAR(state: IMixedState) {
       Object.assign(state, init())
     },
+    SETERROR(state: IState, payload: IPayload){
+      state.error = payload
+    }
   }
 }
 

@@ -10,6 +10,7 @@ export const create = async ( req : Request, res : Response ) =>{
     if (!profileId) throw new Error('모임 가입은 로그인 후 가능합니다.')
     if (!name || !info || !imageurl) throw new Error('이름, 모임 설명, 이미지를 입력해 주세요')
     const group = await Group.create({
+      ownerId: profileId,
       locationId: locationId,
       name: name,
       info: info,
@@ -33,9 +34,13 @@ export const create = async ( req : Request, res : Response ) =>{
 
     await _profile.addGroups(parseInt(group.getDataValue('id')))
     await _group.addProfiles(parseInt(profileId))
-    const __group : any = await Group.findByPk(group.getDataValue('id'))
+    await _group.addOwners(parseInt(profileId))
+    const __group : any = await Group.findAll({
+      where: { id: group.getDataValue('id') },
+      include: [ { all: true } ]
+    })
     res.status(200).json({
-      data: __group
+      data: __group[0]
     })
   } catch(e){
     res.status(500).json({ error: e.toString().replace("Error: ", "") })
@@ -47,29 +52,13 @@ export const read = async ( req : Request, res : Response ) =>{
   try {
     const { groupId } = await req.params
     if (!groupId) throw new Error('잘못된 경로입니다.')
-    const group: any = await Group.findByPk(groupId, {
-      include: [
-        {
-          model: Category,
-          as: 'categories',
-          include: [
-            {
-              model: Post,
-              as: 'posts',
-              limit: 5,
-              order: [['createdAt','DESC']]
-            }
-          ]
-        },
-        {
-          model: Profile,
-          as: 'profiles'
-        }
-      ]
+    const group: any = await Group.findAll({
+      where: { id: groupId },
+      include: [ { all: true } ]
     })
     if (!group) throw new Error('그룹이 없습니다.')
     res.status(200).json({
-      data: group
+      data: group[0]
     })
   } catch(e){
     res.status(500).json({ error: e.toString().replace("Error: ", "") })
@@ -184,6 +173,22 @@ export const readpost = async ( req : Request, res : Response ) =>{
     res.status(200).json({
       data: posts
     })
+  } catch(e){
+    res.status(500).json({ error: e.toString().replace("Error: ", "") })
+  }
+}
+
+
+// 그룹 업데이트
+export const update = async ( req : Request, res : Response ) =>{
+  try {
+    const { groupId, profileId } = await req.params
+    const { name, info, imageurl } = await req.body
+    if (!name || !info || !imageurl ) throw new Error('제목과 내용을 모두 입력해 주세요')
+    // if (!categoryId) throw new Error('잘못된 경로입니다.')
+    // res.status(200).json({
+    //   data: posts
+    // })
   } catch(e){
     res.status(500).json({ error: e.toString().replace("Error: ", "") })
   }

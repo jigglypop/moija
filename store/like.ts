@@ -1,4 +1,4 @@
-import createMutations from "../util/createMutations";
+import createMutationClean from "../util/createMutationClean";
 import createActions from "../util/createActions";
 import { readLikeApi } from "~/api/post";
 
@@ -15,21 +15,15 @@ export interface ILikeState {
   loading: boolean
 }
 
-export const getDefaultState = () => {
-  return {
-    data: null,
-    error: '',
-    loading: false,
-  }
-}
-
-export const state = getDefaultState()
+export const state = () => ({
+  data: null,
+  error: '',
+  loading: false,
+})
 
 export const mutations = {
-  ...createMutations(type),
-  CLEAR (state: ILikeState) {
-    Object.assign(state, getDefaultState())
-  }
+  ...createMutationClean<ILikeState>(type, state()),
+
 };
 export const actions = {
   ...createActions<ILikeForm>(type, readLikeApi),
