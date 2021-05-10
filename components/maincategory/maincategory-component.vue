@@ -31,10 +31,5 @@ export default Vue.extend({
     margin: 10%;
     background-color: black;
   }
-  @media only screen and (max-width: 1200px) {
 
-  }
-  @media only screen and (max-width: 600px) {
-
-  }
 </style>

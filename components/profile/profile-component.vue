@@ -181,4 +181,27 @@ export default Vue.extend({
       grid-column: 1/3;
     }
   }
+  @media only screen and (max-width: 900px){
+    .left {
+      grid-template-rows: 3fr 1fr 1fr;
+      grid-template-columns: 1fr;
+    }
+
+    .left-name{
+      grid-row: 2/3;
+      grid-column: 1/3;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .left-info{
+      grid-row: 3/4;
+      grid-column: 1/3;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  }
 </style>

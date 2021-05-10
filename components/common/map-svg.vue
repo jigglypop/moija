@@ -134,4 +134,9 @@ export default {
     stroke-width:1px;
     cursor: pointer;
   }
+  @media only screen and (max-width: 700px) {
+    .map-outer{
+      border: none;
+    }
+  }
 </style>

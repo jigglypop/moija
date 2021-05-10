@@ -5,7 +5,7 @@
         <div class="main-item" v-for="item in maincategory.data" :key="item.id">
           <nuxt-link :to="`/maincategory/${item.id}`">
             <div class="item-name">
-              <h4 >{{ item.name }}</h4>
+              <h4>{{ item.name }}</h4>
             </div>
             <div>
               <img :src="require(`~/assets/maincategory/${item.image}`)" class="background"/>
@@ -115,9 +115,50 @@ export default {
     }
   }
   @media only screen and (max-width: 700px) {
+    .main-top-outer{
+      display: grid;
+      grid-template-rows: 300px 1fr;
+    }
+    .titletext{
+      font-size: 60px;
+      padding: 0;
+    }
+    .subtitletext{
+      font-size: 14px;
+      padding-bottom: 10px;
+    }
+    .undertext{
+      font-size: 12px;
+    }
     .main-inner {
-      grid-template-columns: 200px 200px;
-      grid-template-rows: 200px 200px 200px 200px;
+      grid-template-columns: 150px 150px;
+      grid-template-rows: 150px 150px 150px 150px;
+    }
+    .main-item{
+      width: 130px;
+      height: 130px;
+    }
+  }
+
+  @media only screen and (max-width: 400px) {
+    .titletext{
+      font-size: 50px;
+      padding: 0;
+    }
+    .subtitletext{
+      font-size: 12px;
+      padding-bottom: 10px;
+    }
+    .undertext{
+      font-size: 10px;
+    }
+    .main-inner {
+      grid-template-columns: 110px 110px;
+      grid-template-rows: 110px 110px 110px 110px;
+    }
+    .main-item{
+      width: 100px;
+      height: 100px;
     }
   }
 </style>

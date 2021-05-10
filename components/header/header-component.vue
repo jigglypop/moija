@@ -241,9 +241,12 @@ export default {
     }
   }
   @media only screen and (max-width: 600px) {
-    .nav.push{
-      left: 100px;
+    .header-right{
+      display: none;
     }
+    /* .nav.push{
+      left: 100px;
+    } */
     .logotext{
       display: none;
     }

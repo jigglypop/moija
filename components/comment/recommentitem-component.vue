@@ -97,7 +97,7 @@ export default Vue.extend({
     color: gray;
   }
   .comment-item-content-div{
-    grid-column:2/3;
+    grid-column:2/4;
     grid-row:2/3;
     padding: 10px;
     font-size: 16px;
@@ -118,5 +118,24 @@ export default Vue.extend({
     font-size: 12px;
     font-weight: 800;
     color: #FF416C;
+  }
+  @media only screen and (max-width: 1200px) {
+
+  }
+  @media only screen and (max-width: 900px) {
+
+  }
+  @media only screen and (max-width: 700px) {
+  .comment-item-div{
+    grid-template-columns: 100px 1fr 1fr;
+  }
+  .comment-item-content-div{
+    font-size: 12px;
+  }
+  }
+  @media only screen and (max-width: 400px) {
+    .comment-item-div{
+      grid-template-columns: 100px 1fr 1fr;
+    }
   }
 </style>

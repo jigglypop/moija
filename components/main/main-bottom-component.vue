@@ -106,9 +106,8 @@ export default {
 
   @media only screen and (max-width: 1200px) {
     .main-bottom-outer{
-      height: 120vh;
       grid-template-columns: 1fr;
-      grid-template-rows: 1fr 1fr;
+      grid-template-rows: 200px 1fr;
     }
     .left{
       grid-row: 2/3;
@@ -118,17 +117,64 @@ export default {
       grid-row: 1/2;
       grid-column: 1/3;
     }
+    .background {
+      width: 230px;
+      height: 130px;
+      object-fit: cover;
+    }
   }
   @media only screen and (max-width: 900px) {
     .main-bottom-outer{
-      height: 160vh;
+      grid-template-rows: 200px 1fr;
       grid-template-columns: 1fr;
       grid-template-rows: 1fr 1fr;
     }
+
+
   }
   @media only screen and (max-width: 700px) {
     .main-bottom-outer{
-      height: 180vh;
+      grid-template-rows: 200px 1fr;
+    }
+    .titletext{
+      font-size: 60px;
+      padding: 0;
+    }
+    .subtitletext{
+      font-size: 14px;
+      padding-bottom: 10px;
+    }
+    .undertext{
+      font-size: 12px;
+    }
+    .background {
+      width: 200px;
+      height: 100px;
+      object-fit: cover;
+    }
+  }
+
+
+
+  @media only screen and (max-width: 400px) {
+    .titletext{
+      font-size: 50px;
+      padding: 0;
+    }
+    .subtitletext{
+      font-size: 12px;
+      padding-bottom: 10px;
+    }
+    .undertext{
+      font-size: 10px;
+    }
+    .main-inner {
+      grid-template-columns: 110px 110px;
+      grid-template-rows: 110px 110px 110px 110px;
+    }
+    .main-item{
+      width: 100px;
+      height: 100px;
     }
   }
 </style>

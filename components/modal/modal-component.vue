@@ -134,4 +134,22 @@ export default {
     transform: rotate(360deg);
     cursor: pointer;
   }
+  @media only screen and (max-width: 1200px) {
+  .modal-outer {
+    width: 70vw;
+  }
+  }
+  @media only screen and (max-width: 900px) {
+  .modal-outer {
+    width: 80vw;
+  }
+  }
+  @media only screen and (max-width: 700px) {
+  .modal-outer {
+    width: 95vw;
+  }
+  }
+  @media only screen and (max-width: 400px) {
+
+  }
 </style>

@@ -2,17 +2,19 @@
   <div class="leftbar">
       <div class="top">
         <div v-if="check.data" class="top-inner">
-          <div class="top-top">
+          <nuxt-link class="top-top" :to="`/profile/${check.data.id}`">
             <border-avatar
               :styles="{ transform: 'scale(1.8)' }"
               :permission="check.data.permission"
               :image="check.data.imageurl">
             </border-avatar>
-          </div>
+          </nuxt-link>
           <div class="top-bottom">
             <h5>{{ check.data.nickname }}</h5>
             <h6>{{ check.data.email }}</h6>
+            <h4 @click="onLogout" class="righttext">로그아웃</h4>
           </div>
+
         </div>
         <div v-else class="top-inner">
           <div class="top-top">
@@ -20,6 +22,14 @@
           <div class="top-bottom">
             <h3>MOIJA</h3>
             <h4>세상의 모든 모임</h4>
+            <div class="header-right">
+            <div class="headerdiv">
+              <a @click="openRegister"><h4 class="righttext">회원가입</h4></a>
+            </div>
+            <div class="headerdiv">
+              <a @click="openLogin"><h4 class="righttext">로그인</h4></a>
+            </div>
+          </div>
           </div>
         </div>
       </div>
@@ -44,8 +54,9 @@
 
 <script lang='ts'>
 import Vue from 'vue'
-import { mapState } from 'vuex'
 import BorderAvatar from '../common/border-avatar.vue'
+import { mapState, mapMutations, mapActions } from 'vuex'
+import { createToast } from '../common/createToast'
 
 export default Vue.extend({
   components: { BorderAvatar },
@@ -55,11 +66,41 @@ export default Vue.extend({
   },
   computed:{
     ...mapState(['check', 'maincategory'])
-  }
+  },
+  methods: {
+    ...mapMutations({
+      REGISTER: 'modal/REGISTER',
+      LOGIN: 'modal/LOGIN',
+    }),
+    ...mapActions({
+      CHECK: 'check/CHECK',
+    }),
+    openRegister(){
+      this.REGISTER()
+    },
+    openLogin(){
+      this.LOGIN()
+    },
+    async onLogout(){
+      await localStorage.clear()
+      await this.CHECK()
+      await this.$router.push('/')
+      await createToast('로그아웃')
+    },
+  },
 })
 </script>
 
 <style scoped>
+  .headerdiv {
+    font-size: 15px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .headerdiv.button{
+    position: absolute;
+    z-index: 10;
+  }
   .leftbar{
     position: fixed;
     top:0;
@@ -73,15 +114,21 @@ export default Vue.extend({
     display: grid;
     grid-template-rows: 200px 1fr 1fr;
   }
+  .righttext{
+    font-size:12px;
+    color : #ffe259;
+    padding: 2px;
+    margin: 0;
+    cursor: pointer;
+  }
   .top{
     grid-row: 1/2;
   }
   .top-inner{
     width: 100%;
     height: 100%;
-
     display: grid;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr 2fr;
   }
   .top-top{
     display: flex;
@@ -151,20 +198,5 @@ export default Vue.extend({
       margin: 0 10px;
     }
   }
-  @media only screen and (max-width: 600px) {
-    .leftbar{
-      width: 100px;
-    }
-    .item-name {
-      width: 100%;
-      font-size: 9px;
-    }
-    .top {
-      display: none;
-    }
-    .main-item{
-      margin: 0;
 
-    }
-  }
 </style>

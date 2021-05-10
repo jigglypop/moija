@@ -63,7 +63,7 @@ export default {
     align-items: center;
     margin: 5%;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 100px;
+    grid-template-rows: 400px 200px;
   }
 
   .left{
@@ -92,14 +92,14 @@ export default {
     display: grid;
     justify-content: center;
     text-align: center;
-    align-items: center;
+    align-items: flex-start;
   }
   .right {
     grid-column: 2/3;
     grid-row: 2/3;
 
     display: grid;
-    justify-content: center;
+    justify-content: flex-start;
     text-align: center;
     align-items: center;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -130,12 +130,12 @@ export default {
       height: 120vh;
     }
   }
-  @media only screen and (max-width: 1000px) {
-    .main-mid-outer{
-      grid-template-rows: 1fr 1fr 100px;
-      grid-template-columns: 1fr;
+  @media only screen and (max-width: 900px) {
+    .main-inner {
+      grid-template-columns: 200px 200px;
+      grid-template-rows: 200px 200px  200px  200px;
     }
-    .left{
+      .left{
       grid-row: 1/2;
       grid-column: 1/3;
     }
@@ -147,15 +147,45 @@ export default {
       grid-row: 3/4;
       grid-column: 1/3;
     }
+
   }
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 700px) {
     .mainwrapper{
       height: 180vh;
       margin: 20%;
     }
-    .main-inner {
-      grid-template-columns: 200px 200px;
-      grid-template-rows: 200px 200px  200px  200px;
+
+    .titletext{
+      font-size: 60px;
+      padding: 0;
+    }
+    .subtitletext{
+      font-size: 14px;
+      padding-bottom: 10px;
+    }
+    .undertext{
+      font-size: 12px;
+    }
+  }
+
+  @media only screen and (max-width: 400px) {
+      .main-mid-outer{
+      grid-template-rows: 1fr 1fr 100px;
+      grid-template-columns: 1fr;
+    }
+    .main-mid-outer{
+      grid-template-rows: 380px 200px;
+    }
+    .titletext{
+      font-size: 50px;
+      padding: 0;
+    }
+    .subtitletext{
+      font-size: 12px;
+      padding-bottom: 10px;
+    }
+    .undertext{
+      font-size: 10px;
     }
   }
 </style>

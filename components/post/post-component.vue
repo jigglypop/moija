@@ -228,4 +228,17 @@ export default Vue.extend({
     justify-content: center;
     align-items: center;
   }
+  @media only screen and (max-width: 1200px) {
+  .post-outer {
+    padding: 3%;
+  }
+  }
+  @media only screen and (max-width: 900px) {
+  }
+  @media only screen and (max-width: 700px) {
+
+  }
+  @media only screen and (max-width: 400px) {
+
+  }
 </style>

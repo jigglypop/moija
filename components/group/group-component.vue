@@ -236,6 +236,7 @@ export default Vue.extend({
     padding: 10px;
     grid-row: 2/3;
     display: flex;
+    flex-direction: row;
     justify-content: flex-start;
     text-align: center;
     min-height: 300px;
@@ -243,7 +244,8 @@ export default Vue.extend({
   .joinset{
     padding: 10px;
     border-radius: 10px;
-    max-height: 80px;
+    height: 80px;
+    width: 60px;
 
     display: flex;
     flex-direction: column;
@@ -383,11 +385,31 @@ export default Vue.extend({
       grid-row: 3/4;
       grid-column: 1/3;
     }
+
   }
   @media only screen and (max-width: 900px) {
     .category{
       grid-template-rows: 1fr 1fr 2fr;
       grid-template-columns: 1fr;
+    }
+    .groupouter{
+      margin: 2%;
+    }
+    .content{
+      margin: 5px;
+      padding: 5px;
+    }
+    .info-content{
+      margin: 5px;
+      padding: 5px;
+    }
+    .join-content{
+      margin: 5px;
+      padding: 5px;
+    }
+    .large-list{
+      margin: 5px;
+      padding: 5px;
     }
   }
 

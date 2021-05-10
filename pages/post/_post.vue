@@ -85,4 +85,20 @@ export default Vue.extend({
     align-items: center;
     background-color: #fafafa;
   }
+  @media only screen and (max-width: 1200px) {
+    .post-comment-wrapper{
+      margin: 5%;
+    }
+  }
+  @media only screen and (max-width: 900px) {
+    .post-comment-wrapper{
+      margin: 2%;
+    }
+  }
+  @media only screen and (max-width: 700px) {
+
+  }
+  @media only screen and (max-width: 400px) {
+
+  }
 </style>
