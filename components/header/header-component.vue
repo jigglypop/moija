@@ -60,6 +60,11 @@ export default {
     InnerComponent
   },
   name:'header-component',
+  data(){
+    return {
+      three: ''
+    }
+  },
   computed:{
     ...mapState(['check', 'maincategory'])
   },
@@ -88,9 +93,9 @@ export default {
       const nav = document.querySelector('.nav')
       leftbar.classList.toggle('push')
       nav.classList.toggle('push')
-    }
+    },
   },
-  mounted(){
+  async mounted(){
     const nav = document.querySelector(".nav");
     const fixNav = () => {
       if (window.scrollY > 50) {
@@ -100,6 +105,8 @@ export default {
       }
     };
     window.addEventListener("scroll", fixNav);
+
+
   }
 }
 </script>
@@ -184,6 +191,21 @@ export default {
   .logoundertext{
     margin: 0;
   }
+  .threetext {
+    border: 2px solid #ffe259;
+    padding: 4px;
+    color:#ffe259;
+    font-size: 12px;
+    font-weight: 800;
+  }
+  .threebutton:hover{
+    cursor:pointer;
+    box-shadow: 0 0 10px#ffe259;
+
+  }
+  .logoundertext{
+    margin: 0;
+  }
   .logout{
     transition: all 0.3s ease-in-out;
   }
@@ -205,6 +227,9 @@ export default {
     border-bottom: 2px solid#ffe259;
   }
   @media only screen and (max-width: 1200px) {
+    .threebutton{
+      display: none;
+    }
     .nav.push{
       left: 150px;
     }

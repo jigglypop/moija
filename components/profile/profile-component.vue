@@ -3,13 +3,15 @@
     <div v-if="profile.data" class="profileinner">
       <div class="left">
         <div class="left-top">
-          <profile-avatar
-          :width="'200px'"
-          :height="'200px'"
-          :permission="profile.data.permission"
-          :image="profile.data.imageurl !== null && profile.data.imageurl !== '' ? profile.data.imageurl : null">
-          </profile-avatar>
-          <h1 class="nickname">{{profile.data.nickname}} </h1>
+          <div class="avatar-top">
+            <profile-avatar
+            :width="'200px'"
+            :height="'200px'"
+            :permission="profile.data.permission"
+            :image="profile.data.imageurl !== null && profile.data.imageurl !== '' ? profile.data.imageurl : null">
+            </profile-avatar>
+            <h1 class="nickname">{{profile.data.nickname}} </h1>
+          </div>
         </div>
         <div class="left-name">
           <h1 class="email">{{profile.data.email}}</h1>
@@ -18,13 +20,14 @@
             v-if="check.data && check.data.username !== profile.data.username">
           </follow-profile>
           <glass-button
-            v-if="check.data && check.data.username === profile.data.username">
+            v-if="check.data && check.data.username === profile.data.username"
+            :styles="{background: '#ffe259' }">
             <nuxt-link :to="`/updateprofile/${profile.data.id}`"><h3>프로필 변경하기</h3></nuxt-link>
           </glass-button>
         </div>
         <div class="left-info">
           <div class="info-wrapper" >
-            <h4>{{profile.data.info !== null ? profile.data.info : '자기소개가 없습니다.'}}</h4>
+            <h2>{{profile.data.info !== null ? profile.data.info : '자기소개가 없습니다.'}}</h2>
           </div>
         </div>
       </div>
@@ -73,11 +76,13 @@ export default Vue.extend({
     height: 100%;
     margin: 5%;
     background-color: black;
+
   }
   .profileinner{
     position: relative;
     display: grid;
     grid-template-rows: 1fr 1fr;
+
   }
   .left {
     grid-row: 1/2;
@@ -87,7 +92,11 @@ export default Vue.extend({
     display: grid;
     grid-template-rows: 3fr 2fr;
     grid-template-columns: 1fr 1fr;
+    margin: 30px;
+    padding: 10px;
+    background: #141414;
   }
+
   .left-top{
     grid-row: 1/2;
     grid-column: 1/3;
@@ -95,6 +104,15 @@ export default Vue.extend({
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
+  }
+  .avatar-top{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: black;
+    padding: 30px;
   }
   .left-name{
     grid-row: 2/3;
@@ -152,7 +170,7 @@ export default Vue.extend({
   }
   @media only screen and (max-width: 1200px) {
     .profileinner{
-      grid-template-rows: 1fr 1fr;
+      grid-template-rows: 1fr 4fr;
     }
     .left{
       grid-row: 1/2;

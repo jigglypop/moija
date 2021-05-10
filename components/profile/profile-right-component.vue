@@ -2,7 +2,7 @@
   <div class="profile-right-component-wrapper"  v-if="profile.data">
     <div class="top-left" v-if="profile.data.followers">
       <div class="item-top"  >
-        <h4>팔로워: {{ profile.data.followers.length }}명</h4>
+        <h4 class="title-text">팔로워: {{ profile.data.followers.length }}명</h4>
       </div>
       <div class="item-bottom">
         <div class="border-avatar">
@@ -14,7 +14,7 @@
     </div>
     <div class="top-right" v-if="profile.data.followings">
       <div class="item-top">
-        <h4>팔로잉: {{ profile.data.followings.length }}명</h4>
+        <h4 class="title-text">팔로잉: {{ profile.data.followings.length }}명</h4>
       </div>
       <div class="item-bottom">
         <div class="border-avatar">
@@ -26,23 +26,17 @@
     </div>
     <div class="mid-left" v-if="profile.data.groups">
       <div class="item-top">
-        <h4>가입한 그룹: {{ profile.data.groups.length }}개</h4>
+        <h4 class="title-text">가입한 그룹: {{ profile.data.groups.length }}개</h4>
       </div>
       <div class="item-bottom">
-        <nuxt-link :to="`/group/${group.id}`" v-for="group in profile.data.groups" :key="group.id" class="innerpost">
-          <h5>{{ group.name }}</h5>
-        </nuxt-link>
+          <profile-group-item :group="group" v-for="group in profile.data.groups" :key="group.id"></profile-group-item>
       </div>
     </div>
     <div class="mid-right" v-if="profile.data.posts" >
       <div class="item-top">
-        <h4>좋아요: {{ profile.data.posts.length }}개</h4>
+        <h4 class="title-text">좋아요: {{ profile.data.posts.length }}개</h4>
       </div>
-      <div class="item-bottom">
-        <nuxt-link :to="`/post/${post.id}`" v-for="post in profile.data.posts" :key="post.id" class="innerpost">
-          <h5>{{ post.title }}</h5>
-        </nuxt-link>
-      </div>
+      <profile-post-item :posts="profile.data.posts"></profile-post-item>
     </div>
     <div class="bottom-left">
 
@@ -62,10 +56,12 @@ import GlassButton from '../common/glass-button.vue'
 import LoadingComponent from '../common/loading-component.vue'
 import ProfileAvatar from '../common/profile-avatar.vue'
 import WaveButton from '../common/wave-button.vue'
+import ProfileGroupItem from './profile-group-item.vue'
+import ProfilePostItem from './profile-post-item.vue'
 
 export default Vue.extend({
   name: 'profile-right-component',
-  components: { ProfileAvatar, LoadingComponent, WaveButton, GlassButton, BorderAvatar },
+  components: { ProfileAvatar, LoadingComponent, WaveButton, GlassButton, BorderAvatar, ProfilePostItem, ProfileGroupItem },
   computed:{
     ...mapState(['profile'])
   },
@@ -89,13 +85,7 @@ export default Vue.extend({
   }
   .item-bottom{
     grid-row: 2/3;
-
     margin: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items:  flex-start;
-    text-align: center;
   }
   .top-left{
     grid-row: 1/2;
@@ -162,16 +152,37 @@ export default Vue.extend({
   .innerpost {
     position: relative;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
-    padding: 10px 0;
-    border-bottom: 2px solid white;
+    /* border-bottom: 2px solid white; */
+  }
+
+  .title-text{
+    font-size: 20px;
+    font-weight: 800;
+    color: #00d2ff;;
+    text-shadow: 0 0 10px #00d2ff;;
   }
 
   @media only screen and (max-width: 1200px) {
-
-  }
-  @media only screen and (max-width: 600px) {
-
+    .profile-right-component-wrapper{
+      grid-template-rows: 1fr 1fr 2fr 2fr;
+    }
+    .top-left{
+      grid-row: 1/2;
+      grid-column: 1/3;
+    }
+    .top-right{
+      grid-row: 2/3;
+      grid-column: 1/3;
+    }
+    .mid-left{
+      grid-row: 3/4;
+      grid-column: 1/3;
+    }
+    .mid-right{
+      grid-row: 4/5;
+      grid-column: 1/3;
+    }
   }
 </style>

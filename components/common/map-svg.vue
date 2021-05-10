@@ -1,4 +1,5 @@
 <template>
+  <div class="map-outer">
     <svg width="524.23737" height="630.5871" filter="url(#f2)" @mouseover="onHover">
       <defs>
         <filter id="f2" x="0" y="0" width="200%" height="200%">
@@ -77,7 +78,7 @@
           class="Sejong"
           id="KR-50" />
     </svg>
-
+  </div>
 </template>
 
 <script lang='ts'>
@@ -108,12 +109,18 @@ export default {
 </script>
 
 <style scoped>
-  .mapouter{
-    /* transition: all 1s ease-in-out; */
+  .map-outer{
+    border: 2px solid #78ffd6;
     padding: 0;
+    width: 400px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
   }
   svg{
-    transform: scale(0.7);
+    transform: scale(0.45);
   }
   path {
     fill:#141414;

@@ -4,10 +4,10 @@
 ```
 
 sudo snap install docker
-docker build -t ydh2244/moija:0955 .
+docker build -t ydh2244/moija:0555 .
 docker run -d -p 8000:8000 ydh2244/moija
 
-docker push ydh2244/moija
+docker push ydh2244/moija:0555
 ```
 
 * 모든 컨테이너 삭제하기

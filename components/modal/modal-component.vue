@@ -104,7 +104,7 @@ export default {
     background-color: rgba(0, 0, 0, 0.9);
     border-radius:10px;
     width: 60vw;
-    height: 70vh;
+    height: 80vh;
     display: grid;
     grid-template-rows: 50px 1fr;
   }

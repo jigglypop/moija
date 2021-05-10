@@ -58,7 +58,7 @@ export default Vue.extend({
   computed:{
   },
   mounted(){
-
+    console.log(this.post)
   }
 })
 </script>

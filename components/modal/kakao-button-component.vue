@@ -6,6 +6,7 @@
 
 <script>
 import Vue from 'vue'
+import { SERVER_URL } from '~/api/constants'
 
 export default Vue.extend({
   name:"kakao-button-component",
@@ -17,7 +18,7 @@ export default Vue.extend({
   methods:{
     async kakaoLogin(){
       await window.Kakao.Auth.login({
-        redirectUri: 'http://localhost:8000/kakao',
+        redirectUri: SERVER_URL + '/kakao',
       })
     }
   }

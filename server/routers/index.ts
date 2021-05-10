@@ -9,6 +9,7 @@ import likeRouter from "./like";
 import maincategoryRouter from "./maincategory";
 import locationRouter from "./location";
 import profileRouter from "./profile";
+import swaggerRouter from "./profile";
 
 const rootRouter = express();
 
@@ -22,5 +23,6 @@ rootRouter.use('/like', likeRouter)
 rootRouter.use('/maincategory', maincategoryRouter)
 rootRouter.use('/location', locationRouter)
 rootRouter.use('/profile', profileRouter)
+rootRouter.use('/swagger', swaggerRouter)
 
 export default rootRouter;

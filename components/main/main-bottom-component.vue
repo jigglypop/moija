@@ -28,18 +28,17 @@ export default {
 
 <style scoped>
   .main-bottom-outer{
+    position: relative;
     grid-row:3/4;
+
+    width: 90vw;
     height: 100vh;
     display: grid;
     justify-content: center;
     text-align: center;
     align-items: center;
-    margin: 5%;
+    margin-top: 5%;
     grid-template-columns: 1fr 1fr;
-    border-style: solid;
-    border-image: linear-gradient(45deg, #ffe259, #ffa751);
-    border-image-slice: 1;
-    border-image-width: 2px;
   }
   .main {
     width: 100%;

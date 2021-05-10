@@ -53,7 +53,9 @@ export default {
 
 <style scoped>
   .main-mid-outer{
+    position: relative;
     grid-row:2/3;
+    width: 90vw;
     height: 100vh;
     display: grid;
     justify-content: center;
@@ -62,11 +64,6 @@ export default {
     margin: 5%;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 100px;
-
-    border-style: solid;
-    border-image: linear-gradient(45deg, #ffe259, #ffa751);
-    border-image-slice: 1;
-    border-image-width: 2px;
   }
 
   .left{
@@ -98,7 +95,6 @@ export default {
     align-items: center;
   }
   .right {
-    transform: translateY(-100px);
     grid-column: 2/3;
     grid-row: 2/3;
 
@@ -106,7 +102,7 @@ export default {
     justify-content: center;
     text-align: center;
     align-items: center;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
 
   }
   .right-inner{
@@ -119,12 +115,16 @@ export default {
     border: 2px solid gray;
     transition: all 0.2s ease-in;
   }
+  .location-text-item:hover{
+    color: #ED213A;
+    border: 2px solid #ED213A;
+    box-shadow: 0 0 20px #ED213A;
+  }
   .location-text-item.light{
     color: #ED213A;
     border: 2px solid #ED213A;
     box-shadow: 0 0 20px #ED213A;
   }
-
   @media only screen and (max-width: 1200px) {
     .main-mid-outer{
       height: 120vh;

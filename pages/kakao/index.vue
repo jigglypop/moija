@@ -9,6 +9,7 @@ import Vue from 'vue'
 import kakaoComponent from '~/components/kakao/kakao-component.vue'
 import { kakaoApi } from '../../api/kakao'
 import { mapState, mapActions, mapMutations } from 'vuex'
+import { SERVER_URL } from '~/api/constants'
 
 export default Vue.extend({
   components: { kakaoComponent },
@@ -75,7 +76,7 @@ export default Vue.extend({
     },
     kakaoLogin(){
       window.Kakao.Auth.login({
-        redirectUri: 'http://localhost:8000/kakao',
+        redirectUri: SERVER_URL + '/kakao',
       })
     }
   },
